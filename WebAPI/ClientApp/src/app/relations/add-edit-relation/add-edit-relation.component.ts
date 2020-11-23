@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditRelationComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
+
+  @Input() relation: any;
+  RelationName: string;
 
   ngOnInit(): void {
+
+    this.RelationName = this.relation.RelationName;
   }
 
 }

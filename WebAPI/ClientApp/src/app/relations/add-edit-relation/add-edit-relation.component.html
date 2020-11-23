@@ -1,1 +1,15 @@
-<p>add-edit-relation works!</p>
+<div class="form-froup row">
+  <label class="col-sm-2 col-form-label">Relation name</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" [(ngModel)]="RelationName" placeholder="Enter relation name" />
+  </div>
+</div>
+
+<!--<button (click)="addRelation()" ngIf="relation.RelationId==0" class="btn btn-primary"></button>-->
+<button class="btn btn-primary float-left m-2">Add new relation</button>
+
+<button class="btn btn-primary m-2">Delete relation</button>
+
+
+<!--<button (click)="addRelation()" ngIf="relation.RelationId!=0" class="btn btn-primary"></button>-->
+<button class="btn btn-primary float-right m-2">Update relation</button>
