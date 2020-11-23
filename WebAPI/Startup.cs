@@ -12,6 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Configuration;
+using WebAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
 {
@@ -40,6 +43,9 @@ namespace WebAPI
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.AddControllers();
+
+            services.AddDbContext<TestContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
             #region Swagger
             services.AddSwaggerGen(c =>
