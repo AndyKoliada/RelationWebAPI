@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using WebAPI.Models;
 
 namespace WebAPI.Models
 {
@@ -447,5 +448,7 @@ namespace WebAPI.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<WebAPI.Models.ViewRelation> ViewRelation { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { SharedService } from '../../shared.service';
+//import { SharedService } from '/src/app/shared.service';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -7,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AddEditRelationComponent implements OnInit {
 
-  constructor() {}
+  constructor(private service: SharedService) { }
 
   @Input() relation: any;
   RelationName: string;
@@ -17,4 +19,9 @@ export class AddEditRelationComponent implements OnInit {
     this.RelationName = this.relation.RelationName;
   }
 
+  //1:07:24
+  addRelaion() {
+  }
+
+  updateRelation() { }
 }

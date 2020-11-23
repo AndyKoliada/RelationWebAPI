@@ -13,23 +13,25 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]>{
-  return this.http.get<any>(this.ApiUrl + '/relation');
+    var result = this.http.get<any[]>(this.ApiUrl + '/relations');
+    debugger;
+    return result;
   }
 
   addRelation(val: any) {
-    return this.http.post(this.ApiUrl + '/relation', val);
+    return this.http.post(this.ApiUrl + '/relations', val);
   }
 
   updateRelation(val: any) {
-    return this.http.put(this.ApiUrl + '/relation', val);
+    return this.http.put(this.ApiUrl + '/relations', val);
   }
 
   deleteRelation(val: any) {
-    return this.http.delete(this.ApiUrl + '/relation', val);
+    return this.http.delete(this.ApiUrl + '/relations', val);
   }
 
-  //getAllRelationsNames(): Observable<any[]> {
-  //  return this.http.get<any[]>(this.ApiUrl + '/relation');
-  //}
+  getAllRelationsNames(): Observable<any[]> {
+    return this.http.get<any[]>(this.ApiUrl + '/relations');
+  }
 
 }
