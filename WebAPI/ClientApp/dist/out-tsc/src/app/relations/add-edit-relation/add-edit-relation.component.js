@@ -5,10 +5,11 @@ let AddEditRelationComponent = class AddEditRelationComponent {
         this.service = service;
     }
     ngOnInit() {
-        this.RelationName = this.relation.RelationName;
+        this.RelationName = this.relation.Name;
+        //this.RelationName = this.relation.Name;
     }
     //1:07:24
-    addRelaion() {
+    addRelation() {
     }
     updateRelation() { }
 };
