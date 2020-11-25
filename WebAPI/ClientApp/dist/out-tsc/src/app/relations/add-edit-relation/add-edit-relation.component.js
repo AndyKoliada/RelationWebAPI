@@ -5,13 +5,27 @@ let AddEditRelationComponent = class AddEditRelationComponent {
         this.service = service;
     }
     ngOnInit() {
-        this.RelationName = this.relation.Name;
-        //this.RelationName = this.relation.Name;
+        this.RelationName = this.RelationName;
+        this.RelationId = this.RelationId;
     }
-    //1:07:24
     addRelation() {
+        var val = {
+            RelationId: this.RelationId,
+            RelationName: this.RelationName,
+        };
+        this.service.addRelation(val).subscribe(res => {
+            alert(res.toString());
+        });
     }
-    updateRelation() { }
+    updateRelation() {
+        var val = {
+            RelationId: this.RelationId,
+            RelationName: this.RelationName,
+        };
+        this.service.updateRelation(val).subscribe(res => {
+            alert(res.toString());
+        });
+    }
 };
 __decorate([
     Input()

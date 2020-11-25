@@ -15,16 +15,16 @@ AppModule = __decorate([
     NgModule({
         declarations: [
             AppComponent,
-            RelationsComponent,
             ShowRelationComponent,
+            RelationsComponent,
             AddEditRelationComponent
         ],
         imports: [
             BrowserModule,
             HttpClientModule,
+            RouterModule.forRoot([{ path: '', component: RelationsComponent }]),
             FormsModule,
-            ReactiveFormsModule,
-            RouterModule.forRoot([{ path: 'relations', component: RelationsComponent }])
+            ReactiveFormsModule
         ],
         providers: [SharedService],
         bootstrap: [AppComponent]

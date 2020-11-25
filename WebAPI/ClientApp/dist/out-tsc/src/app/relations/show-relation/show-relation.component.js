@@ -11,7 +11,8 @@ let ShowRelationComponent = class ShowRelationComponent {
     }
     addClick() {
         this.relation = {
-            RelationName: ""
+            /*       Id: uuidv4(), */
+            Name: ""
         };
         this.ModalTitle = "Add relation";
         this.ActivateAddEditRelationsComponent = true;
@@ -27,7 +28,7 @@ let ShowRelationComponent = class ShowRelationComponent {
     }
     refreshRelationsList() {
         this.service.getRelationsList().subscribe(data => {
-            console.log(data);
+            /* console.log(data); */
             this.RelationsList = data;
         });
     }

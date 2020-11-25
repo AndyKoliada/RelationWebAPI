@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-show-relation',
@@ -22,10 +23,12 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      RelationName:""
+      Id: uuidv4(),
+      Name: ""
     }
+
     this.ModalTitle= "Add relation";
-    this.ActivateAddEditRelationsComponent= true;
+    this.ActivateAddEditRelationsComponent = true;
   }
 
   closeClick() {
@@ -41,7 +44,7 @@ export class ShowRelationComponent implements OnInit {
 
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
-      console.log(data);
+      /* console.log(data); */
       this.RelationsList = data;
     });
   }
