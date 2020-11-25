@@ -3,13 +3,8 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Country
+    public partial class TblCountry
     {
-        public Country()
-        {
-            RelationAddress = new HashSet<RelationAddress>();
-        }
-
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
@@ -23,7 +18,5 @@ namespace WebAPI.Models
         public string Iso31663 { get; set; }
         public Guid? DefaultVatId { get; set; }
         public string PostalCodeFormat { get; set; }
-
-        public virtual ICollection<RelationAddress> RelationAddress { get; set; }
     }
 }

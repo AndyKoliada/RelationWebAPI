@@ -23,8 +23,8 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      Id: 0,
-      Name: ""
+      //Id: 0,
+      Name: ''
     }
 
     this.ModalTitle= "Add relation";
@@ -58,7 +58,6 @@ export class ShowRelationComponent implements OnInit {
 
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
-      /* console.log(data); */
       this.RelationsList = data;
     });
   }

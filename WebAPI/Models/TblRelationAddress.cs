@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class RelationAddress
+    public partial class TblRelationAddress
     {
         public Guid RelationId { get; set; }
         public Guid AddressTypeId { get; set; }
@@ -18,9 +18,5 @@ namespace WebAPI.Models
         public string CountryName { get; set; }
         public double? Longitude { get; set; }
         public double? Latitude { get; set; }
-
-        public virtual AddressType AddressType { get; set; }
-        public virtual Country Country { get; set; }
-        public virtual Relation Relation { get; set; }
     }
 }

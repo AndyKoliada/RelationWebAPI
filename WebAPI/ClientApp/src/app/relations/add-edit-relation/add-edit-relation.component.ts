@@ -6,6 +6,8 @@ import { SharedService } from '../../shared.service';
   templateUrl: './add-edit-relation.component.html',
   styleUrls: ['./add-edit-relation.component.css']
 })
+
+
 export class AddEditRelationComponent implements OnInit {
 
   constructor(private service: SharedService) { }
@@ -21,18 +23,25 @@ export class AddEditRelationComponent implements OnInit {
   Street: string;
   PostalCode: string;
   StreetNumber: string;
+  IsDisabled: boolean;
 
   ngOnInit(): void {
 
-    this.Id = this.Id;
-    this.Name = this.Name;
-    this.FullName = this.FullName;
+    this.Id = this.relation.Id,
+    this.Name = this.relation.Name,
+    this.FullName = this.relation.FullName,
+    this.TelephoneNumber = this.relation.TelephoneNumber,
+    this.Email = this.relation.Email,
+    this.Country = this.relation.Country,
+    this.City = this.relation.City,
+    this.Street = this.relation.Street,
+    this.PostalCode = this.relation.PostalCode,
+    this.StreetNumber = this.relation.StreetNumber
   }
 
 
   addRelation() {
     var val = {
-      Id:this.Id,
       Name:this.Name,
       FullName:this.FullName,
       TelephoneNumber:this.TelephoneNumber,
@@ -42,15 +51,6 @@ export class AddEditRelationComponent implements OnInit {
       Street:this.Street,
       PostalCode:this.PostalCode,
       StreetNumber:this.StreetNumber
-
-/*       // CreatedAt, 
-      // CreatedBy, 
-      // IsDisabled, 
-      // IsTemporary, 
-      // IsMe, 
-      // PaymentViaAutomaticDebit, 
-      // InvoiceDateGenerationOptions, 
-      // InvoiceGroupByOptions */
     };
     this.service.addRelation(val).subscribe(res=>{
       alert(res.toString())
@@ -69,14 +69,6 @@ export class AddEditRelationComponent implements OnInit {
       Street:this.Street,
       PostalCode:this.PostalCode,
       StreetNumber:this.StreetNumber
-/*       // CreatedAt, 
-      // CreatedBy, 
-      // IsDisabled, 
-      // IsTemporary, 
-      // IsMe, 
-      // PaymentViaAutomaticDebit, 
-      // InvoiceDateGenerationOptions, 
-      // InvoiceGroupByOptions */
     };
     this.service.updateRelation(val).subscribe(res=>{
       alert(res.toString())

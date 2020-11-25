@@ -7,10 +7,10 @@ let SharedService = class SharedService {
         this.ApiAlias = "/relations";
     }
     getRelationsList() {
-        //var result =
+        /*     //var result = */
         return this.http.get(this.ApiUrl + this.ApiAlias);
-        //debugger;
-        //return result;
+        /*     //debugger;
+            //return result; */
     }
     addRelation(val) {
         return this.http.post(this.ApiUrl + this.ApiAlias, val);

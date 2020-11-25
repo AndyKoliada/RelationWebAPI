@@ -3,14 +3,8 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Relation
+    public partial class TblRelation
     {
-        public Relation()
-        {
-            RelationAddress = new HashSet<RelationAddress>();
-            RelationCategory = new HashSet<RelationCategory>();
-        }
-
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
@@ -118,8 +112,5 @@ namespace WebAPI.Models
         public string SupplyNumber { get; set; }
         public Guid? ThirdPartyToUseForInvoicing { get; set; }
         public int? Flags { get; set; }
-
-        public virtual ICollection<RelationAddress> RelationAddress { get; set; }
-        public virtual ICollection<RelationCategory> RelationCategory { get; set; }
     }
 }

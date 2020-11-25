@@ -3,13 +3,8 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Category
+    public partial class TblAddressType
     {
-        public Category()
-        {
-            RelationCategory = new HashSet<RelationCategory>();
-        }
-
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
@@ -37,7 +32,5 @@ namespace WebAPI.Models
         public DateTime? Timestamp2 { get; set; }
         public DateTime? Timestamp3 { get; set; }
         public DateTime? Timestamp4 { get; set; }
-
-        public virtual ICollection<RelationCategory> RelationCategory { get; set; }
     }
 }

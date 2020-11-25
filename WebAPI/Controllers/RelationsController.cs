@@ -13,46 +13,46 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RelationsController : ControllerBase
     {
-        private readonly TestContext _context;
+        private readonly testContext _context;
 
-        public RelationsController(TestContext context)
+        public RelationsController(testContext context)
         {
             _context = context;
         }
 
         // GET: api/Relations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
-        {
-            return await _context.Relation.ToListAsync();
+        public async Task<ActionResult<IEnumerable<TblRelation>>> GetTblRelation()
+        {   
+            return await _context.TblRelation.Where(a => a.IsDisabled == false).ToListAsync();
         }
 
         // GET: api/Relations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Relation>> GetRelation(Guid id)
+        public async Task<ActionResult<TblRelation>> GetTblRelation(Guid id)
         {
-            var relation = await _context.Relation.FindAsync(id);
+            var tblRelation = await _context.TblRelation.FindAsync(id);
 
-            if (relation == null)
+            if (tblRelation == null)
             {
                 return NotFound();
             }
 
-            return relation;
+            return tblRelation;
         }
 
         // PUT: api/Relations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelation(Guid id, Relation relation)
+        public async Task<IActionResult> PutTblRelation(Guid id, TblRelation tblRelation)
         {
-            if (id != relation.Id)
+            if (id != tblRelation.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(relation).State = EntityState.Modified;
+            _context.Entry(tblRelation).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RelationExists(id))
+                if (!TblRelationExists(id))
                 {
                     return NotFound();
                 }
@@ -77,16 +77,27 @@ namespace WebAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Relation>> PostRelation(Relation relation)
+        public async Task<ActionResult<TblRelation>> PostTblRelation(TblRelation tblRelation)
         {
-            _context.Relation.Add(relation);
+            tblRelation.Id = Guid.NewGuid();
+            tblRelation.InvoiceDateGenerationOptions = 1;
+            tblRelation.InvoiceGroupByOptions = 1;
+            tblRelation.PaymentViaAutomaticDebit = false;
+            tblRelation.IsMe = false;
+            tblRelation.IsTemporary = false;
+            tblRelation.IsDisabled = false;
+            tblRelation.CreatedAt = DateTime.Now;
+            tblRelation.CreatedBy = "Admin";
+
+
+            _context.TblRelation.Add(tblRelation);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (RelationExists(relation.Id))
+                if (TblRelationExists(tblRelation.Id))
                 {
                     return Conflict();
                 }
@@ -96,28 +107,30 @@ namespace WebAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
+            return CreatedAtAction("GetTblRelation", new { id = tblRelation.Id }, tblRelation);
         }
 
         // DELETE: api/Relations/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
+        public async Task<ActionResult<TblRelation>> DeleteTblRelation(Guid id)
         {
-            var relation = await _context.Relation.FindAsync(id);
-            if (relation == null)
+            var tblRelation = await _context.TblRelation.FindAsync(id);
+            if (tblRelation == null)
             {
                 return NotFound();
             }
 
-            _context.Relation.Remove(relation);
+            tblRelation.IsDisabled = true;
+
+            //_context.TblRelation.Remove(tblRelation);
             await _context.SaveChangesAsync();
 
-            return relation;
+            return tblRelation;
         }
 
-        private bool RelationExists(Guid id)
+        private bool TblRelationExists(Guid id)
         {
-            return _context.Relation.Any(e => e.Id == id);
+            return _context.TblRelation.Any(e => e.Id == id);
         }
     }
 }

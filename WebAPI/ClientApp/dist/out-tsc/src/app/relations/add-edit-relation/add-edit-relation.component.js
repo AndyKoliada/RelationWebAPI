@@ -5,13 +5,29 @@ let AddEditRelationComponent = class AddEditRelationComponent {
         this.service = service;
     }
     ngOnInit() {
-        this.RelationName = this.RelationName;
-        this.RelationId = this.RelationId;
+        this.Id = this.relation.Id,
+            this.Name = this.relation.Name,
+            this.FullName = this.relation.FullName,
+            this.TelephoneNumber = this.relation.TelephoneNumber,
+            this.Email = this.relation.Email,
+            this.Country = this.relation.Country,
+            this.City = this.relation.City,
+            this.Street = this.relation.Street,
+            this.PostalCode = this.relation.PostalCode,
+            this.StreetNumber = this.relation.StreetNumber;
     }
     addRelation() {
         var val = {
-            RelationId: this.RelationId,
-            RelationName: this.RelationName,
+            Id: this.Id,
+            Name: this.Name,
+            FullName: this.FullName,
+            TelephoneNumber: this.TelephoneNumber,
+            Email: this.Email,
+            Country: this.Country,
+            City: this.City,
+            Street: this.Street,
+            PostalCode: this.PostalCode,
+            StreetNumber: this.StreetNumber
         };
         this.service.addRelation(val).subscribe(res => {
             alert(res.toString());
@@ -19,8 +35,16 @@ let AddEditRelationComponent = class AddEditRelationComponent {
     }
     updateRelation() {
         var val = {
-            RelationId: this.RelationId,
-            RelationName: this.RelationName,
+            Id: this.Id,
+            Name: this.Name,
+            FullName: this.FullName,
+            TelephoneNumber: this.TelephoneNumber,
+            Email: this.Email,
+            Country: this.Country,
+            City: this.City,
+            Street: this.Street,
+            PostalCode: this.PostalCode,
+            StreetNumber: this.StreetNumber
         };
         this.service.updateRelation(val).subscribe(res => {
             alert(res.toString());

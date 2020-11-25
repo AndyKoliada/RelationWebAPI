@@ -13,8 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
-using WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Models;
 
 namespace WebAPI
 {
@@ -44,7 +44,7 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddDbContext<TestContext>(options =>
+            services.AddDbContext<testContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
             #region Swagger

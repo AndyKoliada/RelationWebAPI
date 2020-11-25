@@ -1,27 +1,26 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using WebAPI.Models;
 
 namespace WebAPI.Models
 {
-    public partial class TestContext : DbContext
+    public partial class testContext : DbContext
     {
-        public TestContext()
+        public testContext()
         {
         }
 
-        public TestContext(DbContextOptions<TestContext> options)
+        public testContext(DbContextOptions<testContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<AddressType> AddressType { get; set; }
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Country> Country { get; set; }
-        public virtual DbSet<Relation> Relation { get; set; }
-        public virtual DbSet<RelationAddress> RelationAddress { get; set; }
-        public virtual DbSet<RelationCategory> RelationCategory { get; set; }
+        public virtual DbSet<TblAddressType> TblAddressType { get; set; }
+        public virtual DbSet<TblCategory> TblCategory { get; set; }
+        public virtual DbSet<TblCountry> TblCountry { get; set; }
+        public virtual DbSet<TblRelation> TblRelation { get; set; }
+        public virtual DbSet<TblRelationAddress> TblRelationAddress { get; set; }
+        public virtual DbSet<TblRelationCategory> TblRelationCategory { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -33,12 +32,12 @@ namespace WebAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AddressType>(entity =>
+            modelBuilder.Entity<TblAddressType>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToTable("tblAddressType");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Code1)
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -94,12 +93,12 @@ namespace WebAPI.Models
                 entity.Property(e => e.Timestamp4).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<Category>(entity =>
+            modelBuilder.Entity<TblCategory>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToTable("tblCategory");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Code1)
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -155,11 +154,11 @@ namespace WebAPI.Models
                 entity.Property(e => e.Timestamp4).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<Country>(entity =>
+            modelBuilder.Entity<TblCountry>(entity =>
             {
-                entity.ToTable("tblCountry");
+                entity.HasNoKey();
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.ToTable("tblCountry");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -198,12 +197,9 @@ namespace WebAPI.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Relation>(entity =>
+            modelBuilder.Entity<TblRelation>(entity =>
             {
                 entity.ToTable("tblRelation");
-
-                entity.HasIndex(e => e.Id)
-                    .HasName("IX_tblRelation");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -373,9 +369,9 @@ namespace WebAPI.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<RelationAddress>(entity =>
+            modelBuilder.Entity<TblRelationAddress>(entity =>
             {
-                entity.HasKey(e => new { e.RelationId, e.AddressTypeId });
+                entity.HasNoKey();
 
                 entity.ToTable("tblRelationAddress");
 
@@ -406,49 +402,18 @@ namespace WebAPI.Models
                 entity.Property(e => e.Street)
                     .HasMaxLength(255)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.AddressType)
-                    .WithMany(p => p.RelationAddress)
-                    .HasForeignKey(d => d.AddressTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblRelationAddress_tblAddressType");
-
-                entity.HasOne(d => d.Country)
-                    .WithMany(p => p.RelationAddress)
-                    .HasForeignKey(d => d.CountryId)
-                    .HasConstraintName("FK_tblRelationAddress_tblCountry");
-
-                entity.HasOne(d => d.Relation)
-                    .WithMany(p => p.RelationAddress)
-                    .HasForeignKey(d => d.RelationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblRelationAddress_tblRelation");
             });
 
-            modelBuilder.Entity<RelationCategory>(entity =>
+            modelBuilder.Entity<TblRelationCategory>(entity =>
             {
-                entity.HasKey(e => new { e.RelationId, e.CategoryId });
+                entity.HasNoKey();
 
                 entity.ToTable("tblRelationCategory");
-
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.RelationCategory)
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblRelationCategory_tblCategory");
-
-                entity.HasOne(d => d.Relation)
-                    .WithMany(p => p.RelationCategory)
-                    .HasForeignKey(d => d.RelationId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_tblRelationCategory_tblRelation");
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<WebAPI.Models.ViewRelation> ViewRelation { get; set; }
     }
 }
