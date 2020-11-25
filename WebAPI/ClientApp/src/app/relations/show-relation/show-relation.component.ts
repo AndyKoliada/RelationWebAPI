@@ -23,7 +23,7 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      Id: uuidv4(),
+      Id: 0,
       Name: ""
     }
 
@@ -40,6 +40,20 @@ export class ShowRelationComponent implements OnInit {
     this.relation = item;
     this.ModalTitle = "Edit relation";
     this.ActivateAddEditRelationsComponent = true;
+  }
+
+  deleteClick(item) {
+    if(confirm('Are you sure?'))
+    {
+      this.service.deleteRelation(item.Id).subscribe(data=>{
+        alert(data.toString());
+        this.refreshRelationsList();
+      });
+
+    }
+/*     this.relation = item;
+    this.ModalTitle = "Delete relation";
+    this.ActivateAddEditRelationsComponent = true; */
   }
 
   refreshRelationsList() {
