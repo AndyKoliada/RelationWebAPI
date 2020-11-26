@@ -114,18 +114,18 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {
-            var tblRelation = await _context.Relation.FindAsync(id);
-            if (tblRelation == null)
+            var relation = await _context.Relation.FindAsync(id);
+            if (relation == null)
             {
                 return NotFound();
             }
 
-            tblRelation.IsDisabled = true;
+            relation.IsDisabled = true;
 
             //_context.TblRelation.Remove(tblRelation);
             await _context.SaveChangesAsync();
 
-            return tblRelation;
+            return relation;
         }
 
         private bool RelationExists(Guid id)

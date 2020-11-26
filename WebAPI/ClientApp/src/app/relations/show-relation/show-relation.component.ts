@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { v4 as uuidv4 } from 'uuid';
-
+import { RelationsComponent } from '../relations.component';
+//https://metanit.com/web/angular2/9.2.php
 @Component({
   selector: 'app-show-relation',
   templateUrl: './show-relation.component.html',
@@ -23,7 +24,7 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      //Id: 0,
+      Id: 0,
       Name: ''
     }
 
@@ -43,17 +44,18 @@ export class ShowRelationComponent implements OnInit {
   }
 
   deleteClick(item) {
-    if(confirm('Are you sure?'))
-    {
-      this.service.deleteRelation(item.Id).subscribe(data=>{
+    if(true) //confirm('Are you sure?')
+    { 
+      this.relation = item;
+      this.service.deleteRelation(item.id).subscribe(data=>{
         alert(data.toString());
-        this.refreshRelationsList();
+        
       });
 
     }
-/*     this.relation = item;
+    
     this.ModalTitle = "Delete relation";
-    this.ActivateAddEditRelationsComponent = true; */
+    //this.ActivateAddEditRelationsComponent = false;
   }
 
   refreshRelationsList() {

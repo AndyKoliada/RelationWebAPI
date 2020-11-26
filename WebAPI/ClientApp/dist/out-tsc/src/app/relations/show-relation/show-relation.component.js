@@ -27,11 +27,12 @@ let ShowRelationComponent = class ShowRelationComponent {
         this.ActivateAddEditRelationsComponent = true;
     }
     deleteClick(item) {
-        if (confirm('Are you sure?')) {
-            this.service.deleteRelation(item.Id).subscribe(data => {
-                alert(data.toString());
-                this.refreshRelationsList();
-            });
+        if (true) //confirm('Are you sure?')
+         {
+            this.service.deleteRelation(item.Id); //.subscribe(data=>{
+            // alert(data.toString());
+            //  });
+            this.refreshRelationsList();
         }
         /*     this.relation = item;
             this.ModalTitle = "Delete relation";
