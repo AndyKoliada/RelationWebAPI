@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class TblAddressType
+    public partial class Category
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

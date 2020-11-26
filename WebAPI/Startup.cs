@@ -44,7 +44,7 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddDbContext<testContext>(options =>
+            services.AddDbContext<TestContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
             #region Swagger

@@ -17,25 +17,25 @@ export class AddEditRelationComponent implements OnInit {
   Name: string;
   FullName: string;
   TelephoneNumber: string;
-  Email: string;
-  Country: string;
-  City: string;
-  Street: string;
-  PostalCode: string;
+  EMailAddress: string;
+  DefaultCountry: string;
+  DefaultCity: string;
+  DefaultStreet: string;
+  DefaultPostalCode: string;
   StreetNumber: string;
   IsDisabled: boolean;
 
   ngOnInit(): void {
 
-    this.Id = this.relation.Id,
+    this.Id = this.relation.id,
     this.Name = this.relation.Name,
     this.FullName = this.relation.FullName,
     this.TelephoneNumber = this.relation.TelephoneNumber,
-    this.Email = this.relation.Email,
-    this.Country = this.relation.Country,
-    this.City = this.relation.City,
-    this.Street = this.relation.Street,
-    this.PostalCode = this.relation.PostalCode,
+    this.EMailAddress = this.relation.EMailAddress,
+    this.DefaultCountry = this.relation.DefaultCountry,
+    this.DefaultCity = this.relation.DefaultCity,
+    this.DefaultStreet = this.relation.DefaultStreet,
+    this.DefaultPostalCode = this.relation.DefaultPostalCode,
     this.StreetNumber = this.relation.StreetNumber
   }
 
@@ -45,11 +45,11 @@ export class AddEditRelationComponent implements OnInit {
       Name:this.Name,
       FullName:this.FullName,
       TelephoneNumber:this.TelephoneNumber,
-      Email:this.Email,
-      Country:this.Country,
-      City:this.City,
-      Street:this.Street,
-      PostalCode:this.PostalCode,
+      EMailAddress:this.EMailAddress,
+      DefaultCountry:this.DefaultCountry,
+      DefaultCity:this.DefaultCity,
+      DefaultStreet:this.DefaultStreet,
+      DefaultPostalCode:this.DefaultPostalCode,
       StreetNumber:this.StreetNumber
     };
     this.service.addRelation(val).subscribe(res=>{
@@ -63,11 +63,11 @@ export class AddEditRelationComponent implements OnInit {
       Name:this.Name,
       FullName:this.FullName,
       TelephoneNumber:this.TelephoneNumber,
-      Email:this.Email,
-      Country:this.Country,
-      City:this.City,
-      Street:this.Street,
-      PostalCode:this.PostalCode,
+      EMailAddress:this.EMailAddress,
+      DefaultCountry:this.DefaultCountry,
+      DefaultCity:this.DefaultCity,
+      DefaultStreet:this.DefaultStreet,
+      DefaultPostalCode:this.DefaultPostalCode,
       StreetNumber:this.StreetNumber
     };
     this.service.updateRelation(val).subscribe(res=>{

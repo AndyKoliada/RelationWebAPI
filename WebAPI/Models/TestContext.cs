@@ -4,23 +4,23 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace WebAPI.Models
 {
-    public partial class testContext : DbContext
+    public partial class TestContext : DbContext
     {
-        public testContext()
+        public TestContext()
         {
         }
 
-        public testContext(DbContextOptions<testContext> options)
+        public TestContext(DbContextOptions<TestContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<TblAddressType> TblAddressType { get; set; }
-        public virtual DbSet<TblCategory> TblCategory { get; set; }
-        public virtual DbSet<TblCountry> TblCountry { get; set; }
-        public virtual DbSet<TblRelation> TblRelation { get; set; }
-        public virtual DbSet<TblRelationAddress> TblRelationAddress { get; set; }
-        public virtual DbSet<TblRelationCategory> TblRelationCategory { get; set; }
+        public virtual DbSet<AddressType> AddressType { get; set; }
+        public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<Relation> Relation { get; set; }
+        public virtual DbSet<RelationAddress> RelationAddress { get; set; }
+        public virtual DbSet<RelationCategory> RelationCategory { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,11 +32,11 @@ namespace WebAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TblAddressType>(entity =>
+            modelBuilder.Entity<AddressType>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("tblAddressType");
+                entity.ToTable("TblAddressType");
 
                 entity.Property(e => e.Code1)
                     .HasMaxLength(255)
@@ -93,11 +93,11 @@ namespace WebAPI.Models
                 entity.Property(e => e.Timestamp4).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblCategory>(entity =>
+            modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("tblCategory");
+                entity.ToTable("TblCategory");
 
                 entity.Property(e => e.Code1)
                     .HasMaxLength(255)
@@ -154,11 +154,11 @@ namespace WebAPI.Models
                 entity.Property(e => e.Timestamp4).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblCountry>(entity =>
+            modelBuilder.Entity<Country>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("tblCountry");
+                entity.ToTable("TblCountry");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -197,39 +197,39 @@ namespace WebAPI.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<TblRelation>(entity =>
+            modelBuilder.Entity<Relation>(entity =>
             {
                 entity.ToTable("tblRelation");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.ArrivalBetween).HasColumnType("datetime");
+                //entity.Property(e => e.ArrivalBetween).HasColumnType("datetime");
 
-                entity.Property(e => e.ArrivalBetweenAnd).HasColumnType("datetime");
+                //entity.Property(e => e.ArrivalBetweenAnd).HasColumnType("datetime");
 
-                entity.Property(e => e.ArrivalName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.ArrivalName)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.BankAccount)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.BankAccount)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.BankBic)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.BankBic)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.BankName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.BankName)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.CarrierCode)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.CarrierCode)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.ChamberOfCommerce)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.ChamberOfCommerce)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -238,13 +238,13 @@ namespace WebAPI.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CustomerCode)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.CustomerCode)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.DebtorNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.DebtorNumber)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.DefaultCity)
                     .HasMaxLength(50)
@@ -262,118 +262,118 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DepartureBetween).HasColumnType("datetime");
+                //entity.Property(e => e.DepartureBetween).HasColumnType("datetime");
 
-                entity.Property(e => e.DepartureBetweenAnd).HasColumnType("datetime");
+                //entity.Property(e => e.DepartureBetweenAnd).HasColumnType("datetime");
 
-                entity.Property(e => e.DepartureName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.DepartureName)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.DigitalFreightDocumentEmailTemplateId).HasColumnName("DigitalFreightDocumentEMailTemplateId");
+                //entity.Property(e => e.DigitalFreightDocumentEmailTemplateId).HasColumnName("DigitalFreightDocumentEMailTemplateId");
 
-                entity.Property(e => e.EmailAddress)
-                    .HasColumnName("EMailAddress")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.EmailAddress)
+                //    .HasColumnName("EMailAddress")
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.EmergencyNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.EmergencyNumber)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.FaxNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.FaxNumber)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.FullName)
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.GeneralLedgerAccount)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.GeneralLedgerAccount)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.Imaddress)
-                    .HasColumnName("IMAddress")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.Imaddress)
+                //    .HasColumnName("IMAddress")
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.InvoiceEmailAddress)
-                    .HasColumnName("InvoiceEMailAddress")
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.InvoiceEmailAddress)
+                //    .HasColumnName("InvoiceEMailAddress")
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.InvoiceGroupByTransportOrderColumnName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.InvoiceGroupByTransportOrderColumnName)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.InvoiceTo)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.InvoiceTo)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.MobileNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.MobileNumber)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
+                //entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
 
-                entity.Property(e => e.ModifiedBy)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.ModifiedBy)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PriceListName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.PriceListName)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.PriceListNameForCollecting)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.PriceListNameForCollecting)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.Remarks).IsUnicode(false);
+                //entity.Property(e => e.Remarks).IsUnicode(false);
 
-                entity.Property(e => e.SendDigitalFreightDocumentsByEmail).HasColumnName("SendDigitalFreightDocumentsByEMail");
+                //entity.Property(e => e.SendDigitalFreightDocumentsByEmail).HasColumnName("SendDigitalFreightDocumentsByEMail");
 
-                entity.Property(e => e.SendFreightStatusUpdateByEmail).HasColumnName("SendFreightStatusUpdateByEMail");
+                //entity.Property(e => e.SendFreightStatusUpdateByEmail).HasColumnName("SendFreightStatusUpdateByEMail");
 
-                entity.Property(e => e.SkypeAddress)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //entity.Property(e => e.SkypeAddress)
+                //    .HasMaxLength(255)
+                //    .IsUnicode(false);
 
-                entity.Property(e => e.SupplyNumber)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //entity.Property(e => e.SupplyNumber)
+                //    .HasMaxLength(50)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.TelephoneNumber)
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Url)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //    entity.Property(e => e.Url)
+                //        .HasMaxLength(255)
+                //        .IsUnicode(false);
 
-                entity.Property(e => e.VatName)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                //    entity.Property(e => e.VatName)
+                //        .HasMaxLength(50)
+                //        .IsUnicode(false);
 
-                entity.Property(e => e.VatNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //    entity.Property(e => e.VatNumber)
+                //        .HasMaxLength(255)
+                //        .IsUnicode(false);
 
-                entity.Property(e => e.VendorNumber)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
+                //    entity.Property(e => e.VendorNumber)
+                //        .HasMaxLength(255)
+                //        .IsUnicode(false);
             });
 
-            modelBuilder.Entity<TblRelationAddress>(entity =>
+            modelBuilder.Entity<RelationAddress>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("tblRelationAddress");
+                entity.ToTable("TblRelationAddress");
 
                 entity.Property(e => e.Building)
                     .HasMaxLength(255)
@@ -404,11 +404,11 @@ namespace WebAPI.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<TblRelationCategory>(entity =>
+            modelBuilder.Entity<RelationCategory>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.ToTable("tblRelationCategory");
+                entity.ToTable("TblRelationCategory");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -11,8 +11,8 @@ let ShowRelationComponent = class ShowRelationComponent {
     }
     addClick() {
         this.relation = {
-            Id: 0,
-            Name: ""
+            //Id: 0,
+            Name: ''
         };
         this.ModalTitle = "Add relation";
         this.ActivateAddEditRelationsComponent = true;
@@ -39,7 +39,6 @@ let ShowRelationComponent = class ShowRelationComponent {
     }
     refreshRelationsList() {
         this.service.getRelationsList().subscribe(data => {
-            /* console.log(data); */
             this.RelationsList = data;
         });
     }

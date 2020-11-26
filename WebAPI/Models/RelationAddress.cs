@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class TblRelationAddress
+    public partial class RelationAddress
     {
         public Guid RelationId { get; set; }
         public Guid AddressTypeId { get; set; }
