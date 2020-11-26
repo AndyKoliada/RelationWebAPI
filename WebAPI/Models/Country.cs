@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace WebAPI.Models
 {
     public partial class Country
-    {
+    {   
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }

@@ -34,9 +34,9 @@ namespace WebAPI.Models
         {
             modelBuilder.Entity<AddressType>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("TblAddressType");
+
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Code1)
                     .HasMaxLength(255)
@@ -95,9 +95,9 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<Category>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("TblCategory");
+                
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Code1)
                     .HasMaxLength(255)
@@ -156,9 +156,9 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<Country>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("TblCountry");
+
+                entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
@@ -371,9 +371,11 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<RelationAddress>(entity =>
             {
-                entity.HasNoKey();
+                
+                entity.ToTable("tblRelationAddress");
+                
+                entity.HasKey(e => e.RelationId);
 
-                entity.ToTable("TblRelationAddress");
 
                 entity.Property(e => e.Building)
                     .HasMaxLength(255)
@@ -406,9 +408,10 @@ namespace WebAPI.Models
 
             modelBuilder.Entity<RelationCategory>(entity =>
             {
-                entity.HasNoKey();
+                entity.ToTable("tblRelationCategory");
 
-                entity.ToTable("TblRelationCategory");
+                entity.HasKey(e => e.CategoryId);
+
             });
 
             OnModelCreatingPartial(modelBuilder);
