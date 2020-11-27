@@ -9,6 +9,7 @@ import { SharedService } from './shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatSortModule } from '@angular/material/sort';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -24,7 +25,8 @@ AppModule = __decorate([
             HttpClientModule,
             RouterModule.forRoot([{ path: '', component: RelationsComponent }]),
             FormsModule,
-            ReactiveFormsModule
+            ReactiveFormsModule,
+            MatSortModule
         ],
         providers: [SharedService],
         bootstrap: [AppComponent]

@@ -1,6 +1,5 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
-//https://metanit.com/web/angular2/9.2.php
 let ShowRelationComponent = class ShowRelationComponent {
     constructor(service) {
         this.service = service;

@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { RelationsComponent } from '../relations.component';
-//https://metanit.com/web/angular2/9.2.php
+import {Sort} from '@angular/material/sort';
+
 @Component({
   selector: 'app-show-relation',
   templateUrl: './show-relation.component.html',
   styleUrls: ['./show-relation.component.css']
 })
+
 export class ShowRelationComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
-
+  
+  
   RelationsList: any = [];
-
+  
+  constructor(private service: SharedService) {}
+  
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
   relation: any;
