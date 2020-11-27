@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-import { v4 as uuidv4 } from 'uuid';
 import { RelationsComponent } from '../relations.component';
 //https://metanit.com/web/angular2/9.2.php
 @Component({

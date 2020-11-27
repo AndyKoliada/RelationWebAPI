@@ -10,7 +10,7 @@ import {Observable} from 'rxjs';
     providers: [RelationService]
 }) 
 export class AppComponent implements OnInit {
-    //типы шаблонов
+
     @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any>;
     @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>;
        
