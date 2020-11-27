@@ -28,9 +28,7 @@ let AddEditRelationComponent = class AddEditRelationComponent {
             DefaultPostalCode: this.DefaultPostalCode,
             StreetNumber: this.StreetNumber
         };
-        this.service.addRelation(val).subscribe(res => {
-            alert(res.toString());
-        });
+        this.service.addRelation(val).subscribe();
     }
     updateRelation() {
         var val = {
@@ -45,9 +43,7 @@ let AddEditRelationComponent = class AddEditRelationComponent {
             DefaultPostalCode: this.DefaultPostalCode,
             StreetNumber: this.StreetNumber
         };
-        this.service.updateRelation(this.Id, val).subscribe(res => {
-            alert(res.toString());
-        });
+        this.service.updateRelation(this.Id, val).subscribe();
         console.log(val);
     }
 };
