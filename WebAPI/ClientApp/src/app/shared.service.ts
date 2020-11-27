@@ -21,12 +21,12 @@ export class SharedService {
     return this.http.post(this.ApiUrl + this.ApiAlias, val);
   }
 
-  updateRelation(val: object) {
-    return this.http.put(this.ApiUrl + this.ApiAlias, val);
+  updateRelation(id: string, val: object) {
+    return this.http.put(this.ApiUrl + this.ApiAlias + "/" + id, val);
   }
 
-  deleteRelation(val: object) {
-    return this.http.delete(this.ApiUrl + this.ApiAlias, val);
+  deleteRelation(id: string) {
+    return this.http.delete(this.ApiUrl + this.ApiAlias + "/" + id);
   }
 
 }

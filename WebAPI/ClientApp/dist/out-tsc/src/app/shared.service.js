@@ -12,11 +12,11 @@ let SharedService = class SharedService {
     addRelation(val) {
         return this.http.post(this.ApiUrl + this.ApiAlias, val);
     }
-    updateRelation(val) {
-        return this.http.put(this.ApiUrl + this.ApiAlias, val);
+    updateRelation(id, val) {
+        return this.http.put(this.ApiUrl + this.ApiAlias + "/" + id, val);
     }
-    deleteRelation(val) {
-        return this.http.delete(this.ApiUrl + this.ApiAlias, val);
+    deleteRelation(id) {
+        return this.http.delete(this.ApiUrl + this.ApiAlias + "/" + id);
     }
 };
 SharedService = __decorate([

@@ -20,7 +20,6 @@ namespace WebAPI.Models
         public string DefaultCity { get; set; }
         public string DefaultCountry { get; set; }
         public string EmailAddress { get; set; }
-        public string Imaddress { get; set; }
         public string TelephoneNumber { get; set; }
         public bool PaymentViaAutomaticDebit { get; set; }
         public int InvoiceDateGenerationOptions { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,17 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, Relation relation)
         {
+
+            //relation.Id = Guid.NewGuid();
+            relation.InvoiceDateGenerationOptions = 1;
+            relation.InvoiceGroupByOptions = 1;
+            relation.PaymentViaAutomaticDebit = false;
+            relation.IsMe = false;
+            relation.IsTemporary = false;
+            relation.IsDisabled = false;
+            relation.CreatedAt = DateTime.Now;
+            relation.CreatedBy = "Admin";
+
             if (id != relation.Id)
             {
                 return BadRequest();
@@ -79,6 +91,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Relation>> PostRelation(Relation relation)
         {
+            //var creationTime = new SqlDateTime(DateTime.Now);
+            
             relation.Id = Guid.NewGuid();
             relation.InvoiceDateGenerationOptions = 1;
             relation.InvoiceGroupByOptions = 1;

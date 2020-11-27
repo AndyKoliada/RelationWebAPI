@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-/* import { AppComponent } from './relations/app.component'; */
 import { RelationsComponent } from './relations/relations.component';
 import { ShowRelationComponent } from './relations/show-relation/show-relation.component';
 import { AddEditRelationComponent } from './relations/add-edit-relation/add-edit-relation.component';

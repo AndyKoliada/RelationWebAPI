@@ -62,7 +62,7 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+                //entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
@@ -73,7 +73,7 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
+                //entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedBy)
                     .HasMaxLength(50)
@@ -84,13 +84,13 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Timestamp1).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp1).HasColumnType("datetime");
 
-                entity.Property(e => e.Timestamp2).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp2).HasColumnType("datetime");
+               
+                //entity.Property(e => e.Timestamp3).HasColumnType("datetime");
 
-                entity.Property(e => e.Timestamp3).HasColumnType("datetime");
-
-                entity.Property(e => e.Timestamp4).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp4).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -123,7 +123,7 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+                //entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
@@ -134,7 +134,7 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
+                //entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedBy)
                     .HasMaxLength(50)
@@ -145,13 +145,13 @@ namespace WebAPI.Models
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Timestamp1).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp1).HasColumnType("datetime");
 
-                entity.Property(e => e.Timestamp2).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp2).HasColumnType("datetime");
 
-                entity.Property(e => e.Timestamp3).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp3).HasColumnType("datetime");
 
-                entity.Property(e => e.Timestamp4).HasColumnType("datetime");
+                //entity.Property(e => e.Timestamp4).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Country>(entity =>
@@ -160,7 +160,7 @@ namespace WebAPI.Models
 
                 entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+                //entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
@@ -181,7 +181,7 @@ namespace WebAPI.Models
                     .HasMaxLength(3)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
+                //entity.Property(e => e.ModifiedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedBy)
                     .HasMaxLength(50)

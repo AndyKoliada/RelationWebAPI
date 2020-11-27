@@ -1,12 +1,12 @@
 <div class="form-froup row">
   <label class="col-sm-2 col-form-label">Id</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="Id"  />
+    <input type="text" readonly class="form-control" [(ngModel)]="Id"  />
   </div>
 
   <label class="col-sm-2 col-form-label">Name</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="Name"  />
+    <input type="text" aria-required="true" class="form-control" [(ngModel)]="Name"  />
   </div>
 
   <label class="col-sm-2 col-form-label">FullName</label>
@@ -21,7 +21,7 @@
 
   <label class="col-sm-2 col-form-label">EmailAddress</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="EMailAddress"  />
+    <input type="text" class="form-control" [(ngModel)]="EmailAddress"  />
   </div>
 
   <label class="col-sm-2 col-form-label">Country</label>

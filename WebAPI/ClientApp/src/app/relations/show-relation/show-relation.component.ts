@@ -23,10 +23,8 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      Id: 0,
       Name: ''
     }
-
     this.ModalTitle= "Add relation";
     this.ActivateAddEditRelationsComponent = true;
   }
@@ -43,18 +41,12 @@ export class ShowRelationComponent implements OnInit {
   }
 
   deleteClick(item) {
-    if(true) //confirm('Are you sure?')
+    if(confirm('Are you sure?'))
     { 
-      this.relation = item;
-      this.service.deleteRelation(item.id).subscribe(data=>{
-        alert(data.toString());
-        
-      });
-
-    }
-    
-    this.ModalTitle = "Delete relation";
-    //this.ActivateAddEditRelationsComponent = false;
+        this.service.deleteRelation(item.Id).subscribe(data=>{
+          this.refreshRelationsList();
+        })
+      }
   }
 
   refreshRelationsList() {

@@ -5,11 +5,11 @@ let AddEditRelationComponent = class AddEditRelationComponent {
         this.service = service;
     }
     ngOnInit() {
-        this.Id = this.relation.id,
+        this.Id = this.relation.Id,
             this.Name = this.relation.Name,
             this.FullName = this.relation.FullName,
             this.TelephoneNumber = this.relation.TelephoneNumber,
-            this.EMailAddress = this.relation.EMailAddress,
+            this.EmailAddress = this.relation.EmailAddress,
             this.DefaultCountry = this.relation.DefaultCountry,
             this.DefaultCity = this.relation.DefaultCity,
             this.DefaultStreet = this.relation.DefaultStreet,
@@ -21,7 +21,7 @@ let AddEditRelationComponent = class AddEditRelationComponent {
             Name: this.Name,
             FullName: this.FullName,
             TelephoneNumber: this.TelephoneNumber,
-            EMailAddress: this.EMailAddress,
+            EmailAddress: this.EmailAddress,
             DefaultCountry: this.DefaultCountry,
             DefaultCity: this.DefaultCity,
             DefaultStreet: this.DefaultStreet,
@@ -38,16 +38,17 @@ let AddEditRelationComponent = class AddEditRelationComponent {
             Name: this.Name,
             FullName: this.FullName,
             TelephoneNumber: this.TelephoneNumber,
-            EMailAddress: this.EMailAddress,
+            EmailAddress: this.EmailAddress,
             DefaultCountry: this.DefaultCountry,
             DefaultCity: this.DefaultCity,
             DefaultStreet: this.DefaultStreet,
             DefaultPostalCode: this.DefaultPostalCode,
             StreetNumber: this.StreetNumber
         };
-        this.service.updateRelation(val).subscribe(res => {
+        this.service.updateRelation(this.Id, val).subscribe(res => {
             alert(res.toString());
         });
+        console.log(val);
     }
 };
 __decorate([

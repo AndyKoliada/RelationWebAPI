@@ -12,7 +12,6 @@ let ShowRelationComponent = class ShowRelationComponent {
     }
     addClick() {
         this.relation = {
-            Id: 0,
             Name: ''
         };
         this.ModalTitle = "Add relation";
@@ -28,15 +27,11 @@ let ShowRelationComponent = class ShowRelationComponent {
         this.ActivateAddEditRelationsComponent = true;
     }
     deleteClick(item) {
-        if (true) //confirm('Are you sure?')
-         {
-            this.relation = item;
-            this.service.deleteRelation(item.id).subscribe(data => {
-                alert(data.toString());
+        if (confirm('Are you sure?')) {
+            this.service.deleteRelation(item.Id).subscribe(data => {
+                this.refreshRelationsList();
             });
         }
-        this.ModalTitle = "Delete relation";
-        //this.ActivateAddEditRelationsComponent = false;
     }
     refreshRelationsList() {
         this.service.getRelationsList().subscribe(data => {
