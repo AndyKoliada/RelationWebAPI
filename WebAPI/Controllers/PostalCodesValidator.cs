@@ -10,12 +10,12 @@ namespace WebAPI.Controllers
     {   
         public static List<Country> CountriesWithPCMask { get; set; }
 
-        public static void TryGetCodeMask(Relation relation, Country country)
-        { 
-            if(CountriesWithPCMask.Count() == 0)
-            {
-                CountriesWithPCMask
-            }
-        }
+        //public static void TryGetCodeMask(Relation relation, Country country)
+        //{ 
+        //    if(CountriesWithPCMask.Count() == 0)
+        //    {
+        //        CountriesWithPCMask
+        //    }
+        //}
     }
 }
