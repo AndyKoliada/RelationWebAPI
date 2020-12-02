@@ -19,10 +19,12 @@ namespace WebAPI.Controllers
     public class HomeController : ControllerBase
     {
         private readonly TestDBContext _context;
+        private readonly IMapper _mapper;
 
-        public HomeController(TestDBContext context)
+        public HomeController(TestDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         //public async Task<ViewResult> Index(Index.Query query)
