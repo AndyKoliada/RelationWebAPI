@@ -51,7 +51,7 @@ namespace WebAPI
             services.AddDbContext<TestDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
-            //services.AddAutoMapper();
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             #region Swagger
             services.AddSwaggerGen(c =>
