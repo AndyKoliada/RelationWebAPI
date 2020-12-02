@@ -32,6 +32,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddMediatR(typeof(Services.Features.Relations.Index).Assembly);
+           
             //Enable CORS
             services.AddCors(c =>
             c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()

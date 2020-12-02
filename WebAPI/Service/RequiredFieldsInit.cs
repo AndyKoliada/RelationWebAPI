@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.ModelsConnected;
 
-namespace WebAPI.Controllers
+namespace WebAPI.Service
 {
-    public static class RequiredFieldsInit
+    public class RequiredFieldsInit : IRequiredFieldsInit
     {
-        public static void InitializeRequiredFields(Relation relation)
+        public void InitRequiredOnAdd(Relation relation)
         {
             relation.InvoiceDateGenerationOptions = 1;
             relation.InvoiceGroupByOptions = 1;

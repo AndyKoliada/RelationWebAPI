@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI.ModelsConnected
 {
@@ -14,6 +15,8 @@ namespace WebAPI.ModelsConnected
         public Guid? ParentRelationId { get; set; }
         public bool IsTemporary { get; set; }
         public bool IsMe { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
         public string FullName { get; set; }
         public string DepartureName { get; set; }
@@ -113,7 +116,9 @@ namespace WebAPI.ModelsConnected
         public Guid? ThirdPartyToUseForInvoicing { get; set; }
         public int? Flags { get; set; }
 
-        public virtual RelationAddress TblRelationAddress { get; set; }
-        public virtual RelationCategory TblRelationCategory { get; set; }
+        public virtual RelationAddress RelationAddress { get; set; }
+        public virtual RelationCategory RelationCategory { get; set; }
+
+
     }
 }

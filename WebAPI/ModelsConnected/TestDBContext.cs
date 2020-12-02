@@ -417,7 +417,7 @@ namespace WebAPI.ModelsConnected
                     .HasConstraintName("FK_tblRelationAddress_tblCountry");
 
                 entity.HasOne(d => d.Relation)
-                    .WithOne(p => p.TblRelationAddress)
+                    .WithOne(p => p.RelationAddress)
                     .HasForeignKey<RelationAddress>(d => d.RelationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tblRelationAddress_tblRelation");
@@ -438,7 +438,7 @@ namespace WebAPI.ModelsConnected
                     .HasConstraintName("FK_tblRelationCategory_tblCategory");
 
                 entity.HasOne(d => d.Relation)
-                    .WithOne(p => p.TblRelationCategory)
+                    .WithOne(p => p.RelationCategory)
                     .HasForeignKey<RelationCategory>(d => d.RelationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tblRelationCategory_tblRelation");

@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.ModelsConnected;
+using WebAPI.Service;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RelationsController : ControllerBase
+    public class HomeController : ControllerBase
     {
         private readonly TestDBContext _context;
 
-        public RelationsController(TestDBContext context)
+        public HomeController(TestDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Relations
+        //public async Task<ViewResult> Index(Index.Query query)
+        // => View(await _mediator.Send(query));
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Relation>>> GetRelations()
+        public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
         {
-            return await _context.Relations.ToListAsync();
+            return await _context.Relations.Where(a => a.IsDisabled == false).ToListAsync();
         }
 
-        // GET: api/Relations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Relation>> GetRelation(Guid id)
         {
@@ -41,12 +46,13 @@ namespace WebAPI.Controllers
             return relation;
         }
 
-        // PUT: api/Relations/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, Relation relation)
         {
+            #region Initialize required DB fields on Update
+            relation.ModifiedAt = DateTime.Now;
+            #endregion
+
             if (id != relation.Id)
             {
                 return BadRequest();
@@ -79,6 +85,19 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Relation>> PostRelation(Relation relation)
         {
+
+            #region Initialize required DB fields on Add
+            relation.InvoiceDateGenerationOptions = 1;
+            relation.InvoiceGroupByOptions = 1;
+            relation.PaymentViaAutomaticDebit = false;
+            relation.IsMe = false;
+            relation.IsTemporary = false;
+            relation.IsDisabled = false;
+            relation.CreatedAt = DateTime.Now;
+            relation.CreatedBy = "Admin";
+            #endregion
+
+
             _context.Relations.Add(relation);
             try
             {
@@ -109,7 +128,11 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            _context.Relations.Remove(relation);
+            #region Implemented Soft Delete
+            relation.IsDisabled = true;
+
+            //_context.TblRelation.Remove(tblRelation);
+            #endregion
             await _context.SaveChangesAsync();
 
             return relation;
