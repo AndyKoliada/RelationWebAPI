@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 //Scaffold-DbContext "Name=RelationDB" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 
-namespace WebAPI.Models
+namespace Services.Models
 {
     public partial class Relation
     {
@@ -24,7 +24,5 @@ namespace WebAPI.Models
         public bool PaymentViaAutomaticDebit { get; set; }
         public int InvoiceDateGenerationOptions { get; set; }
         public int InvoiceGroupByOptions { get; set; }
-
-        public ICollection<RelationAddress> RelationAddresses { get; set; }
     }
 }

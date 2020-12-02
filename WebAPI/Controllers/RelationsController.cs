@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Models;
+using WebAPI.ModelsConnected;
 
 namespace WebAPI.Controllers
 {
@@ -14,23 +16,30 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RelationsController : ControllerBase
     {
-        private readonly TestContext _context;
+        private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
+        private readonly TestDBContext _context;
 
-        public RelationsController(TestContext context)
+        public RelationsController(TestDBContext context, IMapper mapper, IMediator mediator)
         {
+            _mapper = mapper;
+            _mediator = mediator;
             _context = context;
         }
+
+        //public async Task<ViewResult> Index(Index.Query query)
+        // => View(await _mediator.Send(query));
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
         {
-            return await _context.Relation.Where(a => a.IsDisabled == false).ToListAsync();
+            return await _context.Relations.Where(a => a.IsDisabled == false).ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Relation>> GetRelation(Guid id)
         {
-            var relation = await _context.Relation.FindAsync(id);
+            var relation = await _context.Relations.FindAsync(id);
 
             if (relation == null)
             {
@@ -81,7 +90,7 @@ namespace WebAPI.Controllers
 
             
 
-            _context.Relation.Add(relation);
+            _context.Relations.Add(relation);
             try
             {
                 await _context.SaveChangesAsync();
@@ -105,7 +114,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {
-            var relation = await _context.Relation.FindAsync(id);
+            var relation = await _context.Relations.FindAsync(id);
             if (relation == null)
             {
                 return NotFound();
@@ -121,7 +130,7 @@ namespace WebAPI.Controllers
 
         private bool RelationExists(Guid id)
         {
-            return _context.Relation.Any(e => e.Id == id);
+            return _context.Relations.Any(e => e.Id == id);
         }
     }
 }

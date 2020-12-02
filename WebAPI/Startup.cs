@@ -14,7 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Models;
+using WebAPI.ModelsConnected;
+using MediatR;
 
 namespace WebAPI
 {
@@ -30,6 +31,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddMediatR(typeof(Services.Features.Relations.Index).Assembly);
             //Enable CORS
             services.AddCors(c =>
             c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
@@ -44,7 +46,7 @@ namespace WebAPI
 
             services.AddControllers();
 
-            services.AddDbContext<TestContext>(options =>
+            services.AddDbContext<TestDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
             #region Swagger
