@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.ModelsConnected;
+using WebAPI.ModelsConnected.ViewModel;
 using WebAPI.Service;
 
 namespace WebAPI.Controllers
@@ -28,8 +29,10 @@ namespace WebAPI.Controllers
         // => View(await _mediator.Send(query));
 
         [HttpGet]
+        //[AutoMap(typeof(RelationDetailsViewModel))]
         public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
-        {
+        {   
+
             return await _context.Relations.Where(a => a.IsDisabled == false).ToListAsync();
         }
 
@@ -49,9 +52,9 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, Relation relation)
         {
-            #region Initialize required DB fields on Update
-            relation.ModifiedAt = DateTime.Now;
-            #endregion
+            //#region Initialize required DB fields on Update
+            //relation.ModifiedAt = DateTime.Now;
+            //#endregion
 
             if (id != relation.Id)
             {
@@ -86,16 +89,16 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Relation>> PostRelation(Relation relation)
         {
 
-            #region Initialize required DB fields on Add
-            relation.InvoiceDateGenerationOptions = 1;
-            relation.InvoiceGroupByOptions = 1;
-            relation.PaymentViaAutomaticDebit = false;
-            relation.IsMe = false;
-            relation.IsTemporary = false;
-            relation.IsDisabled = false;
-            relation.CreatedAt = DateTime.Now;
-            relation.CreatedBy = "Admin";
-            #endregion
+            //#region Initialize required DB fields on Add
+            //relation.InvoiceDateGenerationOptions = 1;
+            //relation.InvoiceGroupByOptions = 1;
+            //relation.PaymentViaAutomaticDebit = false;
+            //relation.IsMe = false;
+            //relation.IsTemporary = false;
+            //relation.IsDisabled = false;
+            //relation.CreatedAt = DateTime.Now;
+            //relation.CreatedBy = "Admin";
+            //#endregion
 
 
             _context.Relations.Add(relation);

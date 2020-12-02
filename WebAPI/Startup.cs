@@ -16,6 +16,7 @@ using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.ModelsConnected;
 using MediatR;
+using AutoMapper;
 
 namespace WebAPI
 {
@@ -49,6 +50,8 @@ namespace WebAPI
 
             services.AddDbContext<TestDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
+
+            //services.AddAutoMapper();
 
             #region Swagger
             services.AddSwaggerGen(c =>
