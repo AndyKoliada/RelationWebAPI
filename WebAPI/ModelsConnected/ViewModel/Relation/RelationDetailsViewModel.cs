@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.ViewModel.RelationAddress;
 
 namespace WebAPI.ModelsConnected.ViewModel
 {
@@ -15,7 +16,9 @@ namespace WebAPI.ModelsConnected.ViewModel
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
-        public string StreetNumber { get; set; }
+        public int? StreetNumber { get; set; }
         public string PostalCode { get; set; }
+
+        public RelationAddressViewModel RelationAddressViewModel { get; set; }
     }
 }

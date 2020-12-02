@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.ModelsConnected;
 using WebAPI.ModelsConnected.ViewModel;
 using WebAPI.Service;
+using WebAPI.ViewModel.RelationAddress;
 
 namespace WebAPI.Controllers
 {
@@ -31,12 +32,26 @@ namespace WebAPI.Controllers
         // => View(await _mediator.Send(query));
 
         [HttpGet]
-        //[AutoMap(typeof(RelationDetailsViewModel))]
-        public async Task<ActionResult<IEnumerable<Relation>>> GetRelation()
-        {   
+        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation()
+        {
+            //Eager loading related data from database https://www.entityframeworktutorial.net/eager-loading-in-entity-framework.aspx
+            return await _context.Relations
+                .Where(d => d.IsDisabled == true)
+                .Select(v => new RelationDetailsViewModel
+                {
+                    Id = v.Id,
+                    Name = v.Name,
+                    FullName = v.FullName,
+                    TelephoneNumber = v.TelephoneNumber,
+                    EmailAddress = v.EmailAddress,
+                    Country = v.RelationAddress.CountryName,
+                    City = v.RelationAddress.City,
+                    Street = v.RelationAddress.Street,
+                    StreetNumber = v.RelationAddress.Number,
+                    PostalCode = v.RelationAddress.PostalCode
+                }).ToListAsync();
+    }
 
-            return await _context.Relations.Where(a => a.IsDisabled == false).ToListAsync();
-        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Relation>> GetRelation(Guid id)
@@ -88,20 +103,21 @@ namespace WebAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Relation>> PostRelation(Relation relation)
+        public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(Relation relation)
         {
-
-            //#region Initialize required DB fields on Add
-            //relation.InvoiceDateGenerationOptions = 1;
-            //relation.InvoiceGroupByOptions = 1;
-            //relation.PaymentViaAutomaticDebit = false;
-            //relation.IsMe = false;
-            //relation.IsTemporary = false;
-            //relation.IsDisabled = false;
-            //relation.CreatedAt = DateTime.Now;
-            //relation.CreatedBy = "Admin";
-            //#endregion
-
+            var relationDetailsCreateModel = new RelationDetailsCreateModel()
+            {
+                Id = relation.Id,
+                Name = relation.Name,
+                FullName = relation.FullName,
+                TelephoneNumber = relation.TelephoneNumber,
+                EmailAddress = relation.EmailAddress,
+                Country = relation.RelationAddress.Country.Name,
+                City = relation.RelationAddress.City,
+                Street = relation.RelationAddress.Street,
+                StreetNumber = relation.RelationAddress.Number,
+                PostalCode = relation.RelationAddress.PostalCode
+            };
 
             _context.Relations.Add(relation);
             try
