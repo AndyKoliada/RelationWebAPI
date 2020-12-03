@@ -12,7 +12,7 @@ using WebAPI.ModelsConnected;
 using WebAPI.ModelsConnected.ViewModel;
 using WebAPI.Service;
 using WebAPI.ViewModel.RelationAddress;
-
+//http://api.example.com/device-management/managed-devices?region=USA&brand=XYZ URI Query example for filtering
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
