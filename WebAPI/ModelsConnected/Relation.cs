@@ -14,11 +14,11 @@ namespace WebAPI.ModelsConnected
         public bool IsDisabled { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string CreatedBy { get; set; } = "Admin";
-        public Guid Id { get; set; } = new Guid();
-       
+        public Guid Id { get; set; } = Guid.NewGuid();
+
         [Required]
         [StringLength(50)]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public string FullName { get; set; }
         public string DefaultStreet { get; set; }
         public string DefaultPostalCode { get; set; }

@@ -112,11 +112,33 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelation(Guid id, Relation relation)
+        public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
             //#region Initialize required DB fields on Update
             //relation.ModifiedAt = DateTime.Now;
             //#endregion
+
+            Relation relation = new Relation()
+            {
+                Id = id,
+                Name = relationModel.Name,
+                FullName = relationModel.FullName,
+                TelephoneNumber = relationModel.TelephoneNumber,
+                EmailAddress = relationModel.EmailAddress
+            };
+
+            RelationAddress relationAddress = new RelationAddress()
+            {
+                RelationId = id,
+                CountryName = relationModel.Country,
+                City = relationModel.Name,
+                Street = relationModel.Street,
+                Number = relationModel.StreetNumber,
+                PostalCode = relationModel.PostalCode
+            };
+
+            //_context.Relations.Add(relation);
+            //_context.RelationAddresses.Add(relationAddress);
 
             if (id != relation.Id)
             {
@@ -124,6 +146,7 @@ namespace WebAPI.Controllers
             }
 
             _context.Entry(relation).State = EntityState.Modified;
+            _context.Entry(relationAddress).State = EntityState.Modified;
 
             try
             {
