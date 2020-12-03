@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SharedService {
 
   readonly ApiUrl: string = "https://localhost:44358/api";
-  readonly ApiAlias: string = "/relations";
+  readonly ApiAlias: string = "/home";
 
   constructor(private http: HttpClient) { }
 

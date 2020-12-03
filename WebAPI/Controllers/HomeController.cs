@@ -32,25 +32,70 @@ namespace WebAPI.Controllers
         // => View(await _mediator.Send(query));
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation()
+        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation() 
         {
-            //Eager loading related data from database https://www.entityframeworktutorial.net/eager-loading-in-entity-framework.aspx
-            return await _context.Relations
-                .Where(d => d.IsDisabled == true)
-                .Select(v => new RelationDetailsViewModel
-                {
-                    Id = v.Id,
-                    Name = v.Name,
-                    FullName = v.FullName,
-                    TelephoneNumber = v.TelephoneNumber,
-                    EmailAddress = v.EmailAddress,
-                    Country = v.RelationAddress.CountryName,
-                    City = v.RelationAddress.City,
-                    Street = v.RelationAddress.Street,
-                    StreetNumber = v.RelationAddress.Number,
-                    PostalCode = v.RelationAddress.PostalCode
-                }).ToListAsync();
-    }
+            var relation = await _context.Relations
+                .Where(d => d.IsDisabled == false).Include(a => a.RelationAddress).ToListAsync();
+
+
+
+            return  await _context.Relations.Where(d => d.IsDisabled == false)
+                                    .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel {
+                                        Id = v.Id,
+                                        Name = v.Name,
+                                        FullName = v.FullName,
+                                        TelephoneNumber = v.TelephoneNumber,
+                                        EmailAddress = v.EmailAddress,
+                                        Country = v.RelationAddress.CountryName,
+                                        City = v.RelationAddress.City,
+                                        Street = v.RelationAddress.Street,
+                                        StreetNumber = v.RelationAddress.Number,
+                                        PostalCode = v.RelationAddress.PostalCode
+                                    }).ToListAsync();
+            //foreach(var r in relations)
+            //{
+            //    return r;
+            //}
+            //var relationDetailsViewModelList =
+
+
+            //var relationDetailsViewModel = new RelationDetailsViewModel()
+            //{
+            //    Id = relation.Id,
+            //    Name = relation.Name,
+            //    FullName = relation.FullName,
+            //    TelephoneNumber = relation.TelephoneNumber,
+            //    EmailAddress = relation.EmailAddress,
+            //    Country = relation.RelationAddress.CountryName,
+            //    City = relation.RelationAddress.City,
+            //    Street = relation.RelationAddress.Street,
+            //    StreetNumber = relation.RelationAddress.Number,
+            //    PostalCode = relation.RelationAddress.PostalCode
+
+            //};
+            //foreach (var rel in relations)
+            //{
+            //    return rel;
+            //}
+
+            //return await _context.Relations
+            //    .Where(d => d.IsDisabled == true)
+            //    .Select(v => new RelationDetailsViewModel
+            //    {
+            //        Id = v.Id,
+            //        Name = v.Name,
+            //        FullName = v.FullName,
+            //        TelephoneNumber = v.TelephoneNumber,
+            //        EmailAddress = v.EmailAddress,
+            //        Country = v.RelationAddress.CountryName,
+            //        City = v.RelationAddress.City,
+            //        Street = v.RelationAddress.Street,
+            //        StreetNumber = v.RelationAddress.Number,
+            //        PostalCode = v.RelationAddress.PostalCode
+            //    }).ToListAsync();
+
+
+        }
 
 
         [HttpGet("{id}")]
@@ -103,23 +148,29 @@ namespace WebAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(Relation relation)
+        public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
-            var relationDetailsCreateModel = new RelationDetailsCreateModel()
+            Relation relation = new Relation()
             {
-                Id = relation.Id,
-                Name = relation.Name,
-                FullName = relation.FullName,
-                TelephoneNumber = relation.TelephoneNumber,
-                EmailAddress = relation.EmailAddress,
-                Country = relation.RelationAddress.Country.Name,
-                City = relation.RelationAddress.City,
-                Street = relation.RelationAddress.Street,
-                StreetNumber = relation.RelationAddress.Number,
-                PostalCode = relation.RelationAddress.PostalCode
+                Id = relationModel.Id,
+                Name = relationModel.Name,
+                FullName = relationModel.FullName,
+                TelephoneNumber = relationModel.TelephoneNumber,
+                EmailAddress = relationModel.EmailAddress
+            };
+
+            RelationAddress relationAddress = new RelationAddress()
+            {   
+                RelationId = relation.Id,
+                CountryName = relationModel.Country,
+                City = relationModel.Name,
+                Street = relationModel.Street,
+                Number = relationModel.StreetNumber,
+                PostalCode = relationModel.PostalCode
             };
 
             _context.Relations.Add(relation);
+            _context.RelationAddresses.Add(relationAddress);
             try
             {
                 await _context.SaveChangesAsync();
@@ -151,6 +202,7 @@ namespace WebAPI.Controllers
 
             #region Implemented Soft Delete
             relation.IsDisabled = true;
+            
 
             //_context.TblRelation.Remove(tblRelation);
             #endregion

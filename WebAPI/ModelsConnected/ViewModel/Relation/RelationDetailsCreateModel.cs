@@ -7,7 +7,7 @@ namespace WebAPI.ModelsConnected.ViewModel
 {
     public class RelationDetailsCreateModel
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = new Guid();
         public string Name { get; set; }
         public string FullName { get; set; }
         public string TelephoneNumber { get; set; }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.ViewModel.RelationAddress;
+using WebAPI.ModelsConnected;
 
 namespace WebAPI.ModelsConnected.ViewModel
 {
@@ -19,6 +21,6 @@ namespace WebAPI.ModelsConnected.ViewModel
         public int? StreetNumber { get; set; }
         public string PostalCode { get; set; }
 
-        public RelationAddressViewModel RelationAddressViewModel { get; set; }
+        //public RelationAddressViewModel RelationAddressViewModel { get; set; }
     }
 }

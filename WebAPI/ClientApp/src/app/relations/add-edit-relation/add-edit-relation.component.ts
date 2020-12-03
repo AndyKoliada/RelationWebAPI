@@ -18,11 +18,11 @@ export class AddEditRelationComponent implements OnInit {
   FullName: string;
   TelephoneNumber: string;
   EmailAddress: string;
-  DefaultCountry: string;
-  DefaultCity: string;
-  DefaultStreet: string;
-  DefaultPostalCode: string;
-  StreetNumber: string;
+  Country: string;
+  City: string;
+  Street: string;
+  PostalCode: string;
+  StreetNumber: number;
   IsDisabled: boolean;
 
   ngOnInit(): void {
@@ -31,10 +31,10 @@ export class AddEditRelationComponent implements OnInit {
     this.FullName = this.relation.FullName,
     this.TelephoneNumber = this.relation.TelephoneNumber,
     this.EmailAddress = this.relation.EmailAddress,
-    this.DefaultCountry = this.relation.DefaultCountry,
-    this.DefaultCity = this.relation.DefaultCity,
-    this.DefaultStreet = this.relation.DefaultStreet,
-    this.DefaultPostalCode = this.relation.DefaultPostalCode,
+    this.Country = this.relation.Country,
+    this.City = this.relation.City,
+    this.Street = this.relation.Street,
+    this.PostalCode = this.relation.PostalCode,
     this.StreetNumber = this.relation.StreetNumber
   }
 
@@ -45,10 +45,10 @@ export class AddEditRelationComponent implements OnInit {
       FullName:this.FullName,
       TelephoneNumber:this.TelephoneNumber,
       EmailAddress:this.EmailAddress,
-      DefaultCountry:this.DefaultCountry,
-      DefaultCity:this.DefaultCity,
-      DefaultStreet:this.DefaultStreet,
-      DefaultPostalCode:this.DefaultPostalCode,
+      Country:this.Country,
+      City:this.City,
+      Street:this.Street,
+      PostalCode:this.PostalCode,
       StreetNumber:this.StreetNumber
     };
     console.log(val);
@@ -62,10 +62,10 @@ export class AddEditRelationComponent implements OnInit {
       FullName:this.FullName,
       TelephoneNumber:this.TelephoneNumber,
       EmailAddress:this.EmailAddress,
-      DefaultCountry:this.DefaultCountry,
-      DefaultCity:this.DefaultCity,
-      DefaultStreet:this.DefaultStreet,
-      DefaultPostalCode:this.DefaultPostalCode,
+      Country:this.Country,
+      City:this.City,
+      Street:this.Street,
+      PostalCode:this.PostalCode,
       StreetNumber:this.StreetNumber
     };
     
