@@ -78,18 +78,18 @@ namespace WebAPI.Controllers
         }
 
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Relation>> GetRelation(Guid id)
-        //{
-        //    var relation = await _context.Relations.FindAsync(id);
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Relation>> GetRelation(Guid id)
+        {
+            var relation = await _context.Relations.FindAsync(id);
 
-        //    if (relation == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (relation == null)
+            {
+                return NotFound();
+            }
 
-        //    return relation;
-        //}
+            return relation;
+        }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
@@ -158,7 +158,7 @@ namespace WebAPI.Controllers
             {   
                 RelationId = relation.Id,
                 CountryName = relationModel.Country,
-                City = relationModel.Name,
+                City = relationModel.City,
                 Street = relationModel.Street,
                 Number = relationModel.StreetNumber,
                 PostalCode = relationModel.PostalCode
