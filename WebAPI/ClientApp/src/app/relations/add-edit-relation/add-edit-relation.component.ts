@@ -23,7 +23,6 @@ export class AddEditRelationComponent implements OnInit {
   Street: string;
   PostalCode: string;
   StreetNumber: number;
-  IsDisabled: boolean;
 
   ngOnInit(): void {
     this.Id = this.relation.Id,

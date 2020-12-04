@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { RelationsComponent } from '../relations.component';
-import {Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-show-relation',
@@ -14,9 +13,10 @@ export class ShowRelationComponent implements OnInit {
   
   
   RelationsList: any = [];
+
   
   constructor(private service: SharedService) {}
-  
+  PageSize: number = 5;
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
   relation: any;
