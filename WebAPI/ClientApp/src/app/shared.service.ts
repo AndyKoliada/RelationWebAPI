@@ -9,12 +9,14 @@ import { Observable } from 'rxjs';
 export class SharedService {
 
   readonly ApiUrl: string = "https://localhost:44358/api";
-  readonly ApiAlias: string = "/home";
+  readonly ApiAlias: string = "/page";
+  PageNumber: number = 1;
+  PageSize: number = 5;
 
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]>{
-    return this.http.get<any>(this.ApiUrl + this.ApiAlias);
+    return this.http.get<any>(this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize);
   }
 
   addRelation(val: object) {

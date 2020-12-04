@@ -19,29 +19,23 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class PageController : ControllerBase
     {
         private readonly TestDBContext _context;
         private readonly IMapper _mapper;
 
-        public HomeController(TestDBContext context, IMapper mapper)
+        public PageController(TestDBContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-
-        //public async Task<ViewResult> Index(Index.Query query)
-        // => View(await _mediator.Send(query));
-
+ 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation() 
+        [Route("{pageNumber}/{pageSize}")]
+        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize) 
         {
-            var relation = await _context.Relations
-                .Where(d => d.IsDisabled == false).Include(a => a.RelationAddress).ToListAsync();
 
-
-
-            return  await _context.Relations.Where(d => d.IsDisabled == false)
+            return  await _context.Relations.Where(d => d.IsDisabled == false).Skip((pageNumber - 1) * pageSize).Take(pageSize)
                                     .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel {
                                         Id = v.Id,
                                         Name = v.Name,
@@ -54,47 +48,6 @@ namespace WebAPI.Controllers
                                         StreetNumber = v.RelationAddress.Number,
                                         PostalCode = v.RelationAddress.PostalCode
                                     }).ToListAsync();
-            //foreach(var r in relations)
-            //{
-            //    return r;
-            //}
-            //var relationDetailsViewModelList =
-
-
-            //var relationDetailsViewModel = new RelationDetailsViewModel()
-            //{
-            //    Id = relation.Id,
-            //    Name = relation.Name,
-            //    FullName = relation.FullName,
-            //    TelephoneNumber = relation.TelephoneNumber,
-            //    EmailAddress = relation.EmailAddress,
-            //    Country = relation.RelationAddress.CountryName,
-            //    City = relation.RelationAddress.City,
-            //    Street = relation.RelationAddress.Street,
-            //    StreetNumber = relation.RelationAddress.Number,
-            //    PostalCode = relation.RelationAddress.PostalCode
-
-            //};
-            //foreach (var rel in relations)
-            //{
-            //    return rel;
-            //}
-
-            //return await _context.Relations
-            //    .Where(d => d.IsDisabled == true)
-            //    .Select(v => new RelationDetailsViewModel
-            //    {
-            //        Id = v.Id,
-            //        Name = v.Name,
-            //        FullName = v.FullName,
-            //        TelephoneNumber = v.TelephoneNumber,
-            //        EmailAddress = v.EmailAddress,
-            //        Country = v.RelationAddress.CountryName,
-            //        City = v.RelationAddress.City,
-            //        Street = v.RelationAddress.Street,
-            //        StreetNumber = v.RelationAddress.Number,
-            //        PostalCode = v.RelationAddress.PostalCode
-            //    }).ToListAsync();
 
 
         }
