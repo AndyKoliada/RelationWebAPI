@@ -12,6 +12,9 @@ using WebAPI.ModelsConnected;
 using WebAPI.ModelsConnected.ViewModel;
 using WebAPI.Service;
 using WebAPI.ViewModel.RelationAddress;
+using System.Linq.Dynamic.Core;
+
+
 //http://api.example.com/device-management/managed-devices?region=USA&brand=XYZ URI Query example for filtering
 
 //https://www.youtube.com/watch?v=3BsTfc_pv_4 Watch this in the morning
@@ -31,47 +34,66 @@ namespace WebAPI.Controllers
         }
  
         [HttpGet]
-        [Route("{pageNumber}/{pageSize}")]
-        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize) 
+        [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
+        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy) 
         {
 
-            return  await _context.Relations.Where(d => d.IsDisabled == false).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-                                    .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel {
-                                        Id = v.Id,
-                                        Name = v.Name,
-                                        FullName = v.FullName,
-                                        TelephoneNumber = v.TelephoneNumber,
-                                        EmailAddress = v.EmailAddress,
-                                        Country = v.RelationAddress.CountryName,
-                                        City = v.RelationAddress.City,
-                                        Street = v.RelationAddress.Street,
-                                        StreetNumber = v.RelationAddress.Number,
-                                        PostalCode = v.RelationAddress.PostalCode
-                                    }).ToListAsync();
-
-
-        }
-
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Relation>> GetRelation(Guid id)
-        {
-            var relation = await _context.Relations.FindAsync(id);
-
-            if (relation == null)
+            if (orderByDescending)
             {
-                return NotFound();
+                return await _context.Relations.Where(d => d.IsDisabled == false/* && d.RelationCategory.Category.Name == filterBy*/).Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                                        .Include(a => a.RelationAddress).OrderBy(sortBy + " descending").Select(v => new RelationDetailsViewModel
+                                        {
+                                            Id = v.Id,
+                                            Name = v.Name,
+                                            FullName = v.FullName,
+                                            TelephoneNumber = v.TelephoneNumber,
+                                            EmailAddress = v.EmailAddress,
+                                            Country = v.RelationAddress.CountryName,
+                                            City = v.RelationAddress.City,
+                                            Street = v.RelationAddress.Street,
+                                            StreetNumber = v.RelationAddress.Number,
+                                            PostalCode = v.RelationAddress.PostalCode
+                                        }).ToListAsync();
+            }
+                else
+            {
+                return await _context.Relations.Where(d => d.IsDisabled == false/* && d.RelationCategory.Category.Name == filterBy*/).Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                                        .Include(a => a.RelationAddress).OrderBy(sortBy).Select(v => new RelationDetailsViewModel
+                                        {
+                                            Id = v.Id,
+                                            Name = v.Name,
+                                            FullName = v.FullName,
+                                            TelephoneNumber = v.TelephoneNumber,
+                                            EmailAddress = v.EmailAddress,
+                                            Country = v.RelationAddress.CountryName,
+                                            City = v.RelationAddress.City,
+                                            Street = v.RelationAddress.Street,
+                                            StreetNumber = v.RelationAddress.Number,
+                                            PostalCode = v.RelationAddress.PostalCode
+                                        }).ToListAsync();
             }
 
-            return relation;
+            //sortBy Name, FullName, TelephoneNumber, Email, Country, City, Street, PostalCode.
+
         }
+
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Relation>> GetRelation(Guid id)
+        //{
+        //    var relation = await _context.Relations.FindAsync(id);
+
+        //    if (relation == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return relation;
+        //}
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
-            //#region Initialize required DB fields on Update
-            //relation.ModifiedAt = DateTime.Now;
-            //#endregion
 
             Relation relation = new Relation()
             {
@@ -91,9 +113,6 @@ namespace WebAPI.Controllers
                 Number = relationModel.StreetNumber,
                 PostalCode = relationModel.PostalCode
             };
-
-            //_context.Relations.Add(relation);
-            //_context.RelationAddresses.Add(relationAddress);
 
             if (id != relation.Id)
             {
@@ -122,9 +141,7 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Relations
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
         [HttpPost]
         public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
@@ -168,7 +185,6 @@ namespace WebAPI.Controllers
             return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
         }
 
-        // DELETE: api/Relations/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {

@@ -12,11 +12,18 @@ export class SharedService {
   readonly ApiAlias: string = "/page";
   PageNumber: number = 1;
   PageSize: number = 5;
+  SortBy: string = "Name";
+  FilterBy: string = "None";
+  DeleteIdList: [];
+  OrderByDescending: boolean = false;
+
+  readonly QueryString: string = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize 
+  + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy;
 
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]>{
-    return this.http.get<any>(this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize);
+    return this.http.get<any>(this.QueryString);
   }
 
   addRelation(val: object) {

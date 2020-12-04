@@ -12,6 +12,8 @@ using WebAPI.ModelsConnected;
 using WebAPI.ModelsConnected.ViewModel;
 using WebAPI.Service;
 using WebAPI.ViewModel.RelationAddress;
+
+using System.Linq.Dynamic.Core;
 //http://api.example.com/device-management/managed-devices?region=USA&brand=XYZ URI Query example for filtering
 
 //https://www.youtube.com/watch?v=3BsTfc_pv_4 Watch this in the morning
