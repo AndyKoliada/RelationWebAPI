@@ -12,8 +12,8 @@ export class SharedService {
   readonly ApiAlias: string = "/page";
   PageNumber: number = 1;
   PageSize: number = 5;
-  SortBy: string = "Name";
-  FilterBy: string = "*";
+  SortBy: string = "Country";
+  FilterBy: string = "None";
   DeleteIdList: [];
   OrderByDescending: boolean = false;
 
@@ -23,6 +23,7 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]>{
+    console.log(this.QueryString);
     return this.http.get<any>(this.QueryString);
   }
 

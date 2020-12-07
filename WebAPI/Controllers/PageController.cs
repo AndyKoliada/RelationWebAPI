@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
 
             string filterQuery = filterBy;
 
-            if(filterBy == "")
+            if(filterBy == "None")
             {
                 filterQuery = null;
             }
@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
             }
 
                 return await _context.Relations.Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-                                        .Include(a => a.RelationAddress).OrderBy(orderQuery).Select(v => new RelationDetailsViewModel
+                                        .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel
                                         {
                                             Id = v.Id,
                                             Name = v.Name,
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
                                             Street = v.RelationAddress.Street,
                                             StreetNumber = v.RelationAddress.Number,
                                             PostalCode = v.RelationAddress.PostalCode
-                                        }).ToListAsync();
+                                        }).OrderBy(orderQuery).ToListAsync();
         }
 
 
