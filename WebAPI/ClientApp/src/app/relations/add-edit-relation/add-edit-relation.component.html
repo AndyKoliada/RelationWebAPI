@@ -51,6 +51,6 @@
 
 </div>
 
-<button (click)="addRelation()" *ngIf="relation.Name ==''" class="btn btn-primary">Add new relation</button>
+<button (click)="addRelation()" *ngIf="relation.Id == null" class="btn btn-primary">Add new relation</button>
 
-<button (click)="updateRelation()" *ngIf="relation.Name!=''" class="btn btn-primary">Update relation</button>
+<button (click)="updateRelation()" *ngIf="relation.Id!= null" class="btn btn-primary">Update relation</button>

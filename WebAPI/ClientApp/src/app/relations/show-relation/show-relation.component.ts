@@ -27,6 +27,7 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
+      Id: null,
       Name: ''
     }
     this.ModalTitle= "Add relation";

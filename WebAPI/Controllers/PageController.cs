@@ -36,11 +36,15 @@ namespace WebAPI.Controllers
         [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
         public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy) 
         {
-
-            if (orderByDescending)
+            string orderQuery = sortBy;
+            
+            if(orderByDescending)
             {
+                orderQuery += " descending";
+            }
+
                 return await _context.Relations.Where(d => d.IsDisabled == false/* && d.RelationCategory.Category.Name == filterBy*/).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-                                        .Include(a => a.RelationAddress).OrderBy(sortBy + " descending").Select(v => new RelationDetailsViewModel
+                                        .Include(a => a.RelationAddress).OrderBy(orderQuery).Select(v => new RelationDetailsViewModel
                                         {
                                             Id = v.Id,
                                             Name = v.Name,
@@ -53,27 +57,6 @@ namespace WebAPI.Controllers
                                             StreetNumber = v.RelationAddress.Number,
                                             PostalCode = v.RelationAddress.PostalCode
                                         }).ToListAsync();
-            }
-                else
-            {
-                return await _context.Relations.Where(d => d.IsDisabled == false/* && d.RelationCategory.Category.Name == filterBy*/).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-                                        .Include(a => a.RelationAddress).OrderBy(sortBy).Select(v => new RelationDetailsViewModel
-                                        {
-                                            Id = v.Id,
-                                            Name = v.Name,
-                                            FullName = v.FullName,
-                                            TelephoneNumber = v.TelephoneNumber,
-                                            EmailAddress = v.EmailAddress,
-                                            Country = v.RelationAddress.CountryName,
-                                            City = v.RelationAddress.City,
-                                            Street = v.RelationAddress.Street,
-                                            StreetNumber = v.RelationAddress.Number,
-                                            PostalCode = v.RelationAddress.PostalCode
-                                        }).ToListAsync();
-            }
-
-            //sortBy Name, FullName, TelephoneNumber, Email, Country, City, Street, PostalCode.
-
         }
 
 
@@ -147,13 +130,18 @@ namespace WebAPI.Controllers
 
             string postalCodeFormatMask;
 
-            if (relationModel.PostalCode != "" && relationModel.Country != "")
+
+            if (relationModel.PostalCode != null && relationModel.Country != null)
             {
                 postalCodeFormatMask = _context.Countries
                     .Where(n => n.Name == relationModel.Country && n.PostalCodeFormat != null)
                     .Select(n => n.PostalCodeFormat).FirstOrDefault();
 
-                relationModel.PostalCode = PostalCodeFormatter(postalCodeFormatMask);
+                if (postalCodeFormatMask != null)
+                {
+                    relationModel.PostalCode = PostalCodeFormatter(postalCodeFormatMask);
+                }
+                
             }
 
             string PostalCodeFormatter(string postalCodeFormatMask)
@@ -163,39 +151,83 @@ namespace WebAPI.Controllers
                 //    а маска -"NNNN-LL", то в базе должно сохраниться значение 4545 - BX
 
                 string correctedPostalCode = "";
-                string pc = relationModel.PostalCode;
+                string pc = new string(relationModel.PostalCode.ToCharArray()
+                        .Where(c => !Char.IsWhiteSpace(c))
+                        .ToArray());
                 string m = postalCodeFormatMask;
 
-                for (int i = 0; i < m.Length-1; i++)
+
+                //for (int i = 0; i < m.Length && correctedPostalCode.Length <= pc.Length; i++)
+                //{
+                //        if (m[i] == 'N' && Char.IsDigit(pc[i]))
+                //        {
+                //            correctedPostalCode += pc[i];
+                //        }
+                //        else if (m[i] == 'l' && Char.IsLetter(pc[i]) && Char.IsLower(pc[i]))
+                //        {
+                //            correctedPostalCode += pc[i];
+                //        }
+                //        else if (m[i] == 'L' && Char.IsLetter(pc[i]) && Char.IsUpper(pc[i]))
+                //        {
+                //            correctedPostalCode += pc[i];
+                //        }
+                //        else if (m[i] == 'l' && Char.IsLetter(pc[i]) && Char.IsUpper(pc[i]))
+                //        {
+                //            correctedPostalCode += Char.ToLower(pc[i]);
+                //        }
+                //        else if (m[i] == 'L' && Char.IsLetter(pc[i]) && Char.IsLower(pc[i]))
+                //        {
+                //            correctedPostalCode += Char.ToUpper(pc[i]);
+                //        }
+                //        else if (!Char.IsLetterOrDigit(m[i]) && m[i] != pc[i])
+                //        {
+                //            correctedPostalCode += " " + m[i] + " ";
+                //        }
+                //        else
+                //        {
+                //        correctedPostalCode += pc[i];
+                //        }
+                //}
+                for (int i = 0, j = 0; i < pc.Length && j < m.Length; i++)
                 {
-                        if (m[i] == 'N' && Char.IsDigit(pc[i]))
-                        {
-                            correctedPostalCode += pc[i];
-                        }
-                        else if (m[i] == 'l' && Char.IsLetter(pc[i]) && Char.IsLower(pc[i]))
-                        {
-                            correctedPostalCode += pc[i];
-                        }
-                        else if (m[i] == 'L' && Char.IsLetter(pc[i]) && Char.IsUpper(pc[i]))
-                        {
-                            correctedPostalCode += pc[i];
-                        }
-                        else if (m[i] == 'l' && Char.IsLetter(pc[i]) && Char.IsUpper(pc[i]))
-                        {
-                            correctedPostalCode += Char.ToLower(pc[i]);
-                        }
-                        else if (m[i] == 'L' && Char.IsLetter(pc[i]) && Char.IsLower(pc[i]))
-                        {
-                            correctedPostalCode += Char.ToUpper(pc[i]);
-                        }
-                        else if (m[i] == 'L' && Char.IsLetter(pc[i]) && Char.IsLower(pc[i]))
-                        {
-                            correctedPostalCode += " " + m[i] + " ";
-                        }
+                    if (Char.IsDigit(pc[i]) && m[j] == 'N')
+                    {
+                        correctedPostalCode += pc[i];
+                        j++;
+                    }
+                    else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] != pc[i])
+                    {
+                        correctedPostalCode += " " + m[j] + " ";
+                        j++;
+                    }
+                    else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] == pc[i])
+                    {
+                        correctedPostalCode += pc[i];
+                        j++;
+                    }
+                    else if (Char.IsLetter(pc[i]) && m[j] == 'l')
+                    {
+                        correctedPostalCode += Char.ToLower(pc[i]);
+                        j++;
+                    }
+                    else if (Char.IsLetter(pc[i]) && m[j] == 'L')
+                    {
+                        correctedPostalCode += Char.ToUpper(pc[i]);
+                        j++;
+                    }
+
                 }
 
 
-                return correctedPostalCode;
+                if (correctedPostalCode.Length < pc.Length)
+                {
+                    return pc;
+                }
+                else
+                {
+                    return correctedPostalCode;
+                }
+
             }
 
 

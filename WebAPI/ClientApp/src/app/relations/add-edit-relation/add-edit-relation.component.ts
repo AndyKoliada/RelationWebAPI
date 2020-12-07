@@ -70,6 +70,6 @@ export class AddEditRelationComponent implements OnInit {
     
     this.service.updateRelation(this.Id, val).subscribe();
 
-    console.log(val);
+    /* console.log(val); */
   }
 }
