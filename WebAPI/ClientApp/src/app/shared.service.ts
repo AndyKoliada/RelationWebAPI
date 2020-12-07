@@ -13,7 +13,7 @@ export class SharedService {
   PageNumber: number = 1;
   PageSize: number = 5;
   SortBy: string = "Name";
-  FilterBy: string = "None";
+  FilterBy: string = "*";
   DeleteIdList: [];
   OrderByDescending: boolean = false;
 

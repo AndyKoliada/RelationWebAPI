@@ -15,8 +15,6 @@ using WebAPI.ViewModel.RelationAddress;
 using System.Linq.Dynamic.Core;
 
 
-//http://api.example.com/device-management/managed-devices?region=USA&brand=XYZ URI Query example for filtering
-
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -24,12 +22,10 @@ namespace WebAPI.Controllers
     public class PageController : ControllerBase
     {
         private readonly TestDBContext _context;
-        private readonly IMapper _mapper;
 
-        public PageController(TestDBContext context, IMapper mapper)
+        public PageController(TestDBContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
  
         [HttpGet]
@@ -37,13 +33,20 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy) 
         {
             string orderQuery = sortBy;
-            
-            if(orderByDescending)
+
+            string filterQuery = filterBy;
+
+            if(filterBy == "")
+            {
+                filterQuery = null;
+            }
+
+            if (orderByDescending)
             {
                 orderQuery += " descending";
             }
 
-                return await _context.Relations.Where(d => d.IsDisabled == false/* && d.RelationCategory.Category.Name == filterBy*/).Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                return await _context.Relations.Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery).Skip((pageNumber - 1) * pageSize).Take(pageSize)
                                         .Include(a => a.RelationAddress).OrderBy(orderQuery).Select(v => new RelationDetailsViewModel
                                         {
                                             Id = v.Id,
@@ -136,7 +139,6 @@ namespace WebAPI.Controllers
 
             return NoContent();
         }
-
 
         [HttpPost]
         public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
