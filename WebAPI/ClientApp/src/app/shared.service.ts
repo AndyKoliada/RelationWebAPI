@@ -17,7 +17,7 @@ export class SharedService {
   DeleteIdList: [];
   OrderByDescending: boolean = false;
 
-  readonly QueryString: string = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize 
+  QueryString: string = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize 
   + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy;
 
   constructor(private http: HttpClient) { }
@@ -34,6 +34,17 @@ export class SharedService {
   updateRelation(id: string, val: object) {
     return this.http.put(this.ApiUrl + this.ApiAlias + "/" + id, val);
   }
+
+  sortRelationsList(sortBy: string) : Observable<any[]>{
+    this.OrderByDescending = !this.OrderByDescending;
+    this.SortBy = sortBy;
+    this.QueryString = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize 
+    + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy; 
+
+    return this.http.get<any>(this.QueryString);
+  }
+
+  
 
   deleteRelation(id: string) {
     return this.http.delete(this.ApiUrl + this.ApiAlias + "/" + id);

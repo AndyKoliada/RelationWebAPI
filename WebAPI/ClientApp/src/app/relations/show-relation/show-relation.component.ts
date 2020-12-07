@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { AddEditRelationComponent } from '../add-edit-relation/add-edit-relation.component';
 import { RelationsComponent } from '../relations.component';
 
 @Component({
@@ -10,13 +11,11 @@ import { RelationsComponent } from '../relations.component';
 
 export class ShowRelationComponent implements OnInit {
 
-  
-  
   RelationsList: any = [];
 
   
   constructor(private service: SharedService) {}
-  PageSize: number = 5;
+
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
   relation: any;
@@ -52,6 +51,11 @@ export class ShowRelationComponent implements OnInit {
           this.refreshRelationsList();
         })
       }
+  }
+
+  sortClick(param: string) {
+    this.service.sortRelationsList(param);
+    this.refreshRelationsList();
   }
 
   refreshRelationsList() {
