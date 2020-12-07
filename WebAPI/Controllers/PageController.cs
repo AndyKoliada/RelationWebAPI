@@ -61,9 +61,23 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Relation>> GetRelation(Guid id)
+        public async Task<ActionResult<RelationDetailsViewModel>> GetRelation(Guid id)
         {
-            var relation = await _context.Relations.FindAsync(id);
+            //var relation = await _context.Relations.FindAsync(id);
+
+            var relation = await _context.Relations.Where(d => d.Id == id).Select(v => new RelationDetailsViewModel
+                                        {
+                                            Id = v.Id,
+                                            Name = v.Name,
+                                            FullName = v.FullName,
+                                            TelephoneNumber = v.TelephoneNumber,
+                                            EmailAddress = v.EmailAddress,
+                                            Country = v.RelationAddress.CountryName,
+                                            City = v.RelationAddress.City,
+                                            Street = v.RelationAddress.Street,
+                                            StreetNumber = v.RelationAddress.Number,
+                                            PostalCode = v.RelationAddress.PostalCode
+                                        }).FirstOrDefaultAsync();
 
             if (relation == null)
             {

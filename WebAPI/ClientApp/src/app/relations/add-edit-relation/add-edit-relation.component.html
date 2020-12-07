@@ -9,7 +9,7 @@
     <input type="text" aria-required="true" class="form-control" required minlength="3" [(ngModel)]="Name" #name="ngModel"/>
   </div>
 
-    <div *ngIf="name.invalid && (name.dirty || name.touched)"
+    <div *ngIf="name.invalid"
       class="alert alert-danger">
       <div *ngIf="name.errors.required">
         Name is required.
@@ -27,12 +27,13 @@
 
   <label class="col-sm-2 col-form-label">TelephoneNumber</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="TelephoneNumber"  />
+    <input type="tel" class="form-control" [(ngModel)]="TelephoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+    required />
   </div>
 
   <label class="col-sm-2 col-form-label">EmailAddress</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="EmailAddress"  />
+    <input type="email" class="form-control" [(ngModel)]="EmailAddress"  />
   </div>
 
   <label class="col-sm-2 col-form-label">Country</label>
@@ -57,7 +58,7 @@
 
   <label class="col-sm-2 col-form-label">StreetNumber</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="StreetNumber"  />
+    <input type="number" class="form-control" [(ngModel)]="StreetNumber"  />
   </div>
 
 </div>
