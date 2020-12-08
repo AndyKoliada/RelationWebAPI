@@ -17,6 +17,7 @@
     <EmbeddedResource Remove="Models\**" />
     <None Remove="Models\**" />
     <TypeScriptCompile Remove="Models\**" />
+    <TypeScriptCompile Remove="node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
