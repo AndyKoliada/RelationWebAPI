@@ -1,12 +1,5 @@
-
-
-
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal" (click)="addClick()"
-          data-backdrop="static" data-keyboard="false">
-    Add relation
-  </button>
-
+<!-- https://www.c-sharpcorner.com/article/how-to-highlight-selected-row-in-ngfor-in-angular-9/ -->
+<!-- Row highlight and selection for multiple delete -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -28,18 +21,22 @@
 </div>
 
 
-<table class="table table-stripped">
-  <thead>
+
+<div>
+<table class="table - table-striped">
+  <thead class="thead - thead-light">
     <tr>
-      <th><button type="button" class="btn btn-primary" (click)="sortClick('Name')">Name</button></th>
-      <th><button type="button" class="btn btn-primary" (click)="sortClick('FullName')">FullName</button></th>
-      <th><button class="btn btn-primary" (click)="sortClick('TelephoneNumber')">TelephoneNumber</button></th>
-      <th><button class="btn btn-primary" (click)="sortClick('EmailAddress')">Email</button></th>
-      <th><button class="btn btn-primary" (click)="sortClick('Country')">Country</button></th>
-      <th><button class="btn btn-primary" (click)="sortClick('City')">City</button></th>
-      <th><button class="btn btn-primary" (click)="sortClick('Street')">Street</button></th>
-      <th><button class="btn btn-primary" (click)="sortClick('PostalCode')">PostalCode</button></th>
-      <th>StreetNumber</th>
+      <th><button class="btn btn-light" (click)="sortClick('Name')">Name</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('FullName')">FullName</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('TelephoneNumber')">TelephoneNumber</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('EmailAddress')">Email</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('Country')">Country</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('City')">City</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('Street')">Street</button></th>
+      <th><button class="btn btn-light" (click)="sortClick('PostalCode')">PostalCode</button></th>
+      <th><button class="btn btn-light" disabled>StreetNumber</button></th>
+      <th><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="addClick()"
+        data-backdrop="static" data-keyboard="false">Add relation</button></th>
     </tr>
   </thead>
   <tbody>
@@ -53,8 +50,7 @@
       <td>{{dataItem.Street}}</td>
       <td>{{dataItem.PostalCode}}</td>
       <td>{{dataItem.StreetNumber}}</td>
-      <td><input type="checkbox"/></td>
-      <td>
+      <td><input type="checkbox"/>
         <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#exampleModal"
                 (click)="editClick(dataItem)"
         data-backdrop="static" data-keyboard="false">
@@ -63,8 +59,7 @@
           <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
         </svg>
         </button>
-      </td>
-      <td>
+
         <button type="button" class="btn btn-light mr-1" data-target="#exampleModal"
         (click)="deleteClick(dataItem)"
         data-backdrop="static" data-keyboard="false">
@@ -73,8 +68,10 @@
           <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
         </svg>
         </button>
-        
       </td>
     </tr>
   </tbody>
 </table>
+</div>
+
+<!-- <div><img src="https://c.pxhere.com/images/94/4c/e8df4e75da76e5d18ec73ce3f1aa-1575607.jpg!d" alt="Img" style="justify-content: center;"></div> -->
