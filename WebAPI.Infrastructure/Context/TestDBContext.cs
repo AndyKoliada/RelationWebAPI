@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using WebAPI.Infrastructure.Models;
 
-namespace WebAPI.ModelsConnected
+namespace WebAPI.Infrastructure.Context
 {
     public partial class TestDBContext : DbContext
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.ModelsConnected
+namespace WebAPI.Infrastructure.Models
 {
     public partial class Relation
     {
