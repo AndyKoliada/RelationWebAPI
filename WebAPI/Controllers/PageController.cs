@@ -2,24 +2,17 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+using WebAPI.Infrastructure.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.ModelsConnected;
-using WebAPI.ModelsConnected.ViewModel;
-using WebAPI.Service;
-using WebAPI.ViewModel.RelationAddress;
 using System.Linq.Dynamic.Core;
-
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PageController : ControllerBase
+    public class RelationsController : ControllerBase
     {
         private readonly TestDBContext _context;
 

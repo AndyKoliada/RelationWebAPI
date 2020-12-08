@@ -1,14 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
+using WebAPI.Infrastructure.Context;
 
-namespace WebAPI.Domain.Services
+namespace WebAPI.Infrastructure.Repositories
 {
-    class RelationService : IRelationService
+    public class RelationsRepository : RepositoryBase<Relation>, IRelationsRepository
     {
+        private readonly RepositoryContext _context;
+        public RelationsRepository(RepositoryContext repositoryContext)
+            : base(repositoryContext)
+        {
+            _context = repositoryContext;
+        }
+
         public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
         {
             string orderQuery = sortBy;
@@ -41,32 +52,32 @@ namespace WebAPI.Domain.Services
                                     }).OrderBy(orderQuery).ToListAsync();
         }
 
-        public async Task<ActionResult<RelationDetailsViewModel>> GetRelation(Guid id)
+        public async Task<Relation> GetRelationByIdAsync(Guid ownerId)
         {
-            //var relation = await _context.Relations.FindAsync(id);
-
-            var relation = await _context.Relations.Where(d => d.Id == id).Select(v => new RelationDetailsViewModel
-            {
-                Id = v.Id,
-                Name = v.Name,
-                FullName = v.FullName,
-                TelephoneNumber = v.TelephoneNumber,
-                EmailAddress = v.EmailAddress,
-                Country = v.RelationAddress.CountryName,
-                City = v.RelationAddress.City,
-                Street = v.RelationAddress.Street,
-                StreetNumber = v.RelationAddress.Number,
-                PostalCode = v.RelationAddress.PostalCode
-            }).FirstOrDefaultAsync();
-
-            if (relation == null)
-            {
-                return NotFound();
-            }
-
-            return relation;
+            return await FindByCondition(owner => owner.Id.Equals(ownerId))
+                .FirstOrDefaultAsync();
         }
 
+        public async Task<Relation> GetRelationWithDetailsAsync(Guid ownerId)
+        {
+            return await FindByCondition(owner => owner.Id.Equals(ownerId))
+                .Include(ac => ac.Accounts)
+                .FirstOrDefaultAsync();
+        }
 
+        public void CreateRelation(Relation owner)
+        {
+            Create(owner);
+        }
+
+        public void UpdateRelation(Relation owner)
+        {
+            Update(owner);
+        }
+
+        public void DeleteRelation(Relation owner)
+        {
+            Delete(owner);
+        }
     }
 }

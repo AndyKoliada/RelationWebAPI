@@ -14,10 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.ModelsConnected;
-using MediatR;
-using AutoMapper;
-using WebAPI.ModelsConnected.ViewModel;
+using WebAPI.Infrastructure.Context;
 
 namespace WebAPI
 {
@@ -52,20 +49,20 @@ namespace WebAPI
             services.AddDbContext<TestDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
-            #region Registering AutoMapper
-            //services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            //#region Registering AutoMapper
+            ////services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
-            var config = new AutoMapper.MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Relation, RelationDetailsViewModel>();
-                cfg.CreateMap<Relation, RelationDetailsCreateModel>();
-                cfg.CreateMap<Relation, RelationDetailsEditModel>();
-            });
-            #endregion
+            //var config = new AutoMapper.MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<Relation, RelationDetailsViewModel>();
+            //    cfg.CreateMap<Relation, RelationDetailsCreateModel>();
+            //    cfg.CreateMap<Relation, RelationDetailsEditModel>();
+            //});
+            //#endregion
 
-            IMapper mapper = config.CreateMapper();
+            //IMapper mapper = config.CreateMapper();
 
-            services.AddSingleton(mapper);
+            //services.AddSingleton(mapper);
 
             #region Swagger
             services.AddSwaggerGen(c =>

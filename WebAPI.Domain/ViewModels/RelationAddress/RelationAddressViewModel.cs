@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebAPI.Core.Models.RelationAddress
+namespace WebAPI.Domain.ViewModels.RelationAddress
 {
     public partial class RelationAddressViewModel
     {

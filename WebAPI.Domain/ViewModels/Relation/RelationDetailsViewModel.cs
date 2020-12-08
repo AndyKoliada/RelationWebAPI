@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.ModelsConnected;
 
-namespace WebAPI.Core.Models.Relation
+namespace WebAPI.Domain.ViewModels.Relation
 {
     public class RelationDetailsViewModel
     {
