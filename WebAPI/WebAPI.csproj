@@ -43,10 +43,6 @@
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.6" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Relations\" />
-  </ItemGroup>
-
   <!--<ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
