@@ -20,7 +20,7 @@ namespace WebAPI.Infrastructure.Repositories
             _context = repositoryContext;
         }
 
-        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
+        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelationsAsync(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
         {
             string orderQuery = sortBy;
 
@@ -52,10 +52,8 @@ namespace WebAPI.Infrastructure.Repositories
                                     }).OrderBy(orderQuery).ToListAsync();
         }
 
-        public async Task<ActionResult<RelationDetailsViewModel>> GetRelationById(Guid id)
+        public async Task<ActionResult<RelationDetailsViewModel>> GetRelationByIdAsync(Guid id)
         {
-            //var relation = await _context.Relations.FindAsync(id);
-
             var relation = await _context.Relations.Where(d => d.Id == id).Select(v => new RelationDetailsViewModel
             {
                 Id = v.Id,
@@ -70,15 +68,10 @@ namespace WebAPI.Infrastructure.Repositories
                 PostalCode = v.RelationAddress.PostalCode
             }).FirstOrDefaultAsync();
 
-            if (relation == null)
-            {
-                return NotFound();
-            }
-
             return relation;
         }
 
-        public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
+        public Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
 
             Relation relation = new Relation()
@@ -100,35 +93,34 @@ namespace WebAPI.Infrastructure.Repositories
                 PostalCode = relationModel.PostalCode
             };
 
-            if (id != relation.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != relation.Id)
+            //{
+            //    return BadRequest();
+            //}
 
             _context.Entry(relation).State = EntityState.Modified;
             _context.Entry(relationAddress).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RelationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!RelationExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-            return NoContent();
+            //return NoContent();
         }
 
-        [HttpPost]
-        public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
+        public async Task<ActionResult<RelationDetailsCreateModel>> PostRelationAsync(RelationDetailsCreateModel relationModel)
         {
 
             string postalCodeFormatMask;
@@ -255,33 +247,32 @@ namespace WebAPI.Infrastructure.Repositories
 
             _context.Relations.Add(relation);
             _context.RelationAddresses.Add(relationAddress);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (RelationExists(relation.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateException)
+            //{
+            //    if (RelationExists(relation.Id))
+            //    {
+            //        return Conflict();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-            return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
+            //return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
         }
 
-        [HttpDelete("{id}")]
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {
             var relation = await _context.Relations.FindAsync(id);
-            if (relation == null)
-            {
-                return NotFound();
-            }
+            //if (relation == null)
+            //{
+            //    return NotFound();
+            //}
 
             #region Implemented Soft Delete
             relation.IsDisabled = true;
@@ -294,9 +285,9 @@ namespace WebAPI.Infrastructure.Repositories
             return relation;
         }
 
-        private bool RelationExists(Guid id)
-        {
-            return _context.Relations.Any(e => e.Id == id);
-        }
+        //private bool RelationExists(Guid id)
+        //{
+        //    return _context.Relations.Any(e => e.Id == id);
+        //}
     }
 }

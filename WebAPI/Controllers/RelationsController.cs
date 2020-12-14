@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using WebAPI.Infrastructure.Repositories;
+using WebAPI.Domain.ViewModels.Relation;
 
 namespace WebAPI.Controllers
 {
@@ -16,80 +17,37 @@ namespace WebAPI.Controllers
     public class PageController : ControllerBase
     {
         private readonly RepositoryContext _context;
+        private IRepositoryWrapper _repository;
 
-        public PageController(RepositoryContext context)
+        public PageController(RepositoryContext context, IRepositoryWrapper repository)
         {
             _context = context;
+            _repository = repository;
         }
  
         [HttpGet]
         [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
         public async Task<IActionResult> Get(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
         {
-            int _pageNumber = pageNumber;
+
             try
-            {
-                var relations = await RelationsRepository.GetRelation(pageNumber, pageSize, sortBy, orderByDescending, filterBy);
-                //_logger.LogInfo($"Returned all owners from database.");
-                //var relationsResult = _mapper.Map<IEnumerable<OwnerDto>>(owners);
-                return Ok(relationsResult);
+            {   
+                var relations = await _repository.Relation
+                    .GetRelationsAsync(pageNumber, pageSize, sortBy, orderByDescending, filterBy);
+                return Ok(relations);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Internal server error");
             }
+
         }
-        //public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy) 
-        //{
-        //    string orderQuery = sortBy;
-
-        //    string filterQuery = filterBy;
-
-        //    if(filterBy == "None")
-        //    {
-        //        filterQuery = null;
-        //    }
-
-        //    if (orderByDescending)
-        //    {
-        //        orderQuery += " descending";
-        //    }
-
-        //        return await _context.Relations.Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-        //                                .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel
-        //                                {
-        //                                    Id = v.Id,
-        //                                    Name = v.Name,
-        //                                    FullName = v.FullName,
-        //                                    TelephoneNumber = v.TelephoneNumber,
-        //                                    EmailAddress = v.EmailAddress,
-        //                                    Country = v.RelationAddress.CountryName,
-        //                                    City = v.RelationAddress.City,
-        //                                    Street = v.RelationAddress.Street,
-        //                                    StreetNumber = v.RelationAddress.Number,
-        //                                    PostalCode = v.RelationAddress.PostalCode
-        //                                }).OrderBy(orderQuery).ToListAsync();
-        //}
 
 
         [HttpGet("{id}")]
         public async Task<ActionResult<RelationDetailsViewModel>> GetRelation(Guid id)
         {
-            //var relation = await _context.Relations.FindAsync(id);
-
-            var relation = await _context.Relations.Where(d => d.Id == id).Select(v => new RelationDetailsViewModel
-                                        {
-                                            Id = v.Id,
-                                            Name = v.Name,
-                                            FullName = v.FullName,
-                                            TelephoneNumber = v.TelephoneNumber,
-                                            EmailAddress = v.EmailAddress,
-                                            Country = v.RelationAddress.CountryName,
-                                            City = v.RelationAddress.City,
-                                            Street = v.RelationAddress.Street,
-                                            StreetNumber = v.RelationAddress.Number,
-                                            PostalCode = v.RelationAddress.PostalCode
-                                        }).FirstOrDefaultAsync();
+            var relation = await _repository.Relation.GetRelationByIdAsync(id);
 
             if (relation == null)
             {
@@ -101,7 +59,8 @@ namespace WebAPI.Controllers
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
-        {
+        {   
+
 
             Relation relation = new Relation()
             {

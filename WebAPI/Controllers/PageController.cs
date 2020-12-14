@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using WebAPI.ModelsConnected;
+using WebAPI.Domain.ViewModels.Relation;
 
 namespace WebAPI.Controllers
 {
@@ -20,16 +22,16 @@ namespace WebAPI.Controllers
         {
             _context = context;
         }
- 
+
         [HttpGet]
         [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
-        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy) 
+        public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
         {
             string orderQuery = sortBy;
 
             string filterQuery = filterBy;
 
-            if(filterBy == "None")
+            if (filterBy == "None")
             {
                 filterQuery = null;
             }
@@ -39,20 +41,20 @@ namespace WebAPI.Controllers
                 orderQuery += " descending";
             }
 
-                return await _context.Relations.Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery).Skip((pageNumber - 1) * pageSize).Take(pageSize)
-                                        .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel
-                                        {
-                                            Id = v.Id,
-                                            Name = v.Name,
-                                            FullName = v.FullName,
-                                            TelephoneNumber = v.TelephoneNumber,
-                                            EmailAddress = v.EmailAddress,
-                                            Country = v.RelationAddress.CountryName,
-                                            City = v.RelationAddress.City,
-                                            Street = v.RelationAddress.Street,
-                                            StreetNumber = v.RelationAddress.Number,
-                                            PostalCode = v.RelationAddress.PostalCode
-                                        }).OrderBy(orderQuery).ToListAsync();
+            return await _context.Relations.Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery).Skip((pageNumber - 1) * pageSize).Take(pageSize)
+                                    .Include(a => a.RelationAddress).Select(v => new RelationDetailsViewModel
+                                    {
+                                        Id = v.Id,
+                                        Name = v.Name,
+                                        FullName = v.FullName,
+                                        TelephoneNumber = v.TelephoneNumber,
+                                        EmailAddress = v.EmailAddress,
+                                        Country = v.RelationAddress.CountryName,
+                                        City = v.RelationAddress.City,
+                                        Street = v.RelationAddress.Street,
+                                        StreetNumber = v.RelationAddress.Number,
+                                        PostalCode = v.RelationAddress.PostalCode
+                                    }).OrderBy(orderQuery).ToListAsync();
         }
 
 
@@ -62,18 +64,18 @@ namespace WebAPI.Controllers
             //var relation = await _context.Relations.FindAsync(id);
 
             var relation = await _context.Relations.Where(d => d.Id == id).Select(v => new RelationDetailsViewModel
-                                        {
-                                            Id = v.Id,
-                                            Name = v.Name,
-                                            FullName = v.FullName,
-                                            TelephoneNumber = v.TelephoneNumber,
-                                            EmailAddress = v.EmailAddress,
-                                            Country = v.RelationAddress.CountryName,
-                                            City = v.RelationAddress.City,
-                                            Street = v.RelationAddress.Street,
-                                            StreetNumber = v.RelationAddress.Number,
-                                            PostalCode = v.RelationAddress.PostalCode
-                                        }).FirstOrDefaultAsync();
+            {
+                Id = v.Id,
+                Name = v.Name,
+                FullName = v.FullName,
+                TelephoneNumber = v.TelephoneNumber,
+                EmailAddress = v.EmailAddress,
+                Country = v.RelationAddress.CountryName,
+                City = v.RelationAddress.City,
+                Street = v.RelationAddress.Street,
+                StreetNumber = v.RelationAddress.Number,
+                PostalCode = v.RelationAddress.PostalCode
+            }).FirstOrDefaultAsync();
 
             if (relation == null)
             {
@@ -150,7 +152,7 @@ namespace WebAPI.Controllers
                 {
                     relationModel.PostalCode = PostalCodeFormatter(postalCodeFormatMask);
                 }
-                
+
             }
 
             string PostalCodeFormatter(string postalCodeFormatMask)
@@ -250,7 +252,7 @@ namespace WebAPI.Controllers
             };
 
             RelationAddress relationAddress = new RelationAddress()
-            {   
+            {
                 RelationId = relation.Id,
                 CountryName = relationModel.Country,
                 City = relationModel.City,
@@ -291,7 +293,7 @@ namespace WebAPI.Controllers
 
             #region Implemented Soft Delete
             relation.IsDisabled = true;
-            
+
 
             //_context.TblRelation.Remove(tblRelation);
             #endregion

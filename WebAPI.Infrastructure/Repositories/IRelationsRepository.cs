@@ -10,10 +10,10 @@ namespace WebAPI.Infrastructure.Repositories
 {
     public interface IRelationsRepository : IRepositoryBase<Relation>
     {
-        Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation
+        Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelationsAsync
             (int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
-        Task<ActionResult<RelationDetailsViewModel>> GetRelationById(Guid relationId);
-        public Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel);
+        Task<ActionResult<RelationDetailsViewModel>> GetRelationByIdAsync(Guid relationId);
+        public Task<ActionResult<RelationDetailsCreateModel>> PostRelationAsync(RelationDetailsCreateModel relationModel);
         public Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel);
         public Task<ActionResult<Relation>> DeleteRelation(Guid id);
     }

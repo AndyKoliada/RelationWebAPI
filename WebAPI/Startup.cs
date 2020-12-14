@@ -46,7 +46,12 @@ namespace WebAPI
                 .AddNewtonsoftJson(options => 
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+            services.AddScoped<IRelationsRepository, RelationsRepository>();
+
             services.ConfigureRepositoryWrapper(); //From Infrastructure layer
+
 
             services.AddControllers();
 

@@ -10,6 +10,7 @@ namespace WebAPI.Infrastructure.Repositories
     {
         private readonly RepositoryContext _context;
         private IRelationsRepository _relation;
+        private IRelationsAddressesRepository _address;
         public IRelationsRepository Relation
         {
             get
@@ -19,6 +20,18 @@ namespace WebAPI.Infrastructure.Repositories
                     _relation = new RelationsRepository(_context);
                 }
                 return _relation;
+            }
+        }
+
+        public IRelationsAddressesRepository Address
+        {
+            get
+            {
+                if (_address == null)
+                {
+                    _address = new RelationsAddressesRepository(_context);
+                }
+                return _address;
             }
         }
 
