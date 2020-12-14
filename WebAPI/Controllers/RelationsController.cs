@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using WebAPI.Infrastructure.Repositories;
 
 namespace WebAPI.Controllers
 {
@@ -23,8 +24,21 @@ namespace WebAPI.Controllers
  
         [HttpGet]
         [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
-
-
+        public async Task<IActionResult> Get(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
+        {
+            int _pageNumber = pageNumber;
+            try
+            {
+                var relations = await RelationsRepository.GetRelation(pageNumber, pageSize, sortBy, orderByDescending, filterBy);
+                //_logger.LogInfo($"Returned all owners from database.");
+                //var relationsResult = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+                return Ok(relationsResult);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
         //public async Task<ActionResult<IEnumerable<RelationDetailsViewModel>>> GetRelation(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy) 
         //{
         //    string orderQuery = sortBy;

@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Infrastructure.Context;
+using WebAPI.Infrastructure;
+using WebAPI.Infrastructure.Repositories;
 
 namespace WebAPI
 {
@@ -44,10 +46,14 @@ namespace WebAPI
                 .AddNewtonsoftJson(options => 
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+            services.ConfigureRepositoryWrapper(); //From Infrastructure layer
+
             services.AddControllers();
 
-            services.AddDbContext<TestDBContext>(options =>
+            services.AddDbContext<RepositoryContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
+
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             //#region Registering AutoMapper
             ////services.AddAutoMapper(typeof(MappingProfile).Assembly);
