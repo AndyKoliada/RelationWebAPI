@@ -31,7 +31,27 @@ namespace WebAPI.Services
 
         public async Task<RelationDetailsViewModel> GetRelationsById(Guid id)
         {
-            var relation = await _repositoryWrapper.Relations.
+            var relation = await _repositoryWrapper.Relations.GetRelationByIdAsync(id);
+
+            return relation;
+        }
+
+        public async Task<RelationDetailsEditModel> EditModel(Guid id, RelationDetailsEditModel relationModel)
+        {
+            var relation = await _repositoryWrapper.Relations.PutRelation(id, relationModel);
+
+            return relation;
+        }
+
+
+
+
+
+
+
+        public bool RelationExists(Guid id)
+        {
+            return _repositoryWrapper.Relations.RelationExists(id);
         }
     }
 }

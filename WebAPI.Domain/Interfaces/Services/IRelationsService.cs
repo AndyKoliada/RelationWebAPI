@@ -16,5 +16,7 @@ namespace WebAPI.Domain.Interfaces.Services
         Task<IEnumerable<RelationDetailsViewModel>> GetRelations(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
 
         Task<RelationDetailsViewModel> GetRelationsById(Guid id);
+
+        Task<RelationDetailsEditModel> EditModel(Guid id, RelationDetailsEditModel relationModel);
     }
 }

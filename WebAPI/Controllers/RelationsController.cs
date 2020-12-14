@@ -61,8 +61,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RelationDetailsViewModel>> GetRelation(Guid id)
         {
-            var relation = await _repository.Relation.GetRelationByIdAsync(id);
-            var relation = await _relationsService.
+            var relation = await _relationsService.GetRelationsById(id);
 
             if (relation == null)
             {
@@ -72,56 +71,56 @@ namespace WebAPI.Controllers
             return relation;
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
-        //{   
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
+        {
+            //var relation = await _relationsService
 
+            //Relation relation = new Relation()
+            //{
+            //    Id = id,
+            //    Name = relationModel.Name,
+            //    FullName = relationModel.FullName,
+            //    TelephoneNumber = relationModel.TelephoneNumber,
+            //    EmailAddress = relationModel.EmailAddress
+            //};
 
-        //    Relation relation = new Relation()
-        //    {
-        //        Id = id,
-        //        Name = relationModel.Name,
-        //        FullName = relationModel.FullName,
-        //        TelephoneNumber = relationModel.TelephoneNumber,
-        //        EmailAddress = relationModel.EmailAddress
-        //    };
+            //RelationAddress relationAddress = new RelationAddress()
+            //{
+            //    RelationId = id,
+            //    CountryName = relationModel.Country,
+            //    City = relationModel.Name,
+            //    Street = relationModel.Street,
+            //    Number = relationModel.StreetNumber,
+            //    PostalCode = relationModel.PostalCode
+            //};
 
-        //    RelationAddress relationAddress = new RelationAddress()
-        //    {
-        //        RelationId = id,
-        //        CountryName = relationModel.Country,
-        //        City = relationModel.Name,
-        //        Street = relationModel.Street,
-        //        Number = relationModel.StreetNumber,
-        //        PostalCode = relationModel.PostalCode
-        //    };
+            if (id != relation.Id)
+            {
+                return BadRequest();
+            }
 
-        //    if (id != relation.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            //_context.Entry(relation).State = EntityState.Modified;
+            //_context.Entry(relationAddress).State = EntityState.Modified;
 
-        //    _context.Entry(relation).State = EntityState.Modified;
-        //    _context.Entry(relationAddress).State = EntityState.Modified;
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!RelationExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!RelationExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
         //[HttpPost]
         //public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)

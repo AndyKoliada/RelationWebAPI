@@ -19,8 +19,9 @@ namespace WebAPI.Domain.Interfaces.Repositories
         Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
 
         Task<RelationDetailsCreateModel> PostRelationAsync(RelationDetailsCreateModel relationModel);
-        Task PutRelation(Guid id, RelationDetailsEditModel relationModel);
+        Task<RelationDetailsEditModel> PutRelation(Guid id, RelationDetailsEditModel relationModel);
         Task<Relation> DeleteRelation(Guid id);
         Task<RelationDetailsViewModel> GetRelationByIdAsync(Guid id);
+        bool RelationExists(Guid id);
     }
 }
