@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Infrastructure.Context;
 
 namespace WebAPI.Infrastructure.Repositories
@@ -9,29 +10,29 @@ namespace WebAPI.Infrastructure.Repositories
     public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly RepositoryContext _context;
-        private IRelationsRepository _relation;
-        private IRelationsAddressesRepository _address;
-        public IRelationsRepository Relation
+        private IRelationsRepository _relations;
+        private IRelationsAddressesRepository _addresses;
+        public IRelationsRepository Relations
         {
             get
             {
-                if (_relation == null)
+                if (_relations == null)
                 {
-                    _relation = new RelationsRepository(_context);
+                    _relations = new RelationsRepository(_context);
                 }
-                return _relation;
+                return _relations;
             }
         }
 
-        public IRelationsAddressesRepository Address
+        public IRelationsAddressesRepository Addresses
         {
             get
             {
-                if (_address == null)
+                if (_addresses == null)
                 {
-                    _address = new RelationsAddressesRepository(_context);
+                    _addresses = new RelationsAddressesRepository(_context);
                 }
-                return _address;
+                return _addresses;
             }
         }
 

@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Infrastructure", "We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularWebUI", "AngularWebUI\AngularWebUI.csproj", "{9B8B4E50-5F87-4437-A893-9FCC6B0A6D13}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Services", "WebAPI.Services\WebAPI.Services.csproj", "{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{9B8B4E50-5F87-4437-A893-9FCC6B0A6D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B8B4E50-5F87-4437-A893-9FCC6B0A6D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B8B4E50-5F87-4437-A893-9FCC6B0A6D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -17,6 +17,9 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Infrastructure.Context;
 using WebAPI.Infrastructure;
 using WebAPI.Infrastructure.Repositories;
+using WebAPI.Domain.Interfaces.Repositories;
+using WebAPI.Domain.Interfaces.Services;
+using WebAPI.Services;
 
 namespace WebAPI
 {
@@ -45,17 +48,17 @@ namespace WebAPI
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => 
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
+            
+            services.AddScoped<IRelationsService, RelationsService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
             services.AddScoped<IRelationsRepository, RelationsRepository>();
 
-            services.ConfigureRepositoryWrapper(); //From Infrastructure layer
+            //services.ConfigureRepositoryWrapper(); //From Infrastructure layer
 
 
             services.AddControllers();
 
-            services.AddDbContext<RepositoryContext>(options =>
+            services.AddDbContext<RepositoryContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
 
             //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebAPI.ModelsConnected;
-using WebAPI.ModelsConnected.ViewModel;
+using WebAPI.Domain.Models;
+using WebAPI.Domain.ViewModels.Relation;
 
 namespace WebAPI
 {

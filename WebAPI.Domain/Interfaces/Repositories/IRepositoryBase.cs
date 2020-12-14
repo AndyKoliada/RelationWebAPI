@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace WebAPI.Infrastructure.Repositories
+namespace WebAPI.Domain.Interfaces.Repositories
 {
     public interface IRepositoryBase<T>
     {

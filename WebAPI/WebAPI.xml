@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:WebAPI.Controllers.PageController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PageController.#ctor(WebAPI.Domain.Interfaces.Services.IRelationsService)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PageController.Get(System.Int32,System.Int32,System.String,System.Boolean,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <param name="sortBy"></param>
+            <param name="orderByDescending"></param>
+            <param name="filterBy"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
