@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { valHooks } from 'jquery';
 import { SharedService } from 'src/app/shared.service';
 import { AddEditRelationComponent } from '../add-edit-relation/add-edit-relation.component';
 import { RelationsComponent } from '../relations.component';
@@ -22,6 +23,8 @@ export class ShowRelationComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshRelationsList();
+    this.service.PageNumber = this.service.PageNumber;
+    this.service.PageSize = this.service.PageSize;
   }
 
   addClick() {
@@ -58,6 +61,21 @@ export class ShowRelationComponent implements OnInit {
     this.refreshRelationsList();
   }
 
+  nextPageClick()
+  { 
+    this.service.changePage(this.service.PageNumber + 1, 5);
+    this.refreshRelationsList();
+  }
+
+  previousPageClick()
+  { 
+    if(this.service.PageNumber > 1)
+    {
+      this.service.changePage(this.service.PageNumber - 1, 5);
+      this.refreshRelationsList();
+    }
+
+  }
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
       this.RelationsList = data;
