@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
+using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
 
 namespace WebAPI.Services
@@ -43,9 +44,20 @@ namespace WebAPI.Services
             return relation;
         }
 
+        public async Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel)
+        {
+            var relation = await _repositoryWrapper.Relations.PostRelationAsync(relationModel);
+
+            return relation;
+        }
 
 
+        public async Task<Relation> DeleteModel(Guid id)
+        {
+            var relation = await _repositoryWrapper.Relations.DeleteRelation(id);
 
+            return relation;
+        }
 
 
 
@@ -53,5 +65,6 @@ namespace WebAPI.Services
         {
             return _repositoryWrapper.Relations.RelationExists(id);
         }
+
     }
 }

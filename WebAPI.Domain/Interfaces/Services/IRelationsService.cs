@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
 
 namespace WebAPI.Domain.Interfaces.Services
@@ -18,5 +19,9 @@ namespace WebAPI.Domain.Interfaces.Services
         Task<RelationDetailsViewModel> GetRelationsById(Guid id);
 
         Task<RelationDetailsEditModel> EditModel(Guid id, RelationDetailsEditModel relationModel);
+
+        Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel);
+
+        Task<Relation> DeleteModel(Guid id);
     }
 }
