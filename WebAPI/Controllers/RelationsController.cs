@@ -104,7 +104,6 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
-
             var relation = await _relationsService.CreateModel(relationModel);
 
             return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);

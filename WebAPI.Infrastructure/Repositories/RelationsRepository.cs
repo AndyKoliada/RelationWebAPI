@@ -82,76 +82,7 @@ namespace WebAPI.Infrastructure.Repositories
 
         public async Task<RelationDetailsCreateModel> PostRelationAsync(RelationDetailsCreateModel relationModel)
         {
-            string postalCodeFormatMask;
-
-
-            if (relationModel.PostalCode != null && relationModel.Country != null)
-            {
-                postalCodeFormatMask = _context.Countries
-                    .Where(n => n.Name == relationModel.Country && n.PostalCodeFormat != null)
-                    .Select(n => n.PostalCodeFormat).FirstOrDefault();
-
-                if (postalCodeFormatMask != null)
-                {
-                    relationModel.PostalCode = PostalCodeFormatter(postalCodeFormatMask);
-                }
-
-            }
-
-            string PostalCodeFormatter(string postalCodeFormatMask)
-            {
-                //Расшифровка символов маски: N - digit, L - capital letter,
-                //l - lower letter.Например, если введенный почтовый индекс 4545bx,
-                //    а маска -"NNNN-LL", то в базе должно сохраниться значение 4545 - BX
-
-                string correctedPostalCode = "";
-                string pc = new string(relationModel.PostalCode.ToCharArray()
-                        .Where(c => !Char.IsWhiteSpace(c))
-                        .ToArray());
-                string m = postalCodeFormatMask;
-
-                for (int i = 0, j = 0; i < pc.Length && j < m.Length; i++)
-                {
-                    if (Char.IsDigit(pc[i]) && m[j] == 'N')
-                    {
-                        correctedPostalCode += pc[i];
-                        j++;
-                    }
-                    else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] != pc[i])
-                    {
-                        correctedPostalCode += " " + m[j] + " ";
-                        j++;
-                    }
-                    else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] == pc[i])
-                    {
-                        correctedPostalCode += pc[i];
-                        j++;
-                    }
-                    else if (Char.IsLetter(pc[i]) && m[j] == 'l')
-                    {
-                        correctedPostalCode += Char.ToLower(pc[i]);
-                        j++;
-                    }
-                    else if (Char.IsLetter(pc[i]) && m[j] == 'L')
-                    {
-                        correctedPostalCode += Char.ToUpper(pc[i]);
-                        j++;
-                    }
-
-                }
-
-
-                if (correctedPostalCode.Length < pc.Length)
-                {
-                    return pc;
-                }
-                else
-                {
-                    return correctedPostalCode;
-                }
-
-            }
-
+            TryFormatPostalCode(relationModel);
 
             Relation relation = new Relation()
             {
@@ -197,6 +128,7 @@ namespace WebAPI.Infrastructure.Repositories
 
         public async Task<RelationDetailsEditModel> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
+
             Relation relation = new Relation()
             {
                 Id = id,
@@ -268,6 +200,84 @@ namespace WebAPI.Infrastructure.Repositories
         public bool RelationExists(Guid id)
         {
             return _context.Relations.Any(e => e.Id == id);
+        }
+
+        public RelationDetailsCreateModel TryFormatPostalCode(RelationDetailsCreateModel relationModel)
+        {
+            string postalCodeMask = GetPostalCodeMask(relationModel);
+
+            relationModel.PostalCode = ModifyPostalCode(relationModel.PostalCode, postalCodeMask);
+
+            return relationModel;
+        }
+
+        public string GetPostalCodeMask(RelationDetailsCreateModel relationModel)
+        {
+            string postalCodeFormatMask;
+
+            if (relationModel.PostalCode != null && relationModel.Country != null)
+            {
+                postalCodeFormatMask = _context.Countries
+                    .Where(n => n.Name == relationModel.Country && n.PostalCodeFormat != null)
+                    .Select(n => n.PostalCodeFormat).FirstOrDefault();
+
+                if (postalCodeFormatMask != null)
+                {
+                    return postalCodeFormatMask;
+                }
+                else return "";
+
+            }
+            else return "";
+        }
+
+        public string ModifyPostalCode(string input, string mask)
+        {
+            string correctedPostalCode = "";
+            string pc = new string(input.ToCharArray()
+                    .Where(c => !Char.IsWhiteSpace(c))
+                    .ToArray());
+            string m = mask;
+
+            for (int i = 0, j = 0; i < pc.Length && j < m.Length; i++)
+            {
+                if (Char.IsDigit(pc[i]) && m[j] == 'N')
+                {
+                    correctedPostalCode += pc[i];
+                    j++;
+                }
+                else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] != pc[i])
+                {
+                    correctedPostalCode += " " + m[j] + " ";
+                    j++;
+                }
+                else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] == pc[i])
+                {
+                    correctedPostalCode += pc[i];
+                    j++;
+                }
+                else if (Char.IsLetter(pc[i]) && m[j] == 'l')
+                {
+                    correctedPostalCode += Char.ToLower(pc[i]);
+                    j++;
+                }
+                else if (Char.IsLetter(pc[i]) && m[j] == 'L')
+                {
+                    correctedPostalCode += Char.ToUpper(pc[i]);
+                    j++;
+                }
+
+            }
+
+
+            if (correctedPostalCode.Length < pc.Length)
+            {
+                return pc;
+            }
+            else
+            {
+                return correctedPostalCode;
+            }
         }
     }
 }
