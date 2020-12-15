@@ -232,7 +232,11 @@ namespace WebAPI.Infrastructure.Repositories
         }
 
         public string ModifyPostalCode(string input, string mask)
-        {
+        { 
+            if(String.IsNullOrEmpty(input))
+            {
+                return "";
+            }
             string correctedPostalCode = "";
             string pc = new string(input.ToCharArray()
                     .Where(c => !Char.IsWhiteSpace(c))
