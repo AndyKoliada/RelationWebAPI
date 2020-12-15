@@ -14,6 +14,13 @@ export class ShowRelationComponent implements OnInit {
 
   RelationsList: any = [];
 
+  PageNumber: number = 1;
+  PageSize: number = 5;
+  SortBy: string = "Country";
+  FilterBy: string = "None";
+  DeleteIdList: [];
+  OrderByDescending: boolean = false;
+
   
   constructor(private service: SharedService) {}
 
@@ -23,8 +30,6 @@ export class ShowRelationComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshRelationsList();
-    this.service.PageNumber = this.service.PageNumber;
-    this.service.PageSize = this.service.PageSize;
   }
 
   addClick() {

@@ -1,4 +1,4 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -17,11 +17,7 @@ export class SharedService {
   DeleteIdList: [];
   OrderByDescending: boolean = false;
   
-  @Input()
-  pageNumber: number;
-  pageSize: number;
 
-  
   QueryString: string = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize 
   + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy;
 
