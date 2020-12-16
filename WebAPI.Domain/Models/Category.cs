@@ -7,7 +7,7 @@ namespace WebAPI.Domain.Models
     {
         public Category()
         {
-            TblRelationCategory = new HashSet<RelationCategory>();
+            RelationCategory = new HashSet<RelationCategory>();
         }
 
         public Guid Id { get; set; }
@@ -38,6 +38,6 @@ namespace WebAPI.Domain.Models
         public DateTime? Timestamp3 { get; set; }
         public DateTime? Timestamp4 { get; set; }
 
-        public virtual ICollection<RelationCategory> TblRelationCategory { get; set; }
+        public virtual ICollection<RelationCategory> RelationCategory { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace WebAPI.Domain.Models
     {
         public AddressType()
         {
-            TblRelationAddress = new HashSet<RelationAddress>();
+            RelationAddress = new HashSet<RelationAddress>();
         }
 
         public Guid Id { get; set; }
@@ -15,8 +15,6 @@ namespace WebAPI.Domain.Models
         public string CreatedBy { get; set; }
         public bool IsDisabled { get; set; }
         public string Name { get; set; }
-      
-
-        public virtual ICollection<RelationAddress> TblRelationAddress { get; set; }
+        public virtual ICollection<RelationAddress> RelationAddress { get; set; }
     }
 }

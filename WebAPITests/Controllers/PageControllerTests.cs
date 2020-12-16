@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebAPI.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebAPI.Controllers.Tests
 {

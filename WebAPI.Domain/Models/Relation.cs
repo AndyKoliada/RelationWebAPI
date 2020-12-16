@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI.Domain.Models
@@ -26,14 +25,8 @@ namespace WebAPI.Domain.Models
         public string DefaultCountry { get; set; }
         public string EmailAddress { get; set; }
         public string TelephoneNumber { get; set; }
-
-
-
-        
-
         public virtual RelationAddress RelationAddress { get; set; }
         public virtual RelationCategory RelationCategory { get; set; }
-
 
     }
 }

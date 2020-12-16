@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using WebAPI.Infrastructure.Context;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using WebAPI.Infrastructure.Repositories;
 using WebAPI.Domain.ViewModels.Relation;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Domain.Models;

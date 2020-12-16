@@ -7,7 +7,7 @@ namespace WebAPI.Domain.Models
     {
         public Country()
         {
-            TblRelationAddress = new HashSet<RelationAddress>();
+            RelationAddress = new HashSet<RelationAddress>();
         }
 
         public Guid Id { get; set; }
@@ -24,6 +24,6 @@ namespace WebAPI.Domain.Models
         public Guid? DefaultVatId { get; set; }
         public string PostalCodeFormat { get; set; }
 
-        public virtual ICollection<RelationAddress> TblRelationAddress { get; set; }
+        public virtual ICollection<RelationAddress> RelationAddress { get; set; }
     }
 }

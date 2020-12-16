@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebAPI.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using WebAPI.Domain.ViewModels.Relation;
 
 namespace WebAPI.Infrastructure.Repositories.Tests
