@@ -12,10 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\**" />
     <Compile Remove="Models\**" />
+    <Content Remove="ClientApp\**" />
     <Content Remove="Models\**" />
+    <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="Models\**" />
+    <None Remove="ClientApp\**" />
     <None Remove="Models\**" />
+    <TypeScriptCompile Remove="ClientApp\**" />
     <TypeScriptCompile Remove="Models\**" />
     <TypeScriptCompile Remove="node_modules\**" />
   </ItemGroup>

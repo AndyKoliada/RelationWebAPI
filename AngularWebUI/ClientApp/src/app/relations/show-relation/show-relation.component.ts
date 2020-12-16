@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { valHooks } from 'jquery';
 import { SharedService } from 'src/app/shared.service';
 import { AddEditRelationComponent } from '../add-edit-relation/add-edit-relation.component';
 import { RelationsComponent } from '../relations.component';
@@ -12,6 +13,13 @@ import { RelationsComponent } from '../relations.component';
 export class ShowRelationComponent implements OnInit {
 
   RelationsList: any = [];
+
+  PageNumber: number = 1;
+  PageSize: number = 5;
+  SortBy: string = "Country";
+  FilterBy: string = "None";
+  DeleteIdList: [];
+  OrderByDescending: boolean = false;
 
   
   constructor(private service: SharedService) {}
@@ -58,6 +66,21 @@ export class ShowRelationComponent implements OnInit {
     this.refreshRelationsList();
   }
 
+  nextPageClick()
+  { 
+    this.service.changePage(this.service.PageNumber + 1, 5);
+    this.refreshRelationsList();
+  }
+
+  previousPageClick()
+  { 
+    if(this.service.PageNumber > 1)
+    {
+      this.service.changePage(this.service.PageNumber - 1, 5);
+      this.refreshRelationsList();
+    }
+
+  }
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
       this.RelationsList = data;

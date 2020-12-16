@@ -74,4 +74,11 @@
 </table>
 </div>
 
-<!-- <div><img src="https://c.pxhere.com/images/94/4c/e8df4e75da76e5d18ec73ce3f1aa-1575607.jpg!d" alt="Img" style="justify-content: center;"></div> -->
+<div style="display: inline-block;">
+  <button class="btn btn-light" style="margin-right: 1cm;" (click)="previousPageClick()">Previous page</button>
+  <button class="btn btn-light" style="margin-right: 1cm;" (click)="nextPageClick()">Next page</button>
+  <label>Page number</label>
+  <input type="number" min="1" value="1" style="max-width: 1cm; margin: 1cm;" >
+  <label>Elements on the page</label>
+  <input type="number" min="1" value="5" style="max-width: 1cm; margin-left: 1cm;">
+</div>
