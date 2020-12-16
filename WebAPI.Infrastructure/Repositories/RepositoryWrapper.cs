@@ -11,7 +11,6 @@ namespace WebAPI.Infrastructure.Repositories
     {
         private readonly RepositoryContext _context;
         private IRelationsRepository _relations;
-        private IRelationsAddressesRepository _addresses;
         public IRelationsRepository Relations
         {
             get
@@ -24,17 +23,6 @@ namespace WebAPI.Infrastructure.Repositories
             }
         }
 
-        public IRelationsAddressesRepository Addresses
-        {
-            get
-            {
-                if (_addresses == null)
-                {
-                    _addresses = new RelationsAddressesRepository(_context);
-                }
-                return _addresses;
-            }
-        }
 
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
