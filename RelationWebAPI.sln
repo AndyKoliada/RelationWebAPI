@@ -22,10 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularWebUI", "AngularWebU
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Services", "WebAPI.Services\WebAPI.Services.csproj", "{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.InfrastructureTests", "WebAPI.InfrastructureTests\WebAPI.InfrastructureTests.csproj", "{AC139A30-2AE1-4AC5-A8CF-A437C47F69D8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.InfrastructureTests1", "WebAPI.InfrastructureTests1\WebAPI.InfrastructureTests1.csproj", "{E6C9014D-F1D7-4F2A-AA87-162FF0F71155}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,14 +52,6 @@ Global
 		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D1A1A95-E33F-47C6-8B1B-B890D6B1EB21}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC139A30-2AE1-4AC5-A8CF-A437C47F69D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC139A30-2AE1-4AC5-A8CF-A437C47F69D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC139A30-2AE1-4AC5-A8CF-A437C47F69D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC139A30-2AE1-4AC5-A8CF-A437C47F69D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6C9014D-F1D7-4F2A-AA87-162FF0F71155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6C9014D-F1D7-4F2A-AA87-162FF0F71155}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6C9014D-F1D7-4F2A-AA87-162FF0F71155}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6C9014D-F1D7-4F2A-AA87-162FF0F71155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
