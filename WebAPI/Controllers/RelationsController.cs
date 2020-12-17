@@ -8,7 +8,7 @@ using WebAPI.Domain.Models;
 namespace WebAPI.Controllers
 {
     /// <summary>
-    /// 
+    /// Main API Controller
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
         private readonly IRelationsService _relationsService;
 
         /// <summary>
-        /// 
+        /// DI constructor
         /// </summary>
         public PageController(IRelationsService relationsService)
         {
@@ -25,14 +25,14 @@ namespace WebAPI.Controllers
         }
  
         /// <summary>
-        /// 
+        /// Get method using URI arguments for composing query.
         /// </summary>
         /// <param name="pageNumber"></param>
         /// <param name="pageSize"></param>
         /// <param name="sortBy"></param>
         /// <param name="orderByDescending"></param>
         /// <param name="filterBy"></param>
-        /// <returns></returns>
+        /// <returns>Only requested models</returns>
         [HttpGet]
         [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
         public async Task<IActionResult> Get(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
@@ -51,7 +51,11 @@ namespace WebAPI.Controllers
 
         }
 
-
+        /// <summary>
+        /// Gets only models with provided id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<RelationDetailsViewModel>> GetRelation(Guid id)
         {
@@ -64,7 +68,12 @@ namespace WebAPI.Controllers
 
             return relation;
         }
-
+        /// <summary>
+        /// Saves edited model to dbContext by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="relationModel"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
@@ -75,25 +84,13 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
 
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!RelationExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
             return NoContent();
         }
-
+        /// <summary>
+        /// Creates new model in dbContext.
+        /// </summary>
+        /// <param name="relationModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
@@ -101,7 +98,11 @@ namespace WebAPI.Controllers
 
             return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
         }
-
+        /// <summary>
+        /// Deletes model by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {
@@ -121,10 +122,5 @@ namespace WebAPI.Controllers
 
             return relation;
         }
-
-        //private bool RelationExists(Guid id)
-        //{
-        //    return _context.Relations.Any(e => e.Id == id);
-        //}
     }
 }

@@ -23,11 +23,8 @@ namespace WebAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMediatR(typeof(Services.Features.Relations.Index).Assembly);
-           
             //Enable CORS
             services.AddCors(c =>
             c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
@@ -40,35 +37,16 @@ namespace WebAPI
                 .AddNewtonsoftJson(options => 
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             
+            //Registering custom services
             services.AddScoped<IRelationsService, RelationsService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
-
-            //services.ConfigureRepositoryWrapper(); //From Infrastructure layer
-
 
             services.AddControllers();
 
             services.AddDbContext<RepositoryContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
-
-            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-            //#region Registering AutoMapper
-            ////services.AddAutoMapper(typeof(MappingProfile).Assembly);
-
-            //var config = new AutoMapper.MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<Relation, RelationDetailsViewModel>();
-            //    cfg.CreateMap<Relation, RelationDetailsCreateModel>();
-            //    cfg.CreateMap<Relation, RelationDetailsEditModel>();
-            //});
-            //#endregion
-
-            //IMapper mapper = config.CreateMapper();
-
-            //services.AddSingleton(mapper);
-
+            
             #region Swagger
             services.AddSwaggerGen(c =>
             {
@@ -83,8 +61,6 @@ namespace WebAPI
             #endregion
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {   
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
