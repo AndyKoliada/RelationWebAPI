@@ -2,7 +2,10 @@
 using WebAPI.Domain.Models;
 
 namespace WebAPI.Infrastructure.Context
-{
+{   
+    /// <summary>
+    /// Database context for Entity Framework Core
+    /// </summary>
     public class RepositoryContext : DbContext
     {
         public RepositoryContext()

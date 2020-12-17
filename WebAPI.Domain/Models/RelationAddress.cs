@@ -3,6 +3,9 @@ using WebAPI.Domain.Profiles;
 
 namespace WebAPI.Domain.Models
 {
+    /// <summary>
+    /// Represents fields in database table
+    /// </summary>
     public partial class RelationAddress
     {
         public Guid RelationId { get; set; }

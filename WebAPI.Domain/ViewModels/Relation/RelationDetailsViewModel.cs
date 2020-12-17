@@ -3,6 +3,9 @@ using System;
 
 namespace WebAPI.Domain.ViewModels.Relation
 {
+    /// <summary>
+    /// View model to view model.
+    /// </summary>
     public class RelationDetailsViewModel
     {
         public Guid Id { get; set; }

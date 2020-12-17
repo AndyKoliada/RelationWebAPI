@@ -3,9 +3,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI.Domain.ViewModels.Relation
 {
+    /// <summary>
+    /// View model to update model.
+    /// </summary>
     public class RelationDetailsEditModel
     {
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Name field with basic validation.
+        /// </summary>
         [Required]
         [StringLength(20)]
         public string Name { get; set; }

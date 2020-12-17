@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace WebAPI.Domain.Models
 {
+    /// <summary>
+    /// Represents fields in database table
+    /// </summary>
     public partial class Country
     {
         public Country()

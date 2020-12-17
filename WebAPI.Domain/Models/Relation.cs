@@ -3,6 +3,9 @@ using WebAPI.Domain.Profiles;
 
 namespace WebAPI.Domain.Models
 {
+    /// <summary>
+    /// Represents fields in main aggregate database table
+    /// </summary>
     public partial class Relation
     {
         public int InvoiceDateGenerationOptions { get; set; } = 1;

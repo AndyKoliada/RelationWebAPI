@@ -1,7 +1,10 @@
 ﻿using System;
 
 namespace WebAPI.Domain.Models
-{
+{   
+    /// <summary>
+    /// Represents fields in database table
+    /// </summary>
     public partial class RelationCategory
     {
         public Guid RelationId { get; set; }

@@ -3,10 +3,17 @@ using System.ComponentModel.DataAnnotations;
 using WebAPI.Domain.Profiles;
 
 namespace WebAPI.Domain.ViewModels.Relation
-{
+{   
+    /// <summary>
+    /// View model to create a new model.
+    /// </summary>
     public class RelationDetailsCreateModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        /// <summary>
+        /// Name field with basic validation.
+        /// </summary>
         [Required]
         [StringLength(20)]
         public string Name { get; set; } = "";
