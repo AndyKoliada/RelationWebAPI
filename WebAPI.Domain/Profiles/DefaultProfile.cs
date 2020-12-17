@@ -13,6 +13,6 @@
         /// <summary>
         /// Holds a string of Guid of default address type in DB.
         /// </summary>
-        public const string addressType = "00000000 - 0000 - 0000 - 0000 - 000000000002";
+        public const string addressType = "00000000-0000-0000-0000-000000000002";
     }
 }
