@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { valHooks } from 'jquery';
 import { SharedService } from 'src/app/shared.service';
-import { AddEditRelationComponent } from '../add-edit-relation/add-edit-relation.component';
-import { RelationsComponent } from '../relations.component';
 
 @Component({
   selector: 'app-show-relation',
@@ -21,8 +18,7 @@ export class ShowRelationComponent implements OnInit {
   DeleteIdList: [];
   OrderByDescending: boolean = false;
 
-  
-  constructor(private service: SharedService) {}
+  constructor(private service: SharedService) { }
 
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
@@ -37,7 +33,7 @@ export class ShowRelationComponent implements OnInit {
       Id: null,
       Name: ''
     }
-    this.ModalTitle= "Add relation";
+    this.ModalTitle = "Add relation";
     this.ActivateAddEditRelationsComponent = true;
   }
 
@@ -53,12 +49,11 @@ export class ShowRelationComponent implements OnInit {
   }
 
   deleteClick(item) {
-    if(confirm('Are you sure?'))
-    { 
-        this.service.deleteRelation(item.Id).subscribe(data=>{
-          this.refreshRelationsList();
-        })
-      }
+    if (confirm('Are you sure?')) {
+      this.service.deleteRelation(item.Id).subscribe(data => {
+        this.refreshRelationsList();
+      })
+    }
   }
 
   sortClick(param: string) {
@@ -66,20 +61,16 @@ export class ShowRelationComponent implements OnInit {
     this.refreshRelationsList();
   }
 
-  nextPageClick()
-  { 
+  nextPageClick() {
     this.service.changePage(this.service.PageNumber + 1, 5);
     this.refreshRelationsList();
   }
 
-  previousPageClick()
-  { 
-    if(this.service.PageNumber > 1)
-    {
+  previousPageClick() {
+    if (this.service.PageNumber > 1) {
       this.service.changePage(this.service.PageNumber - 1, 5);
       this.refreshRelationsList();
     }
-
   }
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
