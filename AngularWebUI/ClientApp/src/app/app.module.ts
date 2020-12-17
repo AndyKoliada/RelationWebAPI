@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { RelationsComponent } from './relations/relations.component';
@@ -7,10 +10,6 @@ import { ShowRelationComponent } from './relations/show-relation/show-relation.c
 import { AddEditRelationComponent } from './relations/add-edit-relation/add-edit-relation.component';
 import { SharedService } from './shared.service';
 
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -24,11 +23,9 @@ import { MatSortModule } from '@angular/material/sort';
     HttpClientModule,
     RouterModule.forRoot([{ path: '', component: RelationsComponent }]),
     FormsModule,
-    ReactiveFormsModule,
-    MatSortModule
+    ReactiveFormsModule
   ],
 
-  
   providers: [SharedService],
   bootstrap: [AppComponent]
 })
