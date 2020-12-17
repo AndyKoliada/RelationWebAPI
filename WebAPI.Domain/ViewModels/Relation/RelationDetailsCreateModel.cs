@@ -1,10 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using WebAPI.Domain.Profiles;
 
 namespace WebAPI.Domain.ViewModels.Relation
 {
     public class RelationDetailsCreateModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
+        [Required]
+        [StringLength(20)]
         public string Name { get; set; } = "";
         public string FullName { get; set; }
         public string TelephoneNumber { get; set; }
@@ -23,7 +27,7 @@ namespace WebAPI.Domain.ViewModels.Relation
         public bool IsTemporary { get; set; } = false;
         public bool IsDisabled { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string CreatedBy { get; set; } = "Admin";
+        public string CreatedBy { get; set; } = Constants.userName;
 
     }
 }

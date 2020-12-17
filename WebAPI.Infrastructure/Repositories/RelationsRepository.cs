@@ -114,7 +114,6 @@ namespace WebAPI.Infrastructure.Repositories
             {
                 if (RelationExists(relation.Id))
                 {
-                    //return Conflict();
                     throw ex;
                 }
                 else
@@ -148,12 +147,6 @@ namespace WebAPI.Infrastructure.Repositories
                 PostalCode = relationModel.PostalCode
             };
 
-            //if (id != relation.Id)
-            //{
-            //    //return BadRequest();
-            //    throw ArgumentOutOfRangeException ex;
-            //}
-
             _context.Entry(relation).State = EntityState.Modified;
             _context.Entry(relationAddress).State = EntityState.Modified;
 
@@ -165,7 +158,6 @@ namespace WebAPI.Infrastructure.Repositories
             {
                 if (!RelationExists(id))
                 {
-                    //return NotFound();
                     throw ex;
                 }
                 else
@@ -186,12 +178,8 @@ namespace WebAPI.Infrastructure.Repositories
                 throw new Exception("Not found");
             }
 
-            #region Implemented Soft Delete
             relation.IsDisabled = true;
 
-
-            //_context.TblRelation.Remove(tblRelation);
-            #endregion
             await _context.SaveChangesAsync();
 
             return relation;
@@ -272,7 +260,6 @@ namespace WebAPI.Infrastructure.Repositories
                 }
 
             }
-
 
             if (correctedPostalCode.Length < pc.Length)
             {

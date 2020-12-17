@@ -20,7 +20,6 @@ namespace WebAPI.Infrastructure.Repositories
             }
         }
 
-
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _context = repositoryContext;

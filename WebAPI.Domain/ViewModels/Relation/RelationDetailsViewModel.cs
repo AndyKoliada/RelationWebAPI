@@ -16,6 +16,5 @@ namespace WebAPI.Domain.ViewModels.Relation
         public int? StreetNumber { get; set; }
         public string PostalCode { get; set; }
 
-        //public RelationAddressViewModel RelationAddressViewModel { get; set; }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI.Domain.ViewModels.Relation
 {
     public class RelationDetailsEditModel
     {
         public Guid Id { get; set; }
+        [Required]
+        [StringLength(20)]
         public string Name { get; set; }
         public string FullName { get; set; }
         public string TelephoneNumber { get; set; }
