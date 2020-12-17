@@ -6,23 +6,52 @@
     <members>
         <member name="T:WebAPI.Controllers.PageController">
             <summary>
-            
+            Main API Controller
             </summary>
         </member>
         <member name="M:WebAPI.Controllers.PageController.#ctor(WebAPI.Domain.Interfaces.Services.IRelationsService)">
             <summary>
-            
+            DI constructor
             </summary>
         </member>
         <member name="M:WebAPI.Controllers.PageController.Get(System.Int32,System.Int32,System.String,System.Boolean,System.String)">
             <summary>
-            
+            Get method using URI arguments for composing query.
             </summary>
             <param name="pageNumber"></param>
             <param name="pageSize"></param>
             <param name="sortBy"></param>
             <param name="orderByDescending"></param>
             <param name="filterBy"></param>
+            <returns>Only requested models</returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PageController.GetRelation(System.Guid)">
+            <summary>
+            Gets only models with provided id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PageController.PutRelation(System.Guid,WebAPI.Domain.ViewModels.Relation.RelationDetailsEditModel)">
+            <summary>
+            Saves edited model to dbContext by id.
+            </summary>
+            <param name="id"></param>
+            <param name="relationModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PageController.PostRelation(WebAPI.Domain.ViewModels.Relation.RelationDetailsCreateModel)">
+            <summary>
+            Creates new model in dbContext.
+            </summary>
+            <param name="relationModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:WebAPI.Controllers.PageController.DeleteRelation(System.Guid)">
+            <summary>
+            Deletes model by id.
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
     </members>
