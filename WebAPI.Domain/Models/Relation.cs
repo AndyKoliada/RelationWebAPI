@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using WebAPI.Domain.Profiles;
 
 namespace WebAPI.Domain.Models
 {
@@ -12,11 +12,8 @@ namespace WebAPI.Domain.Models
         public bool IsTemporary { get; set; } = false;
         public bool IsDisabled { get; set; } = false;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string CreatedBy { get; set; } = "Admin";
+        public string CreatedBy { get; set; } = Constants.userName;
         public Guid Id { get; set; } = Guid.NewGuid();
-
-        [Required]
-        [StringLength(50)]
         public string Name { get; set; } = "";
         public string FullName { get; set; }
         public string DefaultStreet { get; set; }
@@ -27,6 +24,5 @@ namespace WebAPI.Domain.Models
         public string TelephoneNumber { get; set; }
         public virtual RelationAddress RelationAddress { get; set; }
         public virtual RelationCategory RelationCategory { get; set; }
-
     }
 }
