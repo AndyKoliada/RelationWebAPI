@@ -15,12 +15,14 @@ namespace WebAPI.Domain.Interfaces.Repositories
         ///  Gets only reqired models from db. Constrained by provided arguments.
         /// </summary>
         Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
+
         /// <summary>
         /// Creates new record in db.
         /// </summary>
         /// <param name="relationModel"></param>
         /// <returns></returns>
         Task<RelationDetailsCreateModel> PostRelationAsync(RelationDetailsCreateModel relationModel);
+
         /// <summary>
         /// Updates provided record in db by id.
         /// </summary>
@@ -28,18 +30,21 @@ namespace WebAPI.Domain.Interfaces.Repositories
         /// <param name="relationModel"></param>
         /// <returns></returns>
         Task<RelationDetailsEditModel> PutRelation(Guid id, RelationDetailsEditModel relationModel);
+
         /// <summary>
         /// Deletes record in db by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<Relation> DeleteRelation(Guid id);
+
         /// <summary>
         /// Gets single record from db by id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Task<RelationDetailsViewModel> GetRelationByIdAsync(Guid id);
+
         /// <summary>
         /// Flag for record is in db.
         /// </summary>
