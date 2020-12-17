@@ -7,21 +7,38 @@ using WebAPI.Domain.ViewModels.Relation;
 namespace WebAPI.Domain.Interfaces.Services
 {
     /// <summary>
-    /// todo: add documentation
+    /// Describes services used by API controller
     /// </summary>
     public interface IRelationsService
     {
         /// <summary>
-        ///  todo: add documentation
+        ///  Service getting selected relations constrained by provided required arguments.
         /// </summary>
         Task<IEnumerable<RelationDetailsViewModel>> GetRelations(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
-
+        /// <summary>
+        /// Service getting single selected relation by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<RelationDetailsViewModel> GetRelationsById(Guid id);
-
+        /// <summary>
+        /// Service to update selected relation in db.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="relationModel"></param>
+        /// <returns></returns>
         Task<RelationDetailsEditModel> EditModel(Guid id, RelationDetailsEditModel relationModel);
-
+        /// <summary>
+        /// Service to create new relation in db.
+        /// </summary>
+        /// <param name="relationModel"></param>
+        /// <returns></returns>
         Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel);
-
+        /// <summary>
+        /// Service to delete selected relation in db by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task<Relation> DeleteModel(Guid id);
     }
 }
