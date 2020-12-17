@@ -7,7 +7,6 @@ import { SharedService } from '../../shared.service';
   styleUrls: ['./add-edit-relation.component.css']
 })
 
-
 export class AddEditRelationComponent implements OnInit {
 
   constructor(private service: SharedService) { }
@@ -26,50 +25,46 @@ export class AddEditRelationComponent implements OnInit {
 
   ngOnInit(): void {
     this.Id = this.relation.Id,
-    this.Name = this.relation.Name,
-    this.FullName = this.relation.FullName,
-    this.TelephoneNumber = this.relation.TelephoneNumber,
-    this.EmailAddress = this.relation.EmailAddress,
-    this.Country = this.relation.Country,
-    this.City = this.relation.City,
-    this.Street = this.relation.Street,
-    this.PostalCode = this.relation.PostalCode,
-    this.StreetNumber = this.relation.StreetNumber
+      this.Name = this.relation.Name,
+      this.FullName = this.relation.FullName,
+      this.TelephoneNumber = this.relation.TelephoneNumber,
+      this.EmailAddress = this.relation.EmailAddress,
+      this.Country = this.relation.Country,
+      this.City = this.relation.City,
+      this.Street = this.relation.Street,
+      this.PostalCode = this.relation.PostalCode,
+      this.StreetNumber = this.relation.StreetNumber
   }
-
 
   addRelation() {
     var val = {
-      Name:this.Name,
-      FullName:this.FullName,
-      TelephoneNumber:this.TelephoneNumber,
-      EmailAddress:this.EmailAddress,
-      Country:this.Country,
-      City:this.City,
-      Street:this.Street,
-      PostalCode:this.PostalCode,
-      StreetNumber:this.StreetNumber
+      Name: this.Name,
+      FullName: this.FullName,
+      TelephoneNumber: this.TelephoneNumber,
+      EmailAddress: this.EmailAddress,
+      Country: this.Country,
+      City: this.City,
+      Street: this.Street,
+      PostalCode: this.PostalCode,
+      StreetNumber: this.StreetNumber
     };
-    console.log(val);
     this.service.addRelation(val).subscribe();
   }
 
-  updateRelation() { 
+  updateRelation() {
     var val = {
-      Id:this.Id,
-      Name:this.Name,
-      FullName:this.FullName,
-      TelephoneNumber:this.TelephoneNumber,
-      EmailAddress:this.EmailAddress,
-      Country:this.Country,
-      City:this.City,
-      Street:this.Street,
-      PostalCode:this.PostalCode,
-      StreetNumber:this.StreetNumber
+      Id: this.Id,
+      Name: this.Name,
+      FullName: this.FullName,
+      TelephoneNumber: this.TelephoneNumber,
+      EmailAddress: this.EmailAddress,
+      Country: this.Country,
+      City: this.City,
+      Street: this.Street,
+      PostalCode: this.PostalCode,
+      StreetNumber: this.StreetNumber
     };
-    
-    this.service.updateRelation(this.Id, val).subscribe();
 
-    /* console.log(val); */
+    this.service.updateRelation(this.Id, val).subscribe();
   }
 }
