@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using WebAPI.Domain.ViewModels.Relation;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Domain.Models;
+using WebAPI.Domain.Queries;
 
 namespace WebAPI.Controllers
-{
+{   
     /// <summary>
     /// Main API Controller
     /// </summary>
@@ -24,23 +25,13 @@ namespace WebAPI.Controllers
             _relationsService = relationsService;
         }
  
-        /// <summary>
-        /// Get method using URI arguments for composing query.
-        /// </summary>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="orderByDescending"></param>
-        /// <param name="filterBy"></param>
-        /// <returns>Only requested models</returns>
         [HttpGet]
-        [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
-        public async Task<IActionResult> Get(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
+        public async Task<IActionResult> Get([FromQuery] QueryParameters queryParameters)
         {
             // todo: use middleware to  handle exceptions
             try
             {   
-                var relations = await _relationsService.GetRelations(pageNumber, pageSize, sortBy, orderByDescending, filterBy);
+                var relations = await _relationsService.GetRelations(queryParameters);
                 
                 return Ok(relations);
             }

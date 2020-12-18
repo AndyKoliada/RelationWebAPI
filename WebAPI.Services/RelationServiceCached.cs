@@ -6,6 +6,7 @@ using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
+using WebAPI.Domain.Queries;
 
 namespace WebAPI.Services
 {
@@ -26,9 +27,9 @@ namespace WebAPI.Services
         }
 
         /// <inheritdoc/> 
-        public async Task<IEnumerable<RelationDetailsViewModel>> GetRelations(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
+        public async Task<IEnumerable<RelationDetailsViewModel>> GetRelations(QueryParameters queryParameters)
         {
-            var relations = await _repositoryWrapper.Relations.GetRelationsAsync(pageNumber, pageSize, sortBy, orderByDescending, filterBy);
+            var relations = await _repositoryWrapper.Relations.GetRelationsAsync(queryParameters);
 
             return relations;
 
@@ -36,11 +37,9 @@ namespace WebAPI.Services
 
         public async Task<RelationDetailsViewModel> GetRelationsById(Guid id)
         {
-            //var relation = await _repositoryWrapper.Relations.GetRelationByIdAsync(id);
-
-            //return relation;
 
             RelationDetailsViewModel relation = null;
+
             if (!_cache.TryGetValue(id, out relation))
             {
                 relation = await _repositoryWrapper.Relations.GetRelationByIdAsync(id);
@@ -73,8 +72,6 @@ namespace WebAPI.Services
 
             return relation;
         }
-
-
 
         public bool RelationExists(Guid id)
         {

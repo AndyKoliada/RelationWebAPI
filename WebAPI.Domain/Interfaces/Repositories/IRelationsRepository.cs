@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
+using WebAPI.Domain.Queries;
 
 namespace WebAPI.Domain.Interfaces.Repositories
 {
@@ -14,7 +15,7 @@ namespace WebAPI.Domain.Interfaces.Repositories
         /// <summary>
         ///  Gets only reqired models from db. Constrained by provided arguments.
         /// </summary>
-        Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
+        Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(QueryParameters queryParameters);
 
         /// <summary>
         /// Creates new record in db.
