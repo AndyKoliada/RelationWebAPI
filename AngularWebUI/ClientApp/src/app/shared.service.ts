@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class SharedService {
 
   readonly ApiUrl: string = environment.apiHost;
-  readonly ApiAlias: string = "/page";
+  readonly ApiAlias: string = "/relations";
   PageNumber: number = 1;
   PageSize: number = 5;
   SortBy: string = "Country";

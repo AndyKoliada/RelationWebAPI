@@ -40,7 +40,8 @@ namespace WebAPI
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             
             //Registering custom services
-            services.AddScoped<IRelationsService, RelationsService>();
+            //services.AddScoped<IRelationsService, RelationsService>();
+            services.AddScoped<IRelationsService, RelationsServiceCached>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
 
