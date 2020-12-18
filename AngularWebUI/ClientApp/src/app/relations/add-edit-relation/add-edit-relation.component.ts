@@ -64,7 +64,6 @@ export class AddEditRelationComponent implements OnInit {
       PostalCode: this.PostalCode,
       StreetNumber: this.StreetNumber
     };
-
     this.service.updateRelation(this.Id, val).subscribe();
   }
 }
