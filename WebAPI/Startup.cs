@@ -44,10 +44,6 @@ namespace WebAPI
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
 
-            //Registering caching services
-            services.AddMemoryCache();
-            services.TryAdd(ServiceDescriptor.Singleton<IMemoryCache, MemoryCache>());
-
             services.AddControllers();
 
             services.AddDbContext<RepositoryContext>(options => 
