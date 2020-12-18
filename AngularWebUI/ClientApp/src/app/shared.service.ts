@@ -23,7 +23,6 @@ export class SharedService {
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]> {
-    console.log(this.QueryString);
     return this.http.get<any>(this.QueryString);
   }
 
