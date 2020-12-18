@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Infrastructure.Context;
+using WebAPI.Infrastructure.Repositories;
+using WebAPI.Domain.Interfaces.Repositories;
+using WebAPI.Domain.Interfaces.Services;
+using WebAPI.Services;
 
 namespace WebAPI
 {
@@ -23,11 +23,30 @@ namespace WebAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Enable CORS
+            services.AddCors(c =>
+            c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
+            .AllowAnyHeader()));
+
+            //JSON Serializer
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options => 
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(options => 
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            
+            //Registering custom services
+            services.AddScoped<IRelationsService, RelationsService>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IRelationsRepository, RelationsRepository>();
+
             services.AddControllers();
 
+            services.AddDbContext<RepositoryContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
+            
             #region Swagger
             services.AddSwaggerGen(c =>
             {
@@ -42,10 +61,11 @@ namespace WebAPI
             #endregion
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {   
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
+            .AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
