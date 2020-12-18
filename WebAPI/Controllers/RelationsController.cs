@@ -12,14 +12,14 @@ namespace WebAPI.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class PageController : ControllerBase
+    public class RelationsController : ControllerBase
     {
         private readonly IRelationsService _relationsService;
 
         /// <summary>
         /// DI constructor
         /// </summary>
-        public PageController(IRelationsService relationsService)
+        public RelationsController(IRelationsService relationsService)
         {
             _relationsService = relationsService;
         }
