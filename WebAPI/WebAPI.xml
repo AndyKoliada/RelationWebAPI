@@ -4,17 +4,17 @@
         <name>WebAPI</name>
     </assembly>
     <members>
-        <member name="T:WebAPI.Controllers.PageController">
+        <member name="T:WebAPI.Controllers.RelationsController">
             <summary>
             Main API Controller
             </summary>
         </member>
-        <member name="M:WebAPI.Controllers.PageController.#ctor(WebAPI.Domain.Interfaces.Services.IRelationsService)">
+        <member name="M:WebAPI.Controllers.RelationsController.#ctor(WebAPI.Domain.Interfaces.Services.IRelationsService)">
             <summary>
             DI constructor
             </summary>
         </member>
-        <member name="M:WebAPI.Controllers.PageController.Get(System.Int32,System.Int32,System.String,System.Boolean,System.String)">
+        <member name="M:WebAPI.Controllers.RelationsController.Get(System.Int32,System.Int32,System.String,System.Boolean,System.String)">
             <summary>
             Get method using URI arguments for composing query.
             </summary>
@@ -25,14 +25,14 @@
             <param name="filterBy"></param>
             <returns>Only requested models</returns>
         </member>
-        <member name="M:WebAPI.Controllers.PageController.GetRelation(System.Guid)">
+        <member name="M:WebAPI.Controllers.RelationsController.GetRelation(System.Guid)">
             <summary>
             Gets only models with provided id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PageController.PutRelation(System.Guid,WebAPI.Domain.ViewModels.Relation.RelationDetailsEditModel)">
+        <member name="M:WebAPI.Controllers.RelationsController.PutRelation(System.Guid,WebAPI.Domain.ViewModels.Relation.RelationDetailsEditModel)">
             <summary>
             Saves edited model to dbContext by id.
             </summary>
@@ -40,14 +40,14 @@
             <param name="relationModel"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PageController.PostRelation(WebAPI.Domain.ViewModels.Relation.RelationDetailsCreateModel)">
+        <member name="M:WebAPI.Controllers.RelationsController.PostRelation(WebAPI.Domain.ViewModels.Relation.RelationDetailsCreateModel)">
             <summary>
             Creates new model in dbContext.
             </summary>
             <param name="relationModel"></param>
             <returns></returns>
         </member>
-        <member name="M:WebAPI.Controllers.PageController.DeleteRelation(System.Guid)">
+        <member name="M:WebAPI.Controllers.RelationsController.DeleteRelation(System.Guid)">
             <summary>
             Deletes model by id.
             </summary>

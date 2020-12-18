@@ -11,6 +11,8 @@ using WebAPI.Infrastructure.Repositories;
 using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace WebAPI
 {
@@ -41,6 +43,10 @@ namespace WebAPI
             services.AddScoped<IRelationsService, RelationsService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
+
+            //Registering caching services
+            services.AddMemoryCache();
+            services.TryAdd(ServiceDescriptor.Singleton<IMemoryCache, MemoryCache>());
 
             services.AddControllers();
 
