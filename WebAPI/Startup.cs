@@ -41,8 +41,10 @@ namespace WebAPI
             
             //Registering custom services
             services.AddScoped<IRelationsService, RelationsServiceCached>();
+            services.AddScoped<ICountriesService, CountriesService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
+            services.AddScoped<ICountriesRepository, CountriesRepository>();
 
             services.AddControllers();
 

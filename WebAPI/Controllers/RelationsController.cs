@@ -32,7 +32,6 @@ namespace WebAPI.Controllers
             try
             {   
                 var relations = await _relationsService.GetRelations(queryParameters);
-                
                 return Ok(relations);
             }
             catch (Exception ex)
@@ -86,7 +85,6 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
             var relation = await _relationsService.CreateModel(relationModel);
-
             return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
         }
         /// <summary>
@@ -98,19 +96,12 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {
             var relation = await _relationsService.DeleteModel(id);
-
             if (relation == null)
             {
                 return NotFound();
             }
 
-            #region Implemented Soft Delete
             relation.IsDisabled = true;
-
-
-            //_context.TblRelation.Remove(tblRelation);
-            #endregion
-
             return relation;
         }
     }

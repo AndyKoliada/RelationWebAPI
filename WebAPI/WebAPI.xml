@@ -4,6 +4,16 @@
         <name>WebAPI</name>
     </assembly>
     <members>
+        <member name="T:WebAPI.Controllers.CountriesController">
+            <summary>
+            Countries Controller
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.CountriesController.#ctor(WebAPI.Domain.Interfaces.Services.ICountriesService)">
+            <summary>
+            DI constructor
+            </summary>
+        </member>
         <member name="T:WebAPI.Controllers.RelationsController">
             <summary>
             Main API Controller

@@ -8,6 +8,7 @@ namespace WebAPI.Infrastructure.Repositories
     {
         private readonly RepositoryContext _context;
         private IRelationsRepository _relations;
+        private ICountriesRepository _countries;
         public IRelationsRepository Relations
         {
             get
@@ -17,6 +18,18 @@ namespace WebAPI.Infrastructure.Repositories
                     _relations = new RelationsRepository(_context);
                 }
                 return _relations;
+            }
+        }
+
+        public ICountriesRepository Countries
+        {
+            get
+            {
+                if (_countries == null)
+                {
+                    _countries = new CountriesRepository(_context);
+                }
+                return _countries;
             }
         }
 

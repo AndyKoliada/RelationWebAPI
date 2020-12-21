@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { ToastrService } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { RelationsComponent } from './relations/relations.component';

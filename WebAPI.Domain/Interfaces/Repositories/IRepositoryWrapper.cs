@@ -13,6 +13,11 @@ namespace WebAPI.Domain.Interfaces.Repositories
         IRelationsRepository Relations { get; }
 
         /// <summary>
+        /// Abstract repository
+        /// </summary>
+        ICountriesRepository Countries { get; }
+
+        /// <summary>
         /// Method for updating DB as unit of work
         /// </summary>
         /// <returns></returns>

@@ -30,14 +30,11 @@ namespace WebAPI.Services
         public async Task<IEnumerable<RelationDetailsViewModel>> GetRelations(QueryParameters queryParameters)
         {
             var relations = await _repositoryWrapper.Relations.GetRelationsAsync(queryParameters);
-
             return relations;
-
         }
 
         public async Task<RelationDetailsViewModel> GetRelationsById(Guid id)
         {
-
             RelationDetailsViewModel relation = null;
 
             if (!_cache.TryGetValue(id, out relation))
@@ -55,21 +52,18 @@ namespace WebAPI.Services
         public async Task<RelationDetailsEditModel> EditModel(Guid id, RelationDetailsEditModel relationModel)
         {
             var relation = await _repositoryWrapper.Relations.PutRelation(id, relationModel);
-
             return relation;
         }
 
         public async Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel)
         {
             var relation = await _repositoryWrapper.Relations.PostRelationAsync(relationModel);
-
             return relation;
         }
 
         public async Task<Relation> DeleteModel(Guid id)
         {
             var relation = await _repositoryWrapper.Relations.DeleteRelation(id);
-
             return relation;
         }
 
@@ -77,6 +71,5 @@ namespace WebAPI.Services
         {
             return _repositoryWrapper.Relations.RelationExists(id);
         }
-
     }
 }
