@@ -24,23 +24,23 @@ namespace WebAPI.Infrastructure.Repositories
 
         public async Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(QueryParameters queryParameters)
         {
-            string orderQuery = queryParameters.sortBy;
-            string filterQuery = queryParameters.filterBy;
+            string orderQuery = queryParameters.SortBy;
+            string filterQuery = queryParameters.FilterBy;
 
-            if (queryParameters.filterBy == "None")
+            if (queryParameters.FilterBy == "None")
             {
                 filterQuery = null;
             }
 
-            if (queryParameters.orderByDescending)
+            if (queryParameters.OrderByDescending)
             {
                 orderQuery += " descending";
             }
 
             var relations = await _context.Relations
                 .Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery)
-                .Skip((queryParameters.pageNumber - 1) * queryParameters.pageSize)
-                .Take(queryParameters.pageSize)
+                .Skip((queryParameters.PageNumber - 1) * queryParameters.PageSize)
+                .Take(queryParameters.PageSize)
                 .Include(a => a.RelationAddress)
                 .Select(v => 
                 new RelationDetailsViewModel

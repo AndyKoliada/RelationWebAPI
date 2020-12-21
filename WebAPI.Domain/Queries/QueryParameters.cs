@@ -9,10 +9,10 @@ namespace WebAPI.Domain.Queries
     /// </summary>
     public class QueryParameters
     {
-        public int pageNumber { get; set; } = 1;
-        public int pageSize { get; set; } = 5;
-        public string sortBy { get; set; } = "Country";
-        public bool orderByDescending { get; set; } = false;
-        public string filterBy { get; set; } = "None";
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 5;
+        public string SortBy { get; set; } = "Country";
+        public bool OrderByDescending { get; set; } = false;
+        public string FilterBy { get; set; } = "None";
     }
 }
