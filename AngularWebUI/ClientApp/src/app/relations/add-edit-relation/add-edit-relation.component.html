@@ -1,67 +1,65 @@
-<div class="form-froup row">
-  <label class="col-sm-2 col-form-label">Id</label>
-  <div class="col-sm-2">
+<form class="form-horizontal" [formGroup]="form" >
+
+<div class="form-group" *ngIf="relation.Id!= null">
+  <label class="control-label col-sm-2" *ngIf="relation.Id!= null">Id</label>
+  <div class="col-sm-2" *ngIf="relation.Id!= null">
     <input type="text" readonly class="form-control" [(ngModel)]="Id" />
   </div>
-
-  <label class="col-sm-2 col-form-label">Name</label>
+</div>
+<div class="form-group">
+  <label class="control-label col-sm-2" for="name">Name</label>
   <div class="col-sm-2">
-    <input type="text" aria-required="true" class="form-control" required minlength="3" [(ngModel)]="Name" #name="ngModel" />
+    <input type="text" class="form-control" id="name" [(ngModel)]="Name"
+    formControlName="name" placeholder="First name *"/>
   </div>
-
-  <div *ngIf="name.invalid"
-       class="alert alert-danger">
-    <div *ngIf="name.errors.required">
-      Name is required.
-    </div>
-    <div *ngIf="name.errors.minlength">
-      Name must be at least 3 characters long.
-    </div>
-  </div>
-
-  <label class="col-sm-2 col-form-label">FullName</label>
+</div>
+<div class="form-group" >
+  <label class="control-label col-sm-2">FullName</label>
   <div class="col-sm-2">
     <input type="text" class="form-control" [(ngModel)]="FullName" />
   </div>
-
-  <label class="col-sm-2 col-form-label">TelephoneNumber</label>
+</div>
+<div class="form-group" >
+  <label class="control-label col-sm-2">TelephoneNumber</label>
   <div class="col-sm-2">
-    <input type="tel" class="form-control" [(ngModel)]="TelephoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-           required />
+    <input type="tel" class="form-control" [(ngModel)]="TelephoneNumber" />
+  </div>
+</div>
+<div class="form-group" >
+  <label class="control-label col-sm-2">EmailAddress</label>
+  <div class="col-sm-2">
+    <input type="email" class="form-control" formControlName="email" id="email" [(ngModel)]="EmailAddress" />
   </div>
 
-  <label class="col-sm-2 col-form-label">EmailAddress</label>
-  <div class="col-sm-2">
-    <input type="email" class="form-control" [(ngModel)]="EmailAddress" />
-  </div>
-
-  <label class="col-sm-2 col-form-label">Country</label>
+  <!-- TODO: Add dropdown with contries -->
+  <label class="control-label col-sm-2">Country</label>
   <div class="col-sm-2">
     <input type="text" class="form-control" [(ngModel)]="Country" />
   </div>
 
-  <label class="col-sm-2 col-form-label">City</label>
+  <label class="control-label col-sm-2">City</label>
   <div class="col-sm-2">
     <input type="text" class="form-control" [(ngModel)]="City" />
   </div>
 
-  <label class="col-sm-2 col-form-label">Street</label>
+  <label class="control-label col-sm-2">Street</label>
   <div class="col-sm-2">
     <input type="text" class="form-control" [(ngModel)]="Street" />
   </div>
 
-  <label class="col-sm-2 col-form-label">PostalCode</label>
+  <label class="control-label col-sm-2">PostalCode</label>
   <div class="col-sm-2">
     <input type="text" class="form-control" [(ngModel)]="PostalCode" />
   </div>
 
-  <label class="col-sm-2 col-form-label">StreetNumber</label>
+  <label class="control-label col-sm-2">StreetNumber</label>
   <div class="col-sm-2">
     <input type="number" class="form-control" [(ngModel)]="StreetNumber" />
   </div>
 
 </div>
 
-<button (click)="addRelation()" *ngIf="relation.Id == null" class="btn btn-primary">Add new relation</button>
+<button type="submit" (click)="addRelation()" *ngIf="relation.Id == null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Add new relation</button>
 
-<button (click)="updateRelation()" *ngIf="relation.Id!= null" class="btn btn-primary">Update relation</button>
+<button type="submit" (click)="updateRelation()" *ngIf="relation.Id!= null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Update relation</button>
+</form>

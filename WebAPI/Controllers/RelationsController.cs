@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using WebAPI.Domain.ViewModels.Relation;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Domain.Models;
+using WebAPI.Domain.Queries;
 
 namespace WebAPI.Controllers
-{
+{   
     /// <summary>
     /// Main API Controller
     /// </summary>
@@ -24,24 +25,13 @@ namespace WebAPI.Controllers
             _relationsService = relationsService;
         }
  
-        /// <summary>
-        /// Get method using URI arguments for composing query.
-        /// </summary>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="sortBy"></param>
-        /// <param name="orderByDescending"></param>
-        /// <param name="filterBy"></param>
-        /// <returns>Only requested models</returns>
         [HttpGet]
-        [Route("{pageNumber}/{pageSize}/{sortBy}/{orderByDescending}/{filterBy}")]
-        public async Task<IActionResult> Get(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
+        public async Task<IActionResult> Get([FromQuery] QueryParameters queryParameters)
         {
             // todo: use middleware to  handle exceptions
             try
             {   
-                var relations = await _relationsService.GetRelations(pageNumber, pageSize, sortBy, orderByDescending, filterBy);
-                
+                var relations = await _relationsService.GetRelations(queryParameters);
                 return Ok(relations);
             }
             catch (Exception ex)
@@ -95,7 +85,6 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
             var relation = await _relationsService.CreateModel(relationModel);
-
             return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
         }
         /// <summary>
@@ -107,19 +96,12 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
         {
             var relation = await _relationsService.DeleteModel(id);
-
             if (relation == null)
             {
                 return NotFound();
             }
 
-            #region Implemented Soft Delete
             relation.IsDisabled = true;
-
-
-            //_context.TblRelation.Remove(tblRelation);
-            #endregion
-
             return relation;
         }
     }

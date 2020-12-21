@@ -8,6 +8,7 @@ using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
 using WebAPI.Infrastructure.Context;
+using WebAPI.Domain.Queries;
 
 namespace WebAPI.Infrastructure.Repositories
 {
@@ -21,25 +22,25 @@ namespace WebAPI.Infrastructure.Repositories
             _context = repositoryContext;
         }
 
-        public async Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy)
+        public async Task<IEnumerable<RelationDetailsViewModel>> GetRelationsAsync(QueryParameters queryParameters)
         {
-            string orderQuery = sortBy;
-            string filterQuery = filterBy;
+            string orderQuery = queryParameters.sortBy;
+            string filterQuery = queryParameters.filterBy;
 
-            if (filterBy == "None")
+            if (queryParameters.filterBy == "None")
             {
                 filterQuery = null;
             }
 
-            if (orderByDescending)
+            if (queryParameters.orderByDescending)
             {
                 orderQuery += " descending";
             }
 
             var relations = await _context.Relations
                 .Where(d => d.IsDisabled == false && d.RelationCategory.Category.Name == filterQuery)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((queryParameters.pageNumber - 1) * queryParameters.pageSize)
+                .Take(queryParameters.pageSize)
                 .Include(a => a.RelationAddress)
                 .Select(v => 
                 new RelationDetailsViewModel

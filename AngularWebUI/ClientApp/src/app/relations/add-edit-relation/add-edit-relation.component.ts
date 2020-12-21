@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from '../../shared.service';
+import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -9,7 +11,12 @@ import { SharedService } from '../../shared.service';
 
 export class AddEditRelationComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  form: FormGroup;
+
+  constructor(
+    private service: SharedService,
+    private toastrService: ToastrService,
+    private formBuilder: FormBuilder) { }
 
   @Input() relation: any;
   Id: string;
@@ -25,15 +32,27 @@ export class AddEditRelationComponent implements OnInit {
 
   ngOnInit(): void {
     this.Id = this.relation.Id,
-      this.Name = this.relation.Name,
-      this.FullName = this.relation.FullName,
-      this.TelephoneNumber = this.relation.TelephoneNumber,
-      this.EmailAddress = this.relation.EmailAddress,
-      this.Country = this.relation.Country,
-      this.City = this.relation.City,
-      this.Street = this.relation.Street,
-      this.PostalCode = this.relation.PostalCode,
-      this.StreetNumber = this.relation.StreetNumber
+    this.Name = this.relation.Name,
+    this.FullName = this.relation.FullName,
+    this.TelephoneNumber = this.relation.TelephoneNumber,
+    this.EmailAddress = this.relation.EmailAddress,
+    this.Country = this.relation.Country,
+    this.City = this.relation.City,
+    this.Street = this.relation.Street,
+    this.PostalCode = this.relation.PostalCode,
+    this.StreetNumber = this.relation.StreetNumber
+
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required, Validators.maxLength(50)],
+      email: ['', [Validators.email]],
+      phone: ['', [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}")]],
+      fullName: [''],
+      country: [''],
+      city: [''],
+      street: [''],
+      postalCode: [''],
+      streetNumber: [''],
+    });
   }
 
   addRelation() {
@@ -49,6 +68,8 @@ export class AddEditRelationComponent implements OnInit {
       StreetNumber: this.StreetNumber
     };
     this.service.addRelation(val).subscribe();
+
+    this.toastrService.success("Relation added");
   }
 
   updateRelation() {
@@ -65,5 +86,19 @@ export class AddEditRelationComponent implements OnInit {
       StreetNumber: this.StreetNumber
     };
     this.service.updateRelation(this.Id, val).subscribe();
+
+    this.toastrService.success("Relation updated");
+  }
+
+  onSubmit(customerData) {
+    console.warn('Your order has been submitted', customerData);
+  }
+
+  nameIsRequiredWarning(){
+    this.toastrService.warning("Name is required")
+  }
+
+  nameLengthWarning(){
+    this.toastrService.warning("Name must be at least 3 characters long")
   }
 }

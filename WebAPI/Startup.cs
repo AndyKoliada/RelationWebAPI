@@ -11,6 +11,8 @@ using WebAPI.Infrastructure.Repositories;
 using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Services;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace WebAPI
 {
@@ -38,9 +40,11 @@ namespace WebAPI
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             
             //Registering custom services
-            services.AddScoped<IRelationsService, RelationsService>();
+            services.AddScoped<IRelationsService, RelationsServiceCached>();
+            services.AddScoped<ICountriesService, CountriesService>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
+            services.AddScoped<ICountriesRepository, CountriesRepository>();
 
             services.AddControllers();
 

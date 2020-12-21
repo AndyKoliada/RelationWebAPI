@@ -2,56 +2,71 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SharedService {
 
   readonly ApiUrl: string = environment.apiHost;
-  readonly ApiAlias: string = "/page";
+  readonly RelationsApiAlias: string = "/relations";
+  readonly CountriesApiAlias: string = "/countries";
+  
   PageNumber: number = 1;
   PageSize: number = 5;
   SortBy: string = "Country";
   FilterBy: string = "None";
-  DeleteIdList: [];
   OrderByDescending: boolean = false;
 
-  QueryString: string = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize
-    + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy;
+  QueryParams: HttpParams;
+
+  DeleteIdList: [];
+
+  RelationsUrlString: string = this.ApiUrl + this.RelationsApiAlias;
+  CountriesUrlString: string = this.ApiUrl + this.CountriesApiAlias;
 
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]> {
-    return this.http.get<any>(this.QueryString);
+    return this.http.get<any>(this.RelationsUrlString, {params: this.QueryParams});
+  }
+
+  getCountriesList(): Observable<any[]> {
+    return this.http.get<any>(this.RelationsUrlString);
   }
 
   addRelation(val: object) {
-    return this.http.post(this.ApiUrl + this.ApiAlias, val);
+    return this.http.post(this.RelationsUrlString, val);
   }
 
   updateRelation(id: string, val: object) {
-    return this.http.put(this.ApiUrl + this.ApiAlias + "/" + id, val);
+    return this.http.put(this.RelationsUrlString + "/" + id, val);
   }
 
   sortRelationsList(sortBy: string): Observable<any[]> {
-    this.OrderByDescending = !this.OrderByDescending;
     this.SortBy = sortBy;
-    this.QueryString = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize
-      + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy;
-    return this.http.get<any>(this.QueryString);
+    this.OrderByDescending = !this.OrderByDescending;
+
+    this.QueryParams = new HttpParams().set("SortBy",sortBy).set("OrderByDescending", this.OrderByDescending.toString()); //Create new HttpParams
+
+    return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
   changePage(pageNumber: number, pageSize: number): Observable<any[]> {
     this.PageNumber = pageNumber;
     this.PageSize = pageSize;
-    this.QueryString = this.ApiUrl + this.ApiAlias + "/" + this.PageNumber + "/" + this.PageSize
-      + "/" + this.SortBy + "/" + this.OrderByDescending + "/" + this.FilterBy;
-    return this.http.get<any>(this.QueryString);
+
+    this.QueryParams = new HttpParams().set("PageNumber",pageNumber.toString()).set("PageSize", pageSize.toString()); //Create new HttpParams
+
+    console.log(this.RelationsUrlString + "?" + this.QueryParams);
+
+    return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
   deleteRelation(id: string) {
-    return this.http.delete(this.ApiUrl + this.ApiAlias + "/" + id);
+    return this.http.delete(this.RelationsUrlString + "/" + id);
   }
 
 }

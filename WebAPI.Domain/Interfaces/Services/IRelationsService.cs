@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Domain.Models;
 using WebAPI.Domain.ViewModels.Relation;
+using WebAPI.Domain.Queries;
 
 namespace WebAPI.Domain.Interfaces.Services
 {
@@ -14,7 +15,7 @@ namespace WebAPI.Domain.Interfaces.Services
         /// <summary>
         ///  Service getting selected relations constrained by provided required arguments.
         /// </summary>
-        Task<IEnumerable<RelationDetailsViewModel>> GetRelations(int pageNumber, int pageSize, string sortBy, bool orderByDescending, string filterBy);
+        Task<IEnumerable<RelationDetailsViewModel>> GetRelations(QueryParameters queryParameters);
         /// <summary>
         /// Service getting single selected relation by id.
         /// </summary>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-show-relation',
@@ -11,14 +12,7 @@ export class ShowRelationComponent implements OnInit {
 
   RelationsList: any = [];
 
-  PageNumber: number = 1;
-  PageSize: number = 5;
-  SortBy: string = "Country";
-  FilterBy: string = "None";
-  DeleteIdList: [];
-  OrderByDescending: boolean = false;
-
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService, private toastrService: ToastrService) { }
 
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
@@ -52,6 +46,7 @@ export class ShowRelationComponent implements OnInit {
     if (confirm('Are you sure?')) {
       this.service.deleteRelation(item.Id).subscribe(data => {
         this.refreshRelationsList();
+        this.toastrService.success("Relation deleted");
       })
     }
   }
