@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpParams } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class SharedService {
   RelationsUrlString: string = this.ApiUrl + this.RelationsApiAlias;
   CountriesUrlString: string = this.ApiUrl + this.CountriesApiAlias;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastrService: ToastrService,) { }
 
   getRelationsList(): Observable<any[]> {
     return this.http.get<any>(this.RelationsUrlString, {params: this.QueryParams});
@@ -38,10 +39,12 @@ export class SharedService {
   }
 
   addRelation(val: object) {
+    this.toastrService.success("Relation added successfully!");
     return this.http.post(this.RelationsUrlString, val);
   }
 
   updateRelation(id: string, val: object) {
+    this.toastrService.success("Relation updated");
     return this.http.put(this.RelationsUrlString + "/" + id, val);
   }
 
