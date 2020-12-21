@@ -7,7 +7,7 @@ using WebAPI.Domain.Models;
 using WebAPI.Domain.Queries;
 
 namespace WebAPI.Controllers
-{   
+{
     /// <summary>
     /// Main API Controller
     /// </summary>
