@@ -43,15 +43,15 @@ export class AddEditRelationComponent implements OnInit {
     this.StreetNumber = this.relation.StreetNumber
 
     this.form = this.formBuilder.group({
-      name: ['', Validators.required, Validators.maxLength(50)],
-      email: ['', [Validators.email]],
-      phone: ['', [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}")]],
-      fullName: [''],
-      country: [''],
-      city: [''],
-      street: [''],
-      postalCode: [''],
-      streetNumber: [''],
+      name: [this.relation.Name, Validators.required, Validators.maxLength(50)],
+      email: [this.relation.EmailAddress, [Validators.email]],
+      phone: [this.relation.TelephoneNumber, [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}")]],
+      fullName: [this.relation.FullName],
+      country: [this.relation.Country],
+      city: [this.relation.City],
+      street: [this.relation.Street],
+      postalCode: [this.relation.PostalCode],
+      streetNumber: [this.relation.StreetNumber],
     });
   }
 
@@ -67,8 +67,8 @@ export class AddEditRelationComponent implements OnInit {
       PostalCode: this.PostalCode,
       StreetNumber: this.StreetNumber
     };
-    this.service.addRelation(val).subscribe();
-
+    //this.service.addRelation(val).subscribe();
+    this.service.addRelation(this.form.value).subscribe();
     this.toastrService.success("Relation added");
   }
 
