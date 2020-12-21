@@ -7,6 +7,7 @@ import { HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SharedService {
 
   readonly ApiUrl: string = environment.apiHost;

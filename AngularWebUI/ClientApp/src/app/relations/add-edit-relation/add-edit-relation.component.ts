@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from '../../shared.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -9,7 +10,7 @@ import { SharedService } from '../../shared.service';
 
 export class AddEditRelationComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService, private toastrService: ToastrService) { }
 
   @Input() relation: any;
   Id: string;
@@ -49,6 +50,8 @@ export class AddEditRelationComponent implements OnInit {
       StreetNumber: this.StreetNumber
     };
     this.service.addRelation(val).subscribe();
+
+    this.toastrService.success("Relation added");
   }
 
   updateRelation() {
@@ -65,5 +68,7 @@ export class AddEditRelationComponent implements OnInit {
       StreetNumber: this.StreetNumber
     };
     this.service.updateRelation(this.Id, val).subscribe();
+
+    this.toastrService.success("Relation updated");
   }
 }

@@ -4,6 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+
 import { AppComponent } from './app.component';
 import { RelationsComponent } from './relations/relations.component';
 import { ShowRelationComponent } from './relations/show-relation/show-relation.component';
@@ -23,7 +27,9 @@ import { SharedService } from './shared.service';
     HttpClientModule,
     RouterModule.forRoot([{ path: '', component: RelationsComponent }]),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
 
   providers: [SharedService],
