@@ -11,7 +11,8 @@ import { HttpParams } from '@angular/common/http';
 export class SharedService {
 
   readonly ApiUrl: string = environment.apiHost;
-  readonly ApiAlias: string = "/relations";
+  readonly RelationsApiAlias: string = "/relations";
+  readonly CountriesApiAlias: string = "/countries";
   
   PageNumber: number = 1;
   PageSize: number = 5;
@@ -23,20 +24,25 @@ export class SharedService {
 
   DeleteIdList: [];
 
-  UrlString: string = this.ApiUrl + this.ApiAlias;
+  RelationsUrlString: string = this.ApiUrl + this.RelationsApiAlias;
+  CountriesUrlString: string = this.ApiUrl + this.CountriesApiAlias;
 
   constructor(private http: HttpClient) { }
 
   getRelationsList(): Observable<any[]> {
-    return this.http.get<any>(this.UrlString, {params: this.QueryParams});
+    return this.http.get<any>(this.RelationsUrlString, {params: this.QueryParams});
+  }
+
+  getCountriesList(): Observable<any[]> {
+    return this.http.get<any>(this.RelationsUrlString);
   }
 
   addRelation(val: object) {
-    return this.http.post(this.UrlString, val);
+    return this.http.post(this.RelationsUrlString, val);
   }
 
   updateRelation(id: string, val: object) {
-    return this.http.put(this.UrlString + "/" + id, val);
+    return this.http.put(this.RelationsUrlString + "/" + id, val);
   }
 
   sortRelationsList(sortBy: string): Observable<any[]> {
@@ -45,7 +51,7 @@ export class SharedService {
 
     this.QueryParams = new HttpParams().set("SortBy",sortBy).set("OrderByDescending", this.OrderByDescending.toString()); //Create new HttpParams
 
-    return this.http.get<any>(this.UrlString + "?",  {params: this.QueryParams});
+    return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
   changePage(pageNumber: number, pageSize: number): Observable<any[]> {
@@ -54,13 +60,13 @@ export class SharedService {
 
     this.QueryParams = new HttpParams().set("PageNumber",pageNumber.toString()).set("PageSize", pageSize.toString()); //Create new HttpParams
 
-    console.log(this.UrlString + "?" + this.QueryParams);
+    console.log(this.RelationsUrlString + "?" + this.QueryParams);
 
-    return this.http.get<any>(this.UrlString + "?",  {params: this.QueryParams});
+    return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
   deleteRelation(id: string) {
-    return this.http.delete(this.UrlString + "/" + id);
+    return this.http.delete(this.RelationsUrlString + "/" + id);
   }
 
 }

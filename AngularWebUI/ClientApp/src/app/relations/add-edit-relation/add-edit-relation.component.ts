@@ -43,9 +43,15 @@ export class AddEditRelationComponent implements OnInit {
     this.StreetNumber = this.relation.StreetNumber
 
     this.form = this.formBuilder.group({
-      name: ['', Validators.required, Validators.minLength(1)],
-      email: [null, [Validators.email]],
-      phone: [null, [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}")]]
+      name: ['', Validators.required, Validators.maxLength(50)],
+      email: ['', [Validators.email]],
+      phone: ['', [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}")]],
+      fullName: [''],
+      country: [''],
+      city: [''],
+      street: [''],
+      postalCode: [''],
+      streetNumber: [''],
     });
   }
 
