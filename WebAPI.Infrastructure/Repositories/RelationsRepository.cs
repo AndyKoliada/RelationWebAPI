@@ -142,7 +142,7 @@ namespace WebAPI.Infrastructure.Repositories
             {
                 RelationId = id,
                 CountryName = relationModel.Country,
-                City = relationModel.Name,
+                City = relationModel.City,
                 Street = relationModel.Street,
                 Number = relationModel.StreetNumber,
                 PostalCode = relationModel.PostalCode

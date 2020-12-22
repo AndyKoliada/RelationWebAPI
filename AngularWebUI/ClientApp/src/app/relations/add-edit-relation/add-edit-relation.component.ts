@@ -61,7 +61,7 @@ export class AddEditRelationComponent implements OnInit {
   }
 
   updateRelation() {
-    this.service.updateRelation(this.relation.Id, this.form.value).subscribe();
+    this.service.updateRelation(this.relation.Id.toUpperCase(), this.form.value).subscribe();
   }
 
 }

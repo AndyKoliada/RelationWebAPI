@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
 
             if (id != relation.Id)
             {
-                return BadRequest();
+                //return BadRequest();
             }
 
             return NoContent();
