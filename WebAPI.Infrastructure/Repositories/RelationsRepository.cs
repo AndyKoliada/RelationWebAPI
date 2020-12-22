@@ -170,19 +170,22 @@ namespace WebAPI.Infrastructure.Repositories
             return relationModel;
         }
 
-        public async Task<Relation> DeleteRelation(Guid id)
+        public async Task<Relation> DeleteRelation(params Guid[] ids)
         {
-            var relation = await _context.Relations.FindAsync(id);
-            
-            if (relation == null)
-            {
-                throw new Exception("Not found");
+            Relation relation = null;
+            foreach(Guid id in ids) {
+
+                relation = await _context.Relations.FindAsync(id);
+
+                if (relation == null)
+                {
+                    throw new Exception($"{id} Not found");
+                }
+
+                relation.IsDisabled = true;
             }
 
-            relation.IsDisabled = true;
-
             await _context.SaveChangesAsync();
-
             return relation;
         }
 

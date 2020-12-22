@@ -90,19 +90,14 @@ namespace WebAPI.Controllers
         /// <summary>
         /// Deletes model by id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Relation>> DeleteRelation(Guid id)
+        [HttpDelete]
+        public async Task<ActionResult> DeleteRelation([FromQuery]params Guid[] ids)
         {
-            var relation = await _relationsService.DeleteModel(id);
-            if (relation == null)
-            {
-                return NotFound();
-            }
+            var relation = await _relationsService.DeleteModel(ids);
 
-            relation.IsDisabled = true;
-            return relation;
+            return StatusCode(200);
         }
     }
 }

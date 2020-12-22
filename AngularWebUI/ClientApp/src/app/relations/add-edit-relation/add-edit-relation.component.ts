@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ShowRelationComponent } from '../show-relation/show-relation.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -16,7 +18,8 @@ export class AddEditRelationComponent implements OnInit {
   constructor(
     private service: SharedService,
     private toastrService: ToastrService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private show: ShowRelationComponent) { }
 
   @Input() relation: any;
   Id: string;
@@ -56,12 +59,16 @@ export class AddEditRelationComponent implements OnInit {
     
   }
 
-  addRelation() {
-    this.service.addRelation(this.form.value).subscribe();
+  addRelation(){
+    return this.service.addRelation(this.form.value).subscribe();
   }
 
   updateRelation() {
-    this.service.updateRelation(this.relation.Id.toUpperCase(), this.form.value).subscribe();
+    return this.service.updateRelation(this.relation.Id, this.form.value).subscribe();
+  }
+
+  onSubmit({ value, valid }) {
+    this.service.getRelationsList();
   }
 
 }

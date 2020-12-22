@@ -38,14 +38,14 @@ export class SharedService {
     return this.http.get<any>(this.RelationsUrlString);
   }
 
-  addRelation(val: object) {
+  addRelation(val: object): Observable<any[]> {
     this.toastrService.success("Relation added successfully!");
-    return this.http.post(this.RelationsUrlString, val);
+    return this.http.post<any>(this.RelationsUrlString, val);
   }
 
-  updateRelation(id: string, val: object) {
+  updateRelation(id: string, val: object): Observable<any[]>{
     this.toastrService.success("Relation updated");
-    return this.http.put(this.RelationsUrlString + "/" + id, val);
+    return this.http.put<any>(this.RelationsUrlString + "/" + id, val);
   }
 
   sortRelationsList(sortBy: string): Observable<any[]> {
@@ -62,14 +62,11 @@ export class SharedService {
     this.PageSize = pageSize;
 
     this.QueryParams = new HttpParams().set("PageNumber",pageNumber.toString()).set("PageSize", pageSize.toString()); //Create new HttpParams
-
-    console.log(this.RelationsUrlString + "?" + this.QueryParams);
-
     return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
-  deleteRelation(id: string) {
-    return this.http.delete(this.RelationsUrlString + "/" + id);
+  deleteRelation(id: string){
+    return this.http.delete(this.RelationsUrlString + "?ids=" + id);
   }
 
 }
