@@ -1,60 +1,54 @@
 <form class="form-horizontal" [formGroup]="form" >
 
-<div class="form-group" *ngIf="relation.Id!= null">
-  <label class="control-label col-sm-2" *ngIf="relation.Id!= null">Id</label>
-  <div class="col-sm-2" *ngIf="relation.Id!= null">
-    <input type="text" readonly class="form-control" [(ngModel)]="Id" />
-  </div>
-</div>
 <div class="form-group">
   <label class="control-label col-sm-2" for="name">Name</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" id="name" [(ngModel)]="Name"
-    formControlName="name" placeholder="First name *"/>
+    <input type="text" class="form-control" id="name"
+    formControlName="Name" placeholder="Name *"/>
   </div>
 </div>
 <div class="form-group" >
   <label class="control-label col-sm-2">FullName</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="FullName" />
+    <input type="text" class="form-control" formControlName="FullName"/>
   </div>
 </div>
 <div class="form-group" >
   <label class="control-label col-sm-2">TelephoneNumber</label>
   <div class="col-sm-2">
-    <input type="tel" class="form-control" [(ngModel)]="TelephoneNumber" />
+    <input type="text" class="form-control" formControlName="TelephoneNumber"/>
   </div>
 </div>
 <div class="form-group" >
   <label class="control-label col-sm-2">EmailAddress</label>
   <div class="col-sm-2">
-    <input type="email" class="form-control" formControlName="email" id="email" [(ngModel)]="EmailAddress" />
+    <input type="email" class="form-control" formControlName="EmailAddress"/>
   </div>
 
   <!-- TODO: Add dropdown with contries -->
   <label class="control-label col-sm-2">Country</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="Country" />
+    <input type="text" class="form-control" formControlName="Country"/>
   </div>
 
   <label class="control-label col-sm-2">City</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="City" />
+    <input type="text" class="form-control" formControlName="City"/>
   </div>
 
   <label class="control-label col-sm-2">Street</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="Street" />
+    <input type="text" class="form-control" formControlName="Street"/>
   </div>
 
   <label class="control-label col-sm-2">PostalCode</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" [(ngModel)]="PostalCode" />
+    <input type="text" class="form-control" formControlName="PostalCode"/>
   </div>
 
   <label class="control-label col-sm-2">StreetNumber</label>
   <div class="col-sm-2">
-    <input type="number" class="form-control" [(ngModel)]="StreetNumber" />
+    <input type="number" class="form-control" formControlName="StreetNumber"/>
   </div>
 
 </div>

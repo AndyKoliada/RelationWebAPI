@@ -20,14 +20,14 @@ export class AddEditRelationComponent implements OnInit {
 
   @Input() relation: any;
   Id: string;
-  Name: string;
-  FullName: string;
-  TelephoneNumber: string;
-  EmailAddress: string;
-  Country: string;
-  City: string;
-  Street: string;
-  PostalCode: string;
+  Name: string = "";
+  FullName: string = "";
+  TelephoneNumber: string = "";
+  EmailAddress: string = "";
+  Country: string = "";
+  City: string = "";
+  Street: string = "";
+  PostalCode: string = "";
   StreetNumber: number;
 
   ngOnInit(): void {
@@ -43,62 +43,25 @@ export class AddEditRelationComponent implements OnInit {
     this.StreetNumber = this.relation.StreetNumber
 
     this.form = this.formBuilder.group({
-      name: ['', Validators.required, Validators.maxLength(50)],
-      email: ['', [Validators.email]],
-      phone: ['', [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}")]],
-      fullName: [''],
-      country: [''],
-      city: [''],
-      street: [''],
-      postalCode: [''],
-      streetNumber: [''],
+      Name: [this.relation.Name, [Validators.required, Validators.maxLength(50)]],
+      EmailAddress: [this.relation.EmailAddress, [Validators.email, Validators.maxLength(50)]],
+      TelephoneNumber: [this.relation.TelephoneNumber, [Validators.pattern("[0-9]{3}-[0-9]{3}-[0-9]{4}"), Validators.maxLength(50)]],
+      FullName: [this.relation.FullName, [Validators.maxLength(50)]],
+      Country: [this.relation.Country, [Validators.maxLength(50)]],
+      City: [this.relation.City, [Validators.maxLength(50)]],
+      Street: [this.relation.Street, [Validators.maxLength(50)]],
+      PostalCode: [this.relation.PostalCode, [Validators.maxLength(10)]],
+      StreetNumber: [this.relation.StreetNumber]
     });
+    
   }
 
   addRelation() {
-    var val = {
-      Name: this.Name,
-      FullName: this.FullName,
-      TelephoneNumber: this.TelephoneNumber,
-      EmailAddress: this.EmailAddress,
-      Country: this.Country,
-      City: this.City,
-      Street: this.Street,
-      PostalCode: this.PostalCode,
-      StreetNumber: this.StreetNumber
-    };
-    this.service.addRelation(val).subscribe();
-
-    this.toastrService.success("Relation added");
+    this.service.addRelation(this.form.value).subscribe();
   }
 
   updateRelation() {
-    var val = {
-      Id: this.Id,
-      Name: this.Name,
-      FullName: this.FullName,
-      TelephoneNumber: this.TelephoneNumber,
-      EmailAddress: this.EmailAddress,
-      Country: this.Country,
-      City: this.City,
-      Street: this.Street,
-      PostalCode: this.PostalCode,
-      StreetNumber: this.StreetNumber
-    };
-    this.service.updateRelation(this.Id, val).subscribe();
-
-    this.toastrService.success("Relation updated");
+    this.service.updateRelation(this.relation.Id, this.form.value).subscribe();
   }
 
-  onSubmit(customerData) {
-    console.warn('Your order has been submitted', customerData);
-  }
-
-  nameIsRequiredWarning(){
-    this.toastrService.warning("Name is required")
-  }
-
-  nameLengthWarning(){
-    this.toastrService.warning("Name must be at least 3 characters long")
-  }
 }
