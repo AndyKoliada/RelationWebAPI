@@ -1,14 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from '../../shared.service';
-import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ShowRelationComponent } from '../show-relation/show-relation.component';
-import { Observable } from 'rxjs';
+import { Relation } from '../../models/Relation'
 
 @Component({
   selector: 'app-add-edit-relation',
-  templateUrl: './add-edit-relation.component.html',
-  styleUrls: ['./add-edit-relation.component.css']
+  templateUrl: './add-edit-relation.component.html'
 })
 
 export class AddEditRelationComponent implements OnInit {
@@ -17,11 +14,11 @@ export class AddEditRelationComponent implements OnInit {
 
   constructor(
     private service: SharedService,
-    private toastrService: ToastrService,
-    private formBuilder: FormBuilder,
-    private show: ShowRelationComponent) { }
+    private formBuilder: FormBuilder
+    ) { }
 
-  @Input() relation: any;
+  @Input() 
+  relation: Relation;
   Id: string;
   Name: string = "";
   FullName: string = "";

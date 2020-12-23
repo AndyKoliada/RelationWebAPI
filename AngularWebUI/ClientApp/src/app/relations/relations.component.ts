@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-relations',
-  templateUrl: './relations.component.html',
-  styleUrls: ['./relations.component.css']
+  templateUrl: './relations.component.html'
 })
 export class RelationsComponent implements OnInit {
 

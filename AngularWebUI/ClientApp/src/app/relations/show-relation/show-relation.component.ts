@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { ToastrService } from 'ngx-toastr';
+import { Relation } from '../../models/Relation'
 
 @Component({
   selector: 'app-show-relation',
-  templateUrl: './show-relation.component.html',
-  styleUrls: ['./show-relation.component.css']
+  templateUrl: './show-relation.component.html'
 })
 
 export class ShowRelationComponent implements OnInit {
 
-  RelationsList: any = [];
-
   constructor(private service: SharedService, private toastrService: ToastrService) { }
+
+  RelationsList: Relation[];
 
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
-  relation: any;
+  relation: Relation;
 
   ngOnInit(): void {
     this.refreshRelationsList();
@@ -24,10 +24,9 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      Id: null,
-      Name: ''
+      Id: null
     }
-    this.ModalTitle = "Add relation";
+    this.ModalTitle = "Add new relation";
     this.ActivateAddEditRelationsComponent = true;
   }
 
@@ -44,33 +43,23 @@ export class ShowRelationComponent implements OnInit {
 
   deleteClick(item) {
     if (confirm('Are you sure?')) {
-      this.service.deleteRelation(item.Id).subscribe(data => {
+      this.service.deleteRelation(item.Id).subscribe(/* data => {
         this.relation = data
-      })
-      this.refreshRelationsList();
+      } */)
       this.toastrService.success("Relation deleted");
     }
+    this.refreshRelationsList();
   }
 
   sortClick(param: string) {
     this.service.sortRelationsList(param);
     this.refreshRelationsList();
   }
-
-  nextPageClick() {
-    this.service.changePage(this.service.PageNumber + 1, 5);
-    this.refreshRelationsList();
-  }
-
-  previousPageClick() {
-    if (this.service.PageNumber > 1) {
-      this.service.changePage(this.service.PageNumber - 1, 5);
-      this.refreshRelationsList();
-    }
-  }
+  
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
       this.RelationsList = data;
+      //this.service.RelationsList = data;
     });
   }
 
