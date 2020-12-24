@@ -28,8 +28,8 @@
   <!-- TODO: Add dropdown with contries -->
   <label class="control-label col-sm-2">Country</label>
   <div class="col-sm-2">
-    <select type="text" class="form-control" formControlName="Country" [(ngModel)]="relation.Country">
-      <option *ngFor="let country of countriesList">
+    <select type="text" class="form-control" formControlName="Country">
+      <option value={{country}} *ngFor="let country of countriesList">
         {{country}}
       </option>
     </select>

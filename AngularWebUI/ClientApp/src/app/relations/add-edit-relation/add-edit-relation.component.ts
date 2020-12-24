@@ -20,7 +20,7 @@ export class AddEditRelationComponent implements OnInit {
 
   form: FormGroup;
   
-  countriesList: any[];
+  countriesList: string[];
 
   @Input() 
   relation: Relation;
@@ -66,13 +66,12 @@ export class AddEditRelationComponent implements OnInit {
 
   onSubmit(form: any) {
     this.show.refreshRelationsList();
-    console.log("onSubmit act", form.value);
+    console.log("onSubmit act", form.value);//debug
   }
 
   getCountriesList() {
     this.service.getCountriesList().subscribe(countries => {
       this.countriesList = countries;
-      console.log(countries);
     });
   }
 
