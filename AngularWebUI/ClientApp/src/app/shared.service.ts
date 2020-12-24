@@ -29,11 +29,11 @@ export class SharedService {
   }
 
   refreshRelationsList(): Observable<Relation[]> {
-    return this.http.get<Relation[]>(this.url.RelationsUrlString + "?",  {params: this.QueryParams});
+    return this.getRelationsList();
   }
 
-  getCountriesList(): Observable<Relation[]> {
-    return this.http.get<Relation[]>(this.url.RelationsUrlString);
+  getCountriesList(): Observable<string[]> {
+    return this.http.get<string[]>(this.url.CountriesUrlString);
   }
 
   addRelation(val: object): Observable<Relation[]> {

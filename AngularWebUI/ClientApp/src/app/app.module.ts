@@ -15,6 +15,7 @@ import { SharedService } from './shared.service';
 import { UrlString } from './models/UrlString';
 import { Pagination } from './models/Pagination';
 import { PaginationComponent } from './pagination/pagination.component';
+import { Relation } from './models/Relation';
 
 
 @NgModule({
@@ -22,8 +23,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     AppComponent,
     RelationsComponent,
     ShowRelationComponent,
-    AddEditRelationComponent,
-    PaginationComponent
+    PaginationComponent,
+    AddEditRelationComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     ToastrModule.forRoot()
   ],
 
-  providers: [SharedService, UrlString, Pagination],
+  providers: [SharedService, UrlString, Pagination, ShowRelationComponent, Relation],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

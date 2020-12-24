@@ -28,7 +28,11 @@
   <!-- TODO: Add dropdown with contries -->
   <label class="control-label col-sm-2">Country</label>
   <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="Country"/>
+    <select type="text" class="form-control" formControlName="Country" [(ngModel)]="relation.Country">
+      <option *ngFor="let country of countriesList">
+        {{country}}
+      </option>
+    </select>
   </div>
 
   <label class="control-label col-sm-2">City</label>
@@ -53,7 +57,7 @@
 
 </div>
 
-<button type="submit" (click)="addRelation()" *ngIf="relation.Id == null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Add new relation</button>
+<button type="submit" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Add new relation</button>
 
-<button type="submit" (click)="updateRelation()" *ngIf="relation.Id!= null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Update relation</button>
+<button type="submit" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Update relation</button>
 </form>

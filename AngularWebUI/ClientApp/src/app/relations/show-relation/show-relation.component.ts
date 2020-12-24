@@ -59,7 +59,6 @@ export class ShowRelationComponent implements OnInit {
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
       this.RelationsList = data;
-      //this.service.RelationsList = data;
     });
   }
 

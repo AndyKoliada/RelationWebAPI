@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Relation } from '../../models/Relation'
+import { ShowRelationComponent } from '../show-relation/show-relation.component';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -10,37 +11,34 @@ import { Relation } from '../../models/Relation'
 
 export class AddEditRelationComponent implements OnInit {
 
-  form: FormGroup;
-
   constructor(
     private service: SharedService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private show: ShowRelationComponent,
+    private relations: Relation
     ) { }
+
+  form: FormGroup;
+  
+  countriesList: any[];
 
   @Input() 
   relation: Relation;
-  Id: string;
-  Name: string = "";
-  FullName: string = "";
-  TelephoneNumber: string = "";
-  EmailAddress: string = "";
-  Country: string = "";
-  City: string = "";
-  Street: string = "";
-  PostalCode: string = "";
-  StreetNumber: number;
 
   ngOnInit(): void {
-    this.Id = this.relation.Id,
-    this.Name = this.relation.Name,
-    this.FullName = this.relation.FullName,
-    this.TelephoneNumber = this.relation.TelephoneNumber,
-    this.EmailAddress = this.relation.EmailAddress,
-    this.Country = this.relation.Country,
-    this.City = this.relation.City,
-    this.Street = this.relation.Street,
-    this.PostalCode = this.relation.PostalCode,
-    this.StreetNumber = this.relation.StreetNumber
+
+    this.getCountriesList();
+
+    this.relations.Id = this.relation.Id,
+    this.relations.Name = this.relation.Name,
+    this.relations.FullName = this.relation.FullName,
+    this.relations.TelephoneNumber = this.relation.TelephoneNumber,
+    this.relations.EmailAddress = this.relation.EmailAddress,
+    this.relations.Country = this.relation.Country,
+    this.relations.City = this.relation.City,
+    this.relations.Street = this.relation.Street,
+    this.relations.PostalCode = this.relation.PostalCode,
+    this.relations.StreetNumber = this.relation.StreetNumber
 
     this.form = this.formBuilder.group({
       Name: [this.relation.Name, [Validators.required, Validators.maxLength(50)]],
@@ -56,16 +54,26 @@ export class AddEditRelationComponent implements OnInit {
     
   }
 
-  addRelation(){
-    return this.service.addRelation(this.form.value).subscribe();
+  addRelationClick(form: any){
+    this.service.addRelation(form.value).subscribe();
+    this.show.refreshRelationsList();
   }
 
-  updateRelation() {
-    return this.service.updateRelation(this.relation.Id, this.form.value).subscribe();
+  updateRelationClick(form: any) {
+    this.service.updateRelation(this.relation.Id, form.value).subscribe();
+    this.show.refreshRelationsList();
   }
 
-  onSubmit({ value, valid }) {
-    this.service.getRelationsList();
+  onSubmit(form: any) {
+    this.show.refreshRelationsList();
+    console.log("onSubmit act", form.value);
+  }
+
+  getCountriesList() {
+    this.service.getCountriesList().subscribe(countries => {
+      this.countriesList = countries;
+      console.log(countries);
+    });
   }
 
 }
