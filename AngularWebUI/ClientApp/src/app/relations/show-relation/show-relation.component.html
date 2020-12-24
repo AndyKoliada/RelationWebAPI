@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-add-edit-relation [relation]="relation" *ngIf="ActivateAddEditRelationsComponent">
+        <app-add-edit-relation [(relation)]="relation" *ngIf="ActivateAddEditRelationsComponent"  (changesEvent)="reactOnModalEvent($event)">
         </app-add-edit-relation>
       </div>
     </div>

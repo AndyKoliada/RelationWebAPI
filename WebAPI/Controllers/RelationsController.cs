@@ -95,9 +95,9 @@ namespace WebAPI.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteRelation([FromQuery]params Guid[] ids)
         {
-            var relation = await _relationsService.DeleteModel(ids);
+            await _relationsService.DeleteModel(ids);
 
-            return StatusCode(200);
+            return StatusCode(204);
         }
     }
 }

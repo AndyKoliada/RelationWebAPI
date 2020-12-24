@@ -6,7 +6,7 @@ import { Relation } from '../../models/Relation'
 @Component({
   selector: 'app-show-relation',
   templateUrl: './show-relation.component.html',
-  styles: ['.table tr.active td { background-color:#123456 !important; color: white; }']
+ /*  styles: ['.table tr.active td { background-color:#123456 !important; color: white; }'] */
 })
 
 export class ShowRelationComponent implements OnInit {
@@ -57,9 +57,7 @@ export class ShowRelationComponent implements OnInit {
   
   deleteClick(item) {
     if (confirm('Are you sure?')) {
-      this.service.deleteRelation(item.Id).subscribe(/* data => {
-        this.relation = data
-      } */)
+      this.service.deleteRelation(item.Id).subscribe();
       this.toastrService.success("Relation deleted");
     }
     this.refreshRelationsList();
@@ -67,6 +65,11 @@ export class ShowRelationComponent implements OnInit {
 
   sortClick(param: string) {
     this.service.sortRelationsList(param);
+    this.refreshRelationsList();
+  }
+
+  reactOnModalEvent(formvalue: any) {
+    console.log(formvalue);
     this.refreshRelationsList();
   }
   
