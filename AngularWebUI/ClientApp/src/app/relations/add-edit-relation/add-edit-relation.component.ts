@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Relation } from '../../models/Relation'
@@ -24,6 +24,8 @@ export class AddEditRelationComponent implements OnInit {
 
   @Input() 
   relation: Relation;
+
+  @Output() changesEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
 
@@ -56,11 +58,13 @@ export class AddEditRelationComponent implements OnInit {
 
   addRelationClick(form: any){
     this.service.addRelation(form.value).subscribe();
+    this.changesEvent.emit(form.value);
     this.show.refreshRelationsList();
   }
 
   updateRelationClick(form: any) {
     this.service.updateRelation(this.relation.Id, form.value).subscribe();
+    this.changesEvent.emit(form.value);
     this.show.refreshRelationsList();
   }
 

@@ -1,9 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
 import { SharedService } from '../shared.service';
 import { Pagination } from '../models/Pagination';
-import { FormsModule } from '@angular/forms';
 import { ShowRelationComponent } from '../relations/show-relation/show-relation.component';
 
 @Component({

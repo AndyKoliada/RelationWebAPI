@@ -25,7 +25,7 @@ export class ShowRelationComponent implements OnInit {
     ) { 
       this.setClickedRow = function(index){
         this.selectedRow = index;
-    }
+      }
     }
 
   ngOnInit(): void {
