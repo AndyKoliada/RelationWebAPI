@@ -1,46 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared.service';
-import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Relation } from '../../models/Relation'
 
 @Component({
   selector: 'app-add-edit-relation',
-  templateUrl: './add-edit-relation.component.html',
-  styleUrls: ['./add-edit-relation.component.css']
+  templateUrl: './add-edit-relation.component.html'
 })
 
 export class AddEditRelationComponent implements OnInit {
 
-  form: FormGroup;
-
   constructor(
     private service: SharedService,
-    private toastrService: ToastrService,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder
+    ) { }
 
-  @Input() relation: any;
-  Id: string;
-  Name: string = "";
-  FullName: string = "";
-  TelephoneNumber: string = "";
-  EmailAddress: string = "";
-  Country: string = "";
-  City: string = "";
-  Street: string = "";
-  PostalCode: string = "";
-  StreetNumber: number;
+  form: FormGroup;
+  
+  countriesList: string[];
+
+  @Input() relation: Relation;
+
+  @Output() changesEvent = new EventEmitter<any>();
 
   ngOnInit(): void {
-    this.Id = this.relation.Id,
-    this.Name = this.relation.Name,
-    this.FullName = this.relation.FullName,
-    this.TelephoneNumber = this.relation.TelephoneNumber,
-    this.EmailAddress = this.relation.EmailAddress,
-    this.Country = this.relation.Country,
-    this.City = this.relation.City,
-    this.Street = this.relation.Street,
-    this.PostalCode = this.relation.PostalCode,
-    this.StreetNumber = this.relation.StreetNumber
+
+    this.getCountriesList();
 
     this.form = this.formBuilder.group({
       Name: [this.relation.Name, [Validators.required, Validators.maxLength(50)]],
@@ -56,12 +41,22 @@ export class AddEditRelationComponent implements OnInit {
     
   }
 
-  addRelation() {
-    this.service.addRelation(this.form.value).subscribe();
+  addRelationClick(form: any){
+    this.service.addRelation(form.value).subscribe();
+    this.changesEvent.emit(form.value);
+    this.form = this.formBuilder.group({});
   }
 
-  updateRelation() {
-    this.service.updateRelation(this.relation.Id, this.form.value).subscribe();
+  updateRelationClick(form: any) {
+    this.service.updateRelation(this.relation.Id, form.value).subscribe();
+    this.changesEvent.emit(form.value);
+    this.form = this.formBuilder.group({});
+  }
+
+  getCountriesList() {
+    this.service.getCountriesList().subscribe(countries => {
+      this.countriesList = countries;
+    });
   }
 
 }

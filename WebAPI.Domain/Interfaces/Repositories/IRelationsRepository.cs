@@ -37,7 +37,7 @@ namespace WebAPI.Domain.Interfaces.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Relation> DeleteRelation(Guid id);
+        Task<Relation> DeleteRelation(params Guid[] id);
 
         /// <summary>
         /// Gets single record from db by id.

@@ -61,10 +61,9 @@ namespace WebAPI.Services
             return relation;
         }
 
-        public async Task<Relation> DeleteModel(Guid id)
+        public async Task<Relation> DeleteModel(params Guid[] ids)
         {
-            var relation = await _repositoryWrapper.Relations.DeleteRelation(id);
-            return relation;
+            return await _repositoryWrapper.Relations.DeleteRelation(ids);
         }
 
         public bool RelationExists(Guid id)

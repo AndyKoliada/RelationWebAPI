@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Pagination } from '../app/models/Pagination';
+import { UrlString } from '../app/models/UrlString';
+import { Relation } from '../app/models/Relation'
 
 @Injectable({
   providedIn: 'root'
@@ -11,65 +13,59 @@ import { ToastrService } from 'ngx-toastr';
 
 export class SharedService {
 
-  readonly ApiUrl: string = environment.apiHost;
-  readonly RelationsApiAlias: string = "/relations";
-  readonly CountriesApiAlias: string = "/countries";
-  
-  PageNumber: number = 1;
-  PageSize: number = 5;
-  SortBy: string = "Country";
-  FilterBy: string = "None";
-  OrderByDescending: boolean = false;
+  constructor(
+    private http: HttpClient,
+    private toastrService: ToastrService,
+    private url: UrlString,
+    public page: Pagination
+    ) { }
 
-  QueryParams: HttpParams;
+  QueryParams: HttpParams = this.page.QueryParams;
 
-  DeleteIdList: [];
+  RelationsList: Relation[];
 
-  RelationsUrlString: string = this.ApiUrl + this.RelationsApiAlias;
-  CountriesUrlString: string = this.ApiUrl + this.CountriesApiAlias;
-
-  constructor(private http: HttpClient, private toastrService: ToastrService,) { }
-
-  getRelationsList(): Observable<any[]> {
-    return this.http.get<any>(this.RelationsUrlString, {params: this.QueryParams});
+  getRelationsList(): Observable<Relation[]> {
+    return this.http.get<Relation[]>(this.url.RelationsUrlString, {params: this.QueryParams});
   }
 
-  getCountriesList(): Observable<any[]> {
-    return this.http.get<any>(this.RelationsUrlString);
+  refreshRelationsList(): Observable<Relation[]> {
+    return this.getRelationsList();
   }
 
-  addRelation(val: object) {
+  getCountriesList(): Observable<string[]> {
+    return this.http.get<string[]>(this.url.CountriesUrlString);
+  }
+
+  addRelation(val: object): Observable<Relation[]> {
     this.toastrService.success("Relation added successfully!");
-    return this.http.post(this.RelationsUrlString, val);
+    return this.http.post<Relation[]>(this.url.RelationsUrlString, val);
   }
 
-  updateRelation(id: string, val: object) {
+  updateRelation(id: string, val: object): Observable<Relation[]>{
     this.toastrService.success("Relation updated");
-    return this.http.put(this.RelationsUrlString + "/" + id, val);
+    return this.http.put<Relation[]>(this.url.RelationsUrlString + "/" + id, val);
   }
 
-  sortRelationsList(sortBy: string): Observable<any[]> {
-    this.SortBy = sortBy;
-    this.OrderByDescending = !this.OrderByDescending;
+  sortRelationsList(sortBy: string): Observable<Relation[]> {
+    this.page.SortBy = sortBy;
+    this.page.OrderByDescending = !this.page.OrderByDescending;
 
-    this.QueryParams = new HttpParams().set("SortBy",sortBy).set("OrderByDescending", this.OrderByDescending.toString()); //Create new HttpParams
+    this.QueryParams = new HttpParams().set("SortBy",sortBy).set("OrderByDescending", this.page.OrderByDescending.toString()); //Create new HttpParams
 
-    return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
+    return this.http.get<Relation[]>(this.url.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
-  changePage(pageNumber: number, pageSize: number): Observable<any[]> {
-    this.PageNumber = pageNumber;
-    this.PageSize = pageSize;
+  changePage(pageNumber: number, pageSize: number): Observable<Relation[]> {
+    this.page.PageNumber = pageNumber;
+    this.page.PageSize = pageSize;
 
     this.QueryParams = new HttpParams().set("PageNumber",pageNumber.toString()).set("PageSize", pageSize.toString()); //Create new HttpParams
-
-    console.log(this.RelationsUrlString + "?" + this.QueryParams);
-
-    return this.http.get<any>(this.RelationsUrlString + "?",  {params: this.QueryParams});
+    
+    return this.http.get<Relation[]>(this.url.RelationsUrlString + "?",  {params: this.QueryParams});
   }
 
-  deleteRelation(id: string) {
-    return this.http.delete(this.RelationsUrlString + "/" + id);
+  deleteRelation(id: string){
+    return this.http.delete(this.url.RelationsUrlString + "?ids=" + id);
   }
 
 }

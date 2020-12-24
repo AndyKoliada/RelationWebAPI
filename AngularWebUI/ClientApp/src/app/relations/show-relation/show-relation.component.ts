@@ -1,22 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { ToastrService } from 'ngx-toastr';
+import { Relation } from '../../models/Relation'
 
 @Component({
   selector: 'app-show-relation',
   templateUrl: './show-relation.component.html',
-  styleUrls: ['./show-relation.component.css']
+ /*  styles: ['.table tr.active td { background-color:#123456 !important; color: white; }'] */
 })
 
 export class ShowRelationComponent implements OnInit {
 
-  RelationsList: any = [];
-
-  constructor(private service: SharedService, private toastrService: ToastrService) { }
-
+  
+  RelationsList: Relation[];
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
-  relation: any;
+  relation: Relation;
+  
+  selectedRow: number;
+
+  constructor(
+    private service: SharedService,
+    private toastrService: ToastrService,
+    ) { 
+      this.setClickedRow = function(index){
+        this.selectedRow = index;
+      }
+    }
 
   ngOnInit(): void {
     this.refreshRelationsList();
@@ -24,10 +34,9 @@ export class ShowRelationComponent implements OnInit {
 
   addClick() {
     this.relation = {
-      Id: null,
-      Name: ''
+      Id: null
     }
-    this.ModalTitle = "Add relation";
+    this.ModalTitle = "Add new relation";
     this.ActivateAddEditRelationsComponent = true;
   }
 
@@ -42,13 +51,16 @@ export class ShowRelationComponent implements OnInit {
     this.ActivateAddEditRelationsComponent = true;
   }
 
+  setClickedRow(index){
+    this.selectedRow = index;
+  }
+  
   deleteClick(item) {
     if (confirm('Are you sure?')) {
-      this.service.deleteRelation(item.Id).subscribe(data => {
-        this.refreshRelationsList();
-        this.toastrService.success("Relation deleted");
-      })
+      this.service.deleteRelation(item.Id).subscribe();
+      this.toastrService.success("Relation deleted");
     }
+    this.refreshRelationsList();
   }
 
   sortClick(param: string) {
@@ -56,17 +68,11 @@ export class ShowRelationComponent implements OnInit {
     this.refreshRelationsList();
   }
 
-  nextPageClick() {
-    this.service.changePage(this.service.PageNumber + 1, 5);
+  reactOnModalEvent(formvalue: any) {
+    console.log(formvalue);
     this.refreshRelationsList();
   }
-
-  previousPageClick() {
-    if (this.service.PageNumber > 1) {
-      this.service.changePage(this.service.PageNumber - 1, 5);
-      this.refreshRelationsList();
-    }
-  }
+  
   refreshRelationsList() {
     this.service.getRelationsList().subscribe(data => {
       this.RelationsList = data;

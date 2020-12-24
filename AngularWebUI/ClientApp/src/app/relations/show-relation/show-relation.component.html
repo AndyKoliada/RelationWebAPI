@@ -1,5 +1,5 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-add-edit-relation [relation]="relation" *ngIf="ActivateAddEditRelationsComponent">
+        <app-add-edit-relation [(relation)]="relation" *ngIf="ActivateAddEditRelationsComponent"  (changesEvent)="reactOnModalEvent($event)">
         </app-add-edit-relation>
       </div>
     </div>
@@ -37,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dataItem of RelationsList">
+      <tr *ngFor="let dataItem of RelationsList; let i = index" (click)="setClickedRow(i)" [class.active]="i == selectedRow">
         <td>{{dataItem.Name}}</td>
         <td>{{dataItem.FullName}}</td>
         <td>{{dataItem.TelephoneNumber}}</td>
@@ -70,11 +70,4 @@
     </tbody>
   </table>
 </div>
-<div style="display: inline-block;">
-  <button class="btn btn-light" style="margin-right: 1cm;" (click)="previousPageClick()">Previous page</button>
-  <button class="btn btn-light" style="margin-right: 1cm;" (click)="nextPageClick()">Next page</button>
-  <label>Page number</label>
-  <input type="number" min="1" value="1" style="max-width: 1cm; margin: 1cm;">
-  <label>Elements on the page</label>
-  <input type="number" min="1" value="5" style="max-width: 1cm; margin-left: 1cm;">
-</div>
+<app-pagination></app-pagination>

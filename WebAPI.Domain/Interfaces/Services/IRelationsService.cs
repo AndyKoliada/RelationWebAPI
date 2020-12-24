@@ -40,6 +40,6 @@ namespace WebAPI.Domain.Interfaces.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Relation> DeleteModel(Guid id);
+        Task<Relation> DeleteModel(params Guid[] id);
     }
 }

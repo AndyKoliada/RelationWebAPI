@@ -1,59 +1,61 @@
-<form class="form-horizontal" [formGroup]="form" >
+<form class="form-horizontal" [formGroup]="form">
 
-<div class="form-group">
-  <label class="control-label col-sm-2" for="name">Name</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" id="name"
-    formControlName="Name" placeholder="Name *"/>
+  <div class="form-group row">
+    <label class="mr-sm-2 mb-0 sr-only">Name *</label>
+    <div class="col-sm-auto">
+      <input type="text" class="form-control" formControlName="Name" placeholder="Name" />
+    </div>
+    <label class="mr-sm-2 mb-0 sr-only">FullName</label>
+    <div class="col-sm-auto">
+      <input type="text" class="form-control" formControlName="FullName" placeholder="FullName" />
+    </div>
   </div>
-</div>
-<div class="form-group" >
-  <label class="control-label col-sm-2">FullName</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="FullName"/>
+  <div class="form-group row">
+    <label class="mr-sm-2 mb-0 sr-only">TelephoneNumber</label>
+    <div class="col-sm-auto">
+      <input type="text" class="form-control" formControlName="TelephoneNumber" placeholder="TelephoneNumber" />
+    </div>
+    <label class="mr-sm-2 mb-0 sr-only">EmailAddress</label>
+    <div class="col-sm-auto">
+      <input type="email" class="form-control" formControlName="EmailAddress" placeholder="EmailAddress" />
+    </div>
   </div>
-</div>
-<div class="form-group" >
-  <label class="control-label col-sm-2">TelephoneNumber</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="TelephoneNumber"/>
+  <div class="form-group row">
+    <!-- TODO: Add dropdown with contries -->
+    <label class="mr-sm-2 mb-0 sr-only">Country</label>
+    <div class="col-sm-auto">
+      <select type="text" class="form-control" formControlName="Country">
+        <option value={{country}} *ngFor="let country of countriesList">
+          {{country}}
+        </option>
+      </select>
+    </div>
+
+    <label class="mr-sm-2 mb-0 sr-only">City</label>
+    <div class="col-sm-auto">
+      <input type="text" class="form-control" formControlName="City" placeholder="City" />
+    </div>
   </div>
-</div>
-<div class="form-group" >
-  <label class="control-label col-sm-2">EmailAddress</label>
-  <div class="col-sm-2">
-    <input type="email" class="form-control" formControlName="EmailAddress"/>
+  <div class="form-group row">
+    <label class="mr-sm-2 mb-0 sr-only">Street</label>
+    <div class="col-sm-auto">
+      <input type="text" class="form-control" formControlName="Street" placeholder="Street" />
+    </div>
+
+    <label class="mr-sm-2 mb-0 sr-only">PostalCode</label>
+    <div class="col-sm-auto">
+      <input type="text" class="form-control" formControlName="PostalCode" placeholder="PostalCode" />
+    </div>
+
+    <label class="mr-sm-2 mb-0 sr-only">StreetNumber</label>
+    <div class="col-sm-auto">
+      <input type="number" class="form-control" formControlName="StreetNumber" placeholder="StreetNumber" />
+    </div>
   </div>
 
-  <!-- TODO: Add dropdown with contries -->
-  <label class="control-label col-sm-2">Country</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="Country"/>
-  </div>
+  <button type="submit" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary"
+    [disabled]="!form.valid" data-dismiss="modal">Add new relation</button>
 
-  <label class="control-label col-sm-2">City</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="City"/>
-  </div>
-
-  <label class="control-label col-sm-2">Street</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="Street"/>
-  </div>
-
-  <label class="control-label col-sm-2">PostalCode</label>
-  <div class="col-sm-2">
-    <input type="text" class="form-control" formControlName="PostalCode"/>
-  </div>
-
-  <label class="control-label col-sm-2">StreetNumber</label>
-  <div class="col-sm-2">
-    <input type="number" class="form-control" formControlName="StreetNumber"/>
-  </div>
-
-</div>
-
-<button type="submit" (click)="addRelation()" *ngIf="relation.Id == null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Add new relation</button>
-
-<button type="submit" (click)="updateRelation()" *ngIf="relation.Id!= null" class="btn btn-primary" [disabled]="!form.valid" data-dismiss="modal">Update relation</button>
+  <button type="submit" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary"
+    [disabled]="!form.valid" data-dismiss="modal">Update relation</button>
 </form>
