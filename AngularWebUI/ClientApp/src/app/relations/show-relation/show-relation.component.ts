@@ -5,18 +5,28 @@ import { Relation } from '../../models/Relation'
 
 @Component({
   selector: 'app-show-relation',
-  templateUrl: './show-relation.component.html'
+  templateUrl: './show-relation.component.html',
+  styles: ['.table tr.active td { background-color:#123456 !important; color: white; }']
 })
 
 export class ShowRelationComponent implements OnInit {
 
-  constructor(private service: SharedService, private toastrService: ToastrService) { }
-
+  
   RelationsList: Relation[];
-
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
   relation: Relation;
+  
+  selectedRow: number;
+
+  constructor(
+    private service: SharedService,
+    private toastrService: ToastrService,
+    ) { 
+      this.setClickedRow = function(index){
+        this.selectedRow = index;
+    }
+    }
 
   ngOnInit(): void {
     this.refreshRelationsList();
@@ -41,6 +51,10 @@ export class ShowRelationComponent implements OnInit {
     this.ActivateAddEditRelationsComponent = true;
   }
 
+  setClickedRow(index){
+    this.selectedRow = index;
+  }
+  
   deleteClick(item) {
     if (confirm('Are you sure?')) {
       this.service.deleteRelation(item.Id).subscribe(/* data => {
