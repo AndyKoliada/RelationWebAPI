@@ -11,8 +11,9 @@ using WebAPI.Infrastructure.Repositories;
 using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Services;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using NLog;
+using System;
+using System.IO;
 
 namespace WebAPI
 {
@@ -20,6 +21,8 @@ namespace WebAPI
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
             Configuration = configuration;
         }
 
@@ -45,13 +48,13 @@ namespace WebAPI
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
             services.AddScoped<ICountriesRepository, CountriesRepository>();
+            services.AddSingleton<ILoggerService, LoggerService>();
 
             services.AddControllers();
 
             services.AddDbContext<RepositoryContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
             
-            #region Swagger
             services.AddSwaggerGen(c =>
             {
                 c.IncludeXmlComments(string.Format(@"{0}\WebAPI.xml", System.AppDomain.CurrentDomain.BaseDirectory));
@@ -62,7 +65,6 @@ namespace WebAPI
                 });
 
             });
-            #endregion
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -73,6 +75,23 @@ namespace WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Enable middleware to serve generated Swagger as a JSON endpoint.
+                app.UseSwagger(c =>
+{
+                    c.SerializeAsV2 = true;
+                });
+
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+                // specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RelationWebAPI");
+                });
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
             }
 
             app.UseHttpsRedirection();
@@ -85,18 +104,6 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
-
-            #region Swagger
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RelationWebAPI");
-            });
-            #endregion
 
         }
     }

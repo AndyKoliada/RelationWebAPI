@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Domain.Models;
-using WebAPI.Domain.ViewModels.Relation;
-using WebAPI.Domain.Queries;
 
 namespace WebAPI.Domain.Interfaces.Repositories
 {

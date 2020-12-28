@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAPI.Domain.ViewModels.Relation;
 using WebAPI.Domain.Interfaces.Services;
-using WebAPI.Domain.Models;
 using WebAPI.Domain.Queries;
 
 namespace WebAPI.Controllers
@@ -16,13 +15,15 @@ namespace WebAPI.Controllers
     public class RelationsController : ControllerBase
     {
         private readonly IRelationsService _relationsService;
+        private readonly ILoggerService _logger;
 
         /// <summary>
         /// DI constructor
         /// </summary>
-        public RelationsController(IRelationsService relationsService)
+        public RelationsController(IRelationsService relationsService, ILoggerService logger)
         {
             _relationsService = relationsService;
+            _logger = logger;
         }
  
         [HttpGet]
@@ -30,12 +31,17 @@ namespace WebAPI.Controllers
         {
             // todo: use middleware to  handle exceptions
             try
-            {   
+            {
+                _logger.LogDebug($"Trying to get relations with queryParameters: {queryParameters}");
+
                 var relations = await _relationsService.GetRelations(queryParameters);
+
                 return Ok(relations);
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Exception in get relations: {ex.Message}");
+
                 return StatusCode(500, $"Internal server error: {ex.Message}" );
             }
         }
@@ -48,14 +54,26 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RelationDetailsViewModel>> GetRelation(Guid id)
         {
-            var relation = await _relationsService.GetRelationsById(id);
-
-            if (relation == null)
+            try
             {
-                return NotFound();
-            }
+                _logger.LogDebug($"Trying to get relation by id: {id}");
 
-            return relation;
+                var relation = await _relationsService.GetRelationsById(id);
+
+                if (relation == null)
+                {
+                    return NotFound();
+                }
+
+                return relation;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Exception in get by id: {ex.Message}");
+
+                return StatusCode(500, ex.Message);
+            }
+            
         }
         /// <summary>
         /// Saves edited model to dbContext by id.
@@ -64,16 +82,16 @@ namespace WebAPI.Controllers
         /// <param name="relationModel"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
+        public async Task<ActionResult<RelationDetailsEditModel>> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
             var relation = await _relationsService.EditModel(id, relationModel);
 
-            if (id != relation.Id)
-            {
-                //return BadRequest();
-            }
+            //if (id != relation.Id)
+            //{
+            //    return BadRequest();
+            //}
 
-            return NoContent();
+            return relation;
         }
         /// <summary>
         /// Creates new model in dbContext.
@@ -94,9 +112,17 @@ namespace WebAPI.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteRelation([FromQuery]params Guid[] ids)
         {
-            await _relationsService.DeleteModel(ids);
+            try
+            {
+                await _relationsService.DeleteModel(ids);
 
-            return StatusCode(204);
+                return StatusCode(204);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
     }
 }
