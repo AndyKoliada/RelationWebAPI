@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { Relation } from '../../models/Relation'
@@ -6,12 +6,10 @@ import { Relation } from '../../models/Relation'
 @Component({
   selector: 'app-show-relation',
   templateUrl: './show-relation.component.html',
- /*  styles: ['.table tr.active td { background-color:#123456 !important; color: white; }'] */
 })
 
 export class ShowRelationComponent implements OnInit {
 
-  
   RelationsList: Relation[];
   ModalTitle: string;
   ActivateAddEditRelationsComponent: boolean = false;
@@ -21,21 +19,15 @@ export class ShowRelationComponent implements OnInit {
 
   constructor(
     private service: SharedService,
-    private toastrService: ToastrService,
-    ) { 
-      this.setClickedRow = function(index){
-        this.selectedRow = index;
-      }
-    }
+    private toastrService: ToastrService
+    ) { }
 
   ngOnInit(): void {
     this.refreshRelationsList();
   }
 
   addClick() {
-    this.relation = {
-      Id: null
-    }
+    this.relation = new Relation();
     this.ModalTitle = "Add new relation";
     this.ActivateAddEditRelationsComponent = true;
   }
@@ -57,19 +49,15 @@ export class ShowRelationComponent implements OnInit {
   
   deleteClick(item) {
     if (confirm('Are you sure?')) {
-      this.service.deleteRelation(item.Id).subscribe();
-      this.toastrService.success("Relation deleted");
+      this.service.deleteRelation(item.Id).subscribe(res => {
+        this.toastrService.success("Relation deleted");
+        this.refreshRelationsList();
+      });
     }
-    this.refreshRelationsList();
   }
 
   sortClick(param: string) {
     this.service.sortRelationsList(param);
-    this.refreshRelationsList();
-  }
-
-  reactOnModalEvent(formvalue: any) {
-    console.log(formvalue);
     this.refreshRelationsList();
   }
   

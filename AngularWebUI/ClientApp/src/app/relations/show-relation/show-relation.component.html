@@ -1,15 +1,15 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true" #formModal>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <h5 class="modal-title" id="formModal">{{ModalTitle}}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                 (click)="closeClick()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <app-add-edit-relation [(relation)]="relation" *ngIf="ActivateAddEditRelationsComponent"  (changesEvent)="reactOnModalEvent($event)">
+        <app-add-edit-relation [(relation)]="relation" *ngIf="ActivateAddEditRelationsComponent">
         </app-add-edit-relation>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <th><button class="btn btn-light" (click)="sortClick('PostalCode')">PostalCode</button></th>
         <th><button class="btn btn-light" disabled>StreetNumber</button></th>
         <th>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="addClick()"
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal" (click)="addClick()"
                   data-backdrop="static" data-keyboard="false">
             Add relation
           </button>
@@ -49,7 +49,7 @@
         <td>{{dataItem.StreetNumber}}</td>
         <td>
           <input type="checkbox" />
-          <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#exampleModal"
+          <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#formModal"
                   (click)="editClick(dataItem)"
                   data-backdrop="static" data-keyboard="false">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +57,7 @@
               <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
             </svg>
           </button>
-          <button type="button" class="btn btn-light mr-1" data-target="#exampleModal"
+          <button type="button" class="btn btn-light mr-1" data-target="#formModal"
                   (click)="deleteClick(dataItem)"
                   data-backdrop="static" data-keyboard="false">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
