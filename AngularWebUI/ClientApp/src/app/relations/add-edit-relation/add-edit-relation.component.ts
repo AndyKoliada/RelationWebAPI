@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Relation } from '../../models/Relation'
+import { ShowRelationComponent } from '../../relations/show-relation/show-relation.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -12,7 +14,9 @@ export class AddEditRelationComponent implements OnInit {
 
   constructor(
     private service: SharedService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService,
+    private show: ShowRelationComponent
     ) { }
 
   form: FormGroup;
@@ -25,8 +29,6 @@ export class AddEditRelationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getCountriesList();
-
     this.form = this.formBuilder.group({
       Name: [this.relation.Name, [Validators.required, Validators.maxLength(50)]],
       EmailAddress: [this.relation.EmailAddress, [Validators.email, Validators.maxLength(50)]],
@@ -38,19 +40,25 @@ export class AddEditRelationComponent implements OnInit {
       PostalCode: [this.relation.PostalCode, [Validators.maxLength(10)]],
       StreetNumber: [this.relation.StreetNumber]
     });
-    
+
+    this.getCountriesList();
   }
 
   addRelationClick(form: any){
-    this.service.addRelation(form.value).subscribe();
-    this.changesEvent.emit(form.value);
-    this.form = this.formBuilder.group({});
+      this.service.addRelation(form.value).subscribe(res=>{
+      this.toastrService.success("Relation added successfully!");
+      this.changesEvent.emit();
+      this.show.refreshRelationsList();
+    });
   }
 
   updateRelationClick(form: any) {
-    this.service.updateRelation(this.relation.Id, form.value).subscribe();
-    this.changesEvent.emit(form.value);
-    this.form = this.formBuilder.group({});
+    this.service.updateRelation(this.relation.Id, form.value).subscribe(res => {
+      this.toastrService.success("Relation updated");
+      this.changesEvent.emit();
+      this.show.refreshRelationsList();
+      this.form.reset();
+    });
   }
 
   getCountriesList() {

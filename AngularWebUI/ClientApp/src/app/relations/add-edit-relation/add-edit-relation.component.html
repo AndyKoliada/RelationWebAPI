@@ -1,5 +1,4 @@
 <form class="form-horizontal" [formGroup]="form">
-
   <div class="form-group row">
     <label class="mr-sm-2 mb-0 sr-only">Name *</label>
     <div class="col-sm-auto">
@@ -30,7 +29,6 @@
         </option>
       </select>
     </div>
-
     <label class="mr-sm-2 mb-0 sr-only">City</label>
     <div class="col-sm-auto">
       <input type="text" class="form-control" formControlName="City" placeholder="City" />
@@ -41,21 +39,17 @@
     <div class="col-sm-auto">
       <input type="text" class="form-control" formControlName="Street" placeholder="Street" />
     </div>
-
     <label class="mr-sm-2 mb-0 sr-only">PostalCode</label>
     <div class="col-sm-auto">
       <input type="text" class="form-control" formControlName="PostalCode" placeholder="PostalCode" />
     </div>
-
     <label class="mr-sm-2 mb-0 sr-only">StreetNumber</label>
     <div class="col-sm-auto">
       <input type="number" class="form-control" formControlName="StreetNumber" placeholder="StreetNumber" />
     </div>
   </div>
-
-  <button type="submit" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary"
-    [disabled]="!form.valid" data-dismiss="modal">Add new relation</button>
-
-  <button type="submit" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary"
-    [disabled]="!form.valid" data-dismiss="modal">Update relation</button>
+  <button type="button" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary"
+    [disabled]="!form.valid" data-dismiss="modal" data-target="#formModal">Add new relation</button>
+  <button type="button" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary"
+    [disabled]="!form.valid" data-dismiss="modal" data-target="#formModal">Update relation</button>
 </form>
