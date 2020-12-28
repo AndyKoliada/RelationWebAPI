@@ -82,16 +82,16 @@ namespace WebAPI.Controllers
         /// <param name="relationModel"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRelation(Guid id, RelationDetailsEditModel relationModel)
+        public async Task<ActionResult<RelationDetailsEditModel>> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
             var relation = await _relationsService.EditModel(id, relationModel);
 
-            if (id != relation.Id)
-            {
-                //return BadRequest();
-            }
+            //if (id != relation.Id)
+            //{
+            //    return BadRequest();
+            //}
 
-            return NoContent();
+            return relation;
         }
         /// <summary>
         /// Creates new model in dbContext.
