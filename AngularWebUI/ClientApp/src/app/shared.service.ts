@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import { Pagination } from '../app/models/Pagination';
 import { UrlString } from '../app/models/UrlString';
 import { Relation } from '../app/models/Relation'
@@ -15,7 +14,6 @@ export class SharedService {
 
   constructor(
     private http: HttpClient,
-    private toastrService: ToastrService,
     private url: UrlString,
     public page: Pagination
     ) { }

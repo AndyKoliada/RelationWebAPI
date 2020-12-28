@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { Relation } from '../../models/Relation'
@@ -6,7 +6,6 @@ import { Relation } from '../../models/Relation'
 @Component({
   selector: 'app-show-relation',
   templateUrl: './show-relation.component.html',
- /*  styles: ['.table tr.active td { background-color:#123456 !important; color: white; }'] */
 })
 
 export class ShowRelationComponent implements OnInit {
@@ -20,13 +19,8 @@ export class ShowRelationComponent implements OnInit {
 
   constructor(
     private service: SharedService,
-    private toastrService: ToastrService,
-    private elRef: ElementRef
-    ) { 
-      this.setClickedRow = function(index){
-        this.selectedRow = index;
-      }
-    }
+    private toastrService: ToastrService
+    ) { }
 
   ngOnInit(): void {
     this.refreshRelationsList();
@@ -64,10 +58,6 @@ export class ShowRelationComponent implements OnInit {
 
   sortClick(param: string) {
     this.service.sortRelationsList(param);
-    this.refreshRelationsList();
-  }
-
-  reactOnModalEvent(formvalue: any) {
     this.refreshRelationsList();
   }
   
