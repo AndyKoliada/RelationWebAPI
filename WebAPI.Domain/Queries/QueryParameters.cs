@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebAPI.Domain.Queries
+﻿namespace WebAPI.Domain.Queries
 {
     /// <summary>
     /// Holds query parameters get from URI

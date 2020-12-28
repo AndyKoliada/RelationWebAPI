@@ -1,12 +1,7 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
-using WebAPI.Domain.Models;
-using WebAPI.Domain.ViewModels.Relation;
-using WebAPI.Domain.Queries;
 
 namespace WebAPI.Services
 {

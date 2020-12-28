@@ -11,8 +11,9 @@ using WebAPI.Infrastructure.Repositories;
 using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Domain.Interfaces.Services;
 using WebAPI.Services;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using NLog;
+using System;
+using System.IO;
 
 namespace WebAPI
 {
@@ -20,6 +21,8 @@ namespace WebAPI
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
             Configuration = configuration;
         }
 
@@ -45,6 +48,7 @@ namespace WebAPI
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<IRelationsRepository, RelationsRepository>();
             services.AddScoped<ICountriesRepository, CountriesRepository>();
+            services.AddSingleton<ILoggerService, LoggerService>();
 
             services.AddControllers();
 
@@ -72,7 +76,11 @@ namespace WebAPI
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/error-local-development");
+            }
+            else
+            {
+                app.UseExceptionHandler("/error");
             }
 
             app.UseHttpsRedirection();

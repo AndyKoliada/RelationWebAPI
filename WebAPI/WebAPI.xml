@@ -19,7 +19,7 @@
             Main API Controller
             </summary>
         </member>
-        <member name="M:WebAPI.Controllers.RelationsController.#ctor(WebAPI.Domain.Interfaces.Services.IRelationsService)">
+        <member name="M:WebAPI.Controllers.RelationsController.#ctor(WebAPI.Domain.Interfaces.Services.IRelationsService,WebAPI.Domain.Interfaces.Services.ILoggerService)">
             <summary>
             DI constructor
             </summary>
