@@ -10,7 +10,6 @@ namespace WebAPI.Domain.ViewModels.Relation
     public class RelationDetailsCreateModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-
         /// <summary>
         /// Name field with basic validation.
         /// </summary>
@@ -35,16 +34,5 @@ namespace WebAPI.Domain.ViewModels.Relation
         public int? StreetNumber { get; set; }
         [StringLength(10)]
         public string PostalCode { get; set; }
-
-        //Initializing required fields
-        private int InvoiceDateGenerationOptions { get; set; } = 1;
-        private int InvoiceGroupByOptions { get; set; } = 1;
-        private bool PaymentViaAutomaticDebit { get; set; } = false;
-        private bool IsMe { get; set; } = false;
-        private bool IsTemporary { get; set; } = false;
-        private bool IsDisabled { get; set; } = false;
-        private DateTime CreatedAt { get; set; } = DateTime.Now;
-        private string CreatedBy { get; set; } = Constants.userName;
-
     }
 }

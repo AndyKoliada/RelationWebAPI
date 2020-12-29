@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Relation } from '../../models/Relation'
 import { ShowRelationComponent } from '../../relations/show-relation/show-relation.component';
 import { ToastrService } from 'ngx-toastr';
-import { retryWhen } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-edit-relation',
