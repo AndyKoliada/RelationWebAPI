@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] QueryParameters queryParameters)
         {
-            // todo: use middleware to  handle exceptions
             try
             {
                 _logger.LogDebug($"Trying to get relations with queryParameters: {queryParameters}");
@@ -84,14 +83,25 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<RelationDetailsEditModel>> PutRelation(Guid id, RelationDetailsEditModel relationModel)
         {
-            var relation = await _relationsService.EditModel(id, relationModel);
+            try
+            {
+                _logger.LogDebug($"Trying to update relation by id: {id}");
 
-            //if (id != relation.Id)
-            //{
-            //    return BadRequest();
-            //}
+                var relation = await _relationsService.EditModel(id, relationModel);
 
-            return relation;
+                if (id == null)
+                {
+                    return BadRequest();
+                }
+
+                return relation;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception in update by id: {ex.Message}");
+
+                return StatusCode(500, ex.Message);
+            }
         }
         /// <summary>
         /// Creates new model in dbContext.
@@ -99,10 +109,17 @@ namespace WebAPI.Controllers
         /// <param name="relationModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<RelationDetailsCreateModel>> PostRelation(RelationDetailsCreateModel relationModel)
+        public async Task<ActionResult<RelationDetailsViewModel>> PostRelation(RelationDetailsCreateModel relationModel)
         {
-            var relation = await _relationsService.CreateModel(relationModel);
-            return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
+            try
+            {
+                var relation = await _relationsService.CreateModel(relationModel);
+                return CreatedAtAction("GetRelation", new { id = relation.Id }, relation);
+            }
+            catch(Exception ex)
+            {
+                return base.BadRequest(new ProblemDetails() { Title = ex.Message, Detail = ex.ToString() });
+            }
         }
         /// <summary>
         /// Deletes model by id.

@@ -22,7 +22,7 @@ namespace WebAPI.Domain.Interfaces.Repositories
         /// </summary>
         /// <param name="relationModel"></param>
         /// <returns></returns>
-        Task<RelationDetailsCreateModel> PostRelationAsync(RelationDetailsCreateModel relationModel);
+        Task<RelationDetailsViewModel> PostRelationAsync(RelationDetailsCreateModel relationModel);
 
         /// <summary>
         /// Updates provided record in db by id.

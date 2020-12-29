@@ -50,7 +50,12 @@ export class ShowRelationComponent implements OnInit {
   deleteClick(item) {
     if (confirm('Are you sure?')) {
       this.service.deleteRelation(item.Id).subscribe(res => {
-        this.toastrService.success("Relation deleted");
+        if(res.status === 204) {
+          this.toastrService.success("Relation deleted successfully", "Server responded");
+        }
+        else{
+          this.toastrService.error("Relation is not deleted", "Something went wrong!");
+        }
         this.refreshRelationsList();
       });
     }

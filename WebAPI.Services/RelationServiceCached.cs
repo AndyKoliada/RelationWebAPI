@@ -35,8 +35,7 @@ namespace WebAPI.Services
 
         public async Task<RelationDetailsViewModel> GetRelationsById(Guid id)
         {
-            RelationDetailsViewModel relation = null;
-
+            RelationDetailsViewModel relation;
             if (!_cache.TryGetValue(id, out relation))
             {
                 relation = await _repositoryWrapper.Relations.GetRelationByIdAsync(id);
@@ -55,7 +54,7 @@ namespace WebAPI.Services
             return relation;
         }
 
-        public async Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel)
+        public async Task<RelationDetailsViewModel> CreateModel(RelationDetailsCreateModel relationModel)
         {
             var relation = await _repositoryWrapper.Relations.PostRelationAsync(relationModel);
             return relation;
