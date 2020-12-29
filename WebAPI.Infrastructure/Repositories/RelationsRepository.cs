@@ -258,7 +258,7 @@ namespace WebAPI.Infrastructure.Repositories
                 }
                 else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] != pc[i])
                 {
-                    correctedPostalCode += " " + m[j] + " ";
+                    correctedPostalCode += m[j];
                     j++;
                 }
                 else if (!Char.IsLetterOrDigit(pc[i]) && !Char.IsLetterOrDigit(m[j]) && m[j] == pc[i])
