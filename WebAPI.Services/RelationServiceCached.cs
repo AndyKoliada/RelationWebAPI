@@ -55,7 +55,7 @@ namespace WebAPI.Services
             return relation;
         }
 
-        public async Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel)
+        public async Task<RelationDetailsViewModel> CreateModel(RelationDetailsCreateModel relationModel)
         {
             var relation = await _repositoryWrapper.Relations.PostRelationAsync(relationModel);
             return relation;

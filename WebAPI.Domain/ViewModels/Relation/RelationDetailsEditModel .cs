@@ -14,15 +14,23 @@ namespace WebAPI.Domain.ViewModels.Relation
         /// Name field with basic validation.
         /// </summary>
         [Required]
-        [StringLength(20)]
-        public string Name { get; set; }
+        [StringLength(50)]
+        public string Name { get; set; } = "";
+        [StringLength(50)]
         public string FullName { get; set; }
+        [StringLength(10)]
         public string TelephoneNumber { get; set; }
+        [StringLength(50)]
         public string EmailAddress { get; set; }
+        [StringLength(50)]
         public string Country { get; set; }
+        [StringLength(50)]
         public string City { get; set; }
+        [StringLength(50)]
         public string Street { get; set; }
+        [Range(0, 999)]
         public int? StreetNumber { get; set; }
+        [StringLength(50)]
         public string PostalCode { get; set; }
     }
 }

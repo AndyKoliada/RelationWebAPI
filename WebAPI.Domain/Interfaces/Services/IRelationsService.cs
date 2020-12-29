@@ -34,7 +34,7 @@ namespace WebAPI.Domain.Interfaces.Services
         /// </summary>
         /// <param name="relationModel"></param>
         /// <returns></returns>
-        Task<RelationDetailsCreateModel> CreateModel(RelationDetailsCreateModel relationModel);
+        Task<RelationDetailsViewModel> CreateModel(RelationDetailsCreateModel relationModel);
         /// <summary>
         /// Service to delete selected relation in db by id.
         /// </summary>

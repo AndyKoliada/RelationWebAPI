@@ -81,7 +81,7 @@ namespace WebAPI.Infrastructure.Repositories
             return relation;
         }
 
-        public async Task<RelationDetailsCreateModel> PostRelationAsync(RelationDetailsCreateModel relationModel)
+        public async Task<RelationDetailsViewModel> PostRelationAsync(RelationDetailsCreateModel relationModel)
         {
             TryFormatPostalCode(relationModel);
 
@@ -123,7 +123,21 @@ namespace WebAPI.Infrastructure.Repositories
                 }
             }
 
-            return relationModel;
+            RelationDetailsViewModel relationView = await _context.Relations.Where(r => r.Id == relation.Id).Select(v => new RelationDetailsViewModel
+            {
+                Id = v.Id,
+                Name = v.Name,
+                FullName = v.FullName,
+                TelephoneNumber = v.TelephoneNumber,
+                EmailAddress = v.EmailAddress,
+                Country = v.RelationAddress.CountryName,
+                City = v.RelationAddress.City,
+                Street = v.RelationAddress.Street,
+                StreetNumber = v.RelationAddress.Number,
+                PostalCode = v.RelationAddress.PostalCode
+            }).FirstOrDefaultAsync();
+
+            return relationView;
         }
 
         public async Task<RelationDetailsEditModel> PutRelation(Guid id, RelationDetailsEditModel relationModel)

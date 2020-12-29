@@ -112,8 +112,8 @@
         </div>
       </div>
     </div>
-    <button type="submit" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary"
+    <button type="close" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary"
       [disabled]="!form.valid" data-dismiss="modal" data-target="#formModal">Add new relation</button>
-    <button type="submit" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary"
+    <button type="close" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary"
       [disabled]="!form.valid" data-dismiss="modal" data-target="#formModal">Update relation</button>
 </form>

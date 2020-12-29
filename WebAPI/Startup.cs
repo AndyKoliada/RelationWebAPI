@@ -69,12 +69,11 @@ namespace WebAPI
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {   
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
-            .AllowAnyHeader());
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
 
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger(c =>
@@ -93,6 +92,9 @@ namespace WebAPI
             {
                 app.UseExceptionHandler("/error");
             }
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Relation } from '../../models/Relation'
 import { ShowRelationComponent } from '../../relations/show-relation/show-relation.component';
 import { ToastrService } from 'ngx-toastr';
+import { retryWhen } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-edit-relation',
@@ -43,17 +44,16 @@ export class AddEditRelationComponent implements OnInit {
   }
 
   addRelationClick(form: any){
-      this.service.addRelation(form.value).subscribe(res=>{
-      this.toastrService.success("Relation added successfully!");
+      this.service.addRelation(form.value).subscribe(res => {
+      this.toastrService.success("Relation with name " + res.Name + " added", "Server responded");
       this.show.refreshRelationsList();
     });
   }
 
   updateRelationClick(form: any) {
     this.service.updateRelation(this.relation.Id, form.value).subscribe(res => {
-      this.toastrService.success("Relation updated");
+      this.toastrService.success("Relation with name " + res.Name + " updated", "Server responded");
       this.show.refreshRelationsList();
-      this.form.reset();
     });
   }
 
