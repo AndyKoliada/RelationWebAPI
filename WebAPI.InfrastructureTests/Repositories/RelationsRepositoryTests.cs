@@ -1,57 +1,10 @@
 ﻿using Xunit;
-using WebAPI.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using WebAPI.Domain.Interfaces.Repositories;
 using WebAPI.Infrastructure.Context;
 
 namespace WebAPI.Infrastructure.Repositories.Tests
 {
     public class RelationsRepositoryTests
     {
-        [Fact()]
-        public void GetRelationsAsyncTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void GetRelationByIdAsyncTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void PostRelationAsyncTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void PutRelationTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void DeleteRelationTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void TryFormatPostalCodeTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        public void GetPostalCodeMaskTest()
-        {
-            Assert.True(false, "This test needs an implementation");
-        }
-
         [Theory]
         [InlineData("1111-kM", "NNNN_ll", "1111_km")] //Azerbeidzjan
         [InlineData("11111", "NNNNN", "11111")] //België
