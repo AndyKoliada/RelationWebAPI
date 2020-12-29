@@ -20,7 +20,9 @@ namespace WebAPI.Domain.ViewModels.Relation
         [StringLength(50)]
         public string FullName { get; set; }
         [StringLength(10)]
+        [RegularExpression("([0-9]+)")]
         public string TelephoneNumber { get; set; }
+
         [StringLength(50)]
         public string EmailAddress { get; set; }
         [StringLength(50)]
@@ -31,7 +33,7 @@ namespace WebAPI.Domain.ViewModels.Relation
         public string Street { get; set; }
         [Range(0, 999)]
         public int? StreetNumber { get; set; }
-        [StringLength(50)]
+        [StringLength(10)]
         public string PostalCode { get; set; }
 
         //Initializing required fields

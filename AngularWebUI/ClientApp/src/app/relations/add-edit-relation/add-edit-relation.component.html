@@ -107,7 +107,10 @@
         form.get('StreetNumber').errors && 
           (form.get('StreetNumber').dirty || form.get('StreetNumber').touched)">
           <small class="text-danger" *ngIf="form.get('StreetNumber').hasError('max')">
-            Max 999.
+            Must be a positive integer max 999.
+          </small>
+          <small class="text-danger" *ngIf="form.get('StreetNumber').hasError('min')">
+            Must be a positive integer max 999.
           </small>
         </div>
       </div>

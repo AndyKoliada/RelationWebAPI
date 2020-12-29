@@ -37,7 +37,7 @@ export class AddEditRelationComponent implements OnInit {
       City: [this.relation.City, [Validators.maxLength(50)]],
       Street: [this.relation.Street, [Validators.maxLength(50)]],
       PostalCode: [this.relation.PostalCode, [Validators.maxLength(10)]],
-      StreetNumber: [this.relation.StreetNumber, [Validators.max(999)]]
+      StreetNumber: [this.relation.StreetNumber, [Validators.min(0), Validators.max(999)]]
     });
 
     this.getCountriesList();
