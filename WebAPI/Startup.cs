@@ -53,7 +53,7 @@ namespace WebAPI
             services.AddControllers();
 
             services.AddDbContext<RepositoryContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("RelationDB")));
+            options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
             
             services.AddSwaggerGen(c =>
             {
