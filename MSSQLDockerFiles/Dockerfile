@@ -2,7 +2,7 @@ FROM microsoft/mssql-server-windows-express
  
 # create directory within SQL container for database files
 RUN mkdir C:\\SQLServer
- 
+
 #copy the database files from host to container
 COPY test.mdf C:\\SQLServer
 COPY test_log.ldf C:\\SQLServer

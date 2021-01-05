@@ -56,8 +56,9 @@ namespace WebAPI
             options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
             
             services.AddSwaggerGen(c =>
-            {
-                c.IncludeXmlComments(string.Format(@"{0}\WebAPI.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+            {   
+                //#TODO Exception on filepath fix
+                //c.IncludeXmlComments(string.Format(@"{0}\WebAPI.xml", System.AppDomain.CurrentDomain.BaseDirectory));
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -77,7 +78,7 @@ namespace WebAPI
 
                 // Enable middleware to serve generated Swagger as a JSON endpoint.
                 app.UseSwagger(c =>
-{
+                {
                     c.SerializeAsV2 = true;
                 });
 
@@ -106,7 +107,6 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }
