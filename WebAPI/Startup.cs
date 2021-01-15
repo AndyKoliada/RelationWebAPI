@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Infrastructure.Context;
+using WebAPI.Infrastructure.Repositories;
+using WebAPI.Domain.Interfaces.Repositories;
+using WebAPI.Domain.Interfaces.Services;
+using WebAPI.Services;
+using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace WebAPI
 {
@@ -18,20 +21,44 @@ namespace WebAPI
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Enable CORS
+            services.AddCors(c =>
+            c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
+            .AllowAnyHeader()));
+
+            //JSON Serializer
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options => 
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(options => 
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            
+            //Registering custom services
+            services.AddScoped<IRelationsService, RelationsServiceCached>();
+            services.AddScoped<ICountriesService, CountriesService>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddScoped<IRelationsRepository, RelationsRepository>();
+            services.AddScoped<ICountriesRepository, CountriesRepository>();
+            services.AddSingleton<ILoggerService, LoggerService>();
+
             services.AddControllers();
 
-            #region Swagger
+            services.AddDbContext<RepositoryContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+            
             services.AddSwaggerGen(c =>
-            {
-                c.IncludeXmlComments(string.Format(@"{0}\WebAPI.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+            {   
+                //#TODO Exception on filepath fix
+                //c.IncludeXmlComments(string.Format(@"{0}\WebAPI.xml", System.AppDomain.CurrentDomain.BaseDirectory));
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -39,17 +66,36 @@ namespace WebAPI
                 });
 
             });
-            #endregion
 
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {   
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+
+                // Enable middleware to serve generated Swagger as a JSON endpoint.
+                app.UseSwagger(c =>
+                {
+                    c.SerializeAsV2 = true;
+                });
+
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+                // specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "RelationWebAPI");
+                });
             }
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -61,19 +107,6 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
-
-            #region Swagger
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RelationWebAPI");
-            });
-            #endregion
-
         }
     }
 }

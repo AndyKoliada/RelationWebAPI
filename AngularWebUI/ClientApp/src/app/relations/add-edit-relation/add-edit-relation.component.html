@@ -1,0 +1,122 @@
+<form class="form-horizontal" [formGroup]="form">
+  <div class="form-group row">
+    <label class="mr-md-2 mb-0 sr-only">Name *</label>
+    <div class="col-md-auto">
+      <input type="text" class="form-control" formControlName="Name" placeholder="Name" />
+      <div *ngIf="form.get('Name').invalid && 
+      form.get('Name').errors && 
+        (form.get('Name').dirty || form.get('Name').touched)">
+        <small class="text-danger" *ngIf="form.get('Name').hasError('required')">
+          This field is required.
+        </small>
+        <small class="text-danger" *ngIf="form.get('Name').hasError('maxlength')">
+          Max {{form.get('Name').errors.maxlength.requiredLength}} characters.
+        </small>
+      </div>
+    </div>
+    <label class="mr-sm-2 mb-0 sr-only">FullName</label>
+    <div class="col-md-auto">
+      <input type="text" class="form-control" formControlName="FullName" placeholder="FullName" />
+      <div *ngIf="form.get('FullName').invalid && 
+      form.get('FullName').errors && 
+        (form.get('FullName').dirty || form.get('FullName').touched)">
+        <small class="text-danger" *ngIf="form.get('FullName').hasError('maxlength')">
+          Max {{form.get('FullName').errors.maxlength.requiredLength}} characters.
+        </small>
+      </div>
+    </div>
+  </div>  
+    <div class="form-group row">
+      <label class="mr-sm-2 mb-0 sr-only">TelephoneNumber</label>
+      <div class="col-md-auto">
+        <input type="text" class="form-control" formControlName="TelephoneNumber" placeholder="TelephoneNumber" />
+        <div *ngIf="form.get('TelephoneNumber').invalid && 
+        form.get('TelephoneNumber').errors && 
+          (form.get('TelephoneNumber').dirty || form.get('TelephoneNumber').touched)">
+          <small class="text-danger" *ngIf="form.get('TelephoneNumber').hasError('maxlength')">
+            Max {{form.get('TelephoneNumber').errors.maxlength.requiredLength}} characters.
+          </small>
+          <small class="text-danger" *ngIf="form.get('TelephoneNumber').hasError('minlength')">
+            Min {{form.get('TelephoneNumber').errors.minlength.requiredLength}} characters.
+          </small>
+        </div>
+      </div>
+      <label class="mr-sm-2 mb-0 sr-only">EmailAddress</label>
+      <div class="col-sm-auto">
+        <input type="email" class="form-control" formControlName="EmailAddress" placeholder="EmailAddress" />
+        <div *ngIf="form.get('EmailAddress').invalid && 
+        form.get('EmailAddress').errors && 
+          (form.get('EmailAddress').dirty || form.get('EmailAddress').touched)">
+          <small class="text-danger" *ngIf="form.get('EmailAddress').hasError('maxlength')">
+            Max {{form.get('EmailAddress').errors.maxlength.requiredLength}} characters.
+          </small>
+          <small class="text-danger" *ngIf="form.get('EmailAddress').hasError('email')">
+            Provide valid email.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="mr-sm-2 mb-0 sr-only">Country</label>
+      <div class="col-sm-auto">
+        <select type="text" class="form-control" formControlName="Country">
+          <option value={{country}} *ngFor="let country of countriesList">
+            {{country}}
+          </option>
+        </select>
+      </div>
+      <label class="mr-sm-2 mb-0 sr-only">City</label>
+      <div class="col-sm-auto">
+        <input type="text" class="form-control" formControlName="City" placeholder="City" />
+        <div *ngIf="form.get('City').invalid && 
+        form.get('City').errors && 
+          (form.get('City').dirty || form.get('City').touched)">
+          <small class="text-danger" *ngIf="form.get('City').hasError('maxlength')">
+            Max {{form.get('City').errors.maxlength.requiredLength}} characters.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="mr-sm-2 mb-0 sr-only">Street</label>
+      <div class="col-sm-auto">
+        <input type="text" class="form-control" formControlName="Street" placeholder="Street" />
+        <div *ngIf="form.get('Street').invalid && 
+        form.get('Street').errors && 
+          (form.get('Street').dirty || form.get('Street').touched)">
+          <small class="text-danger" *ngIf="form.get('Street').hasError('maxlength')">
+            Max {{form.get('Street').errors.maxlength.requiredLength}} characters.
+          </small>
+        </div>
+      </div>
+      <label class="mr-sm-2 mb-0 sr-only">PostalCode</label>
+      <div class="col-sm-auto">
+        <input type="text" class="form-control" formControlName="PostalCode" placeholder="PostalCode" />
+        <div *ngIf="form.get('PostalCode').invalid && 
+        form.get('PostalCode').errors && 
+          (form.get('PostalCode').dirty || form.get('PostalCode').touched)">
+          <small class="text-danger" *ngIf="form.get('PostalCode').hasError('maxlength')">
+            Max {{form.get('PostalCode').errors.maxlength.requiredLength}} characters.
+          </small>
+        </div>
+      </div>
+      <label class="mr-sm-2 mb-0 sr-only">StreetNumber</label>
+      <div class="col-sm-auto">
+        <input type="number" class="form-control" formControlName="StreetNumber" placeholder="StreetNumber" />
+        <div *ngIf="form.get('StreetNumber').invalid && 
+        form.get('StreetNumber').errors && 
+          (form.get('StreetNumber').dirty || form.get('StreetNumber').touched)">
+          <small class="text-danger" *ngIf="form.get('StreetNumber').hasError('max')">
+            Must be a positive integer max 999.
+          </small>
+          <small class="text-danger" *ngIf="form.get('StreetNumber').hasError('min')">
+            Must be a positive integer max 999.
+          </small>
+        </div>
+      </div>
+    </div>
+    <button type="close" (click)="addRelationClick(form)" *ngIf="relation.Id == null" class="btn btn-primary"
+      [disabled]="!form.valid" data-dismiss="modal" data-target="#formModal">Add new relation</button>
+    <button type="close" (click)="updateRelationClick(form)" *ngIf="relation.Id!= null" class="btn btn-primary"
+      [disabled]="!form.valid" data-dismiss="modal" data-target="#formModal">Update relation</button>
+</form>
